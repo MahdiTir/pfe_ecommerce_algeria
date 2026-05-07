@@ -1,0 +1,49 @@
+destination wilaya,Avg Time (days),Median Time (days),Orders
+Illizi,8.85,8.72,732
+Tamanrasset,6.43,6.1,3392
+Tindouf,4.92,4.85,1347
+Adrar,4.53,4.13,3786
+Béchar,4.12,3.87,3405
+Ouargla,3.75,3.21,7131
+El Oued,3.43,2.94,3989
+Ghardaïa,3.34,2.93,3836
+El Bayadh,2.93,2.8,2192
+Naâma,2.77,2.74,1761
+Djelfa,2.67,2.59,3483
+Laghouat,2.66,2.12,4185
+Tizi Ouzou,2.29,1.92,7102
+Bouira,2.28,1.93,4297
+Souk Ahras,2.27,1.92,3679
+Boumerdès,2.22,1.91,5201
+Biskra,2.11,1.84,5947
+Béjaïa,2.11,1.86,8410
+Relizane,2.11,1.74,3765
+Aïn Defla,2.09,1.84,3769
+Annaba,2.05,1.84,9113
+Sidi Bel Abbès,2.04,1.84,5105
+Oum El Bouaghi,2.03,1.81,4758
+Tébessa,2.02,1.82,6035
+Médéa,1.99,1.79,3320
+Tissemsilt,1.98,1.82,1938
+Tlemcen,1.97,1.8,8582
+Oran,1.97,1.76,14227
+Batna,1.97,1.78,8723
+Jijel,1.96,1.79,4518
+El Tarf,1.94,1.77,2912
+Guelma,1.94,1.76,3677
+Tiaret,1.94,1.79,5294
+Chlef,1.93,1.78,5453
+Sétif,1.9,1.68,9864
+Khenchela,1.9,1.76,3735
+Aïn Témouchent,1.9,1.79,2933
+Skikda,1.89,1.75,7062
+Mostaganem,1.88,1.75,5219
+M'Sila,1.88,1.67,4276
+Mascara,1.87,1.77,3855
+Saïda,1.85,1.72,3055
+Constantine,1.84,1.66,12959
+Mila,1.82,1.67,4042
+Blida,1.81,1.29,8091
+Alger,1.76,1.08,31495
+Bordj Bou Arreridj,1.72,1.12,3832
+Tipaza,1.64,1.04,4850
