@@ -1,0 +1,49 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Data files
+data/*
+
+*.xlsx
+*.xls
+*.tsv
+*.parquet
+*.h5
+*.hdf5
+*.feather
+*.pkl
+*.pickle
+*.joblib
+*.db
+*.sqlite
+*.sqlite3
+*.log
+*.tmp
+*.bak
+*.swp
+
+# VS Code settings
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# PDF/Images/Charts
+#*.png
+#*.jpg
+#*.jpeg
+#*.pdf
+*.svg
+*.gif
+
+# Environment files
+.env
+.venv/
+venv/
+ENV/
