@@ -1,0 +1,2367 @@
+date,Categorie,region,split,sarima_forecast,actual_demand
+2025-07-07,Animaux et articles pour animaux de compagnie,EAST,validation,28.0,45
+2025-07-14,Animaux et articles pour animaux de compagnie,EAST,validation,35.99999999999999,24
+2025-07-21,Animaux et articles pour animaux de compagnie,EAST,validation,24.0,50
+2025-07-28,Animaux et articles pour animaux de compagnie,EAST,validation,44.00000000000001,35
+2025-08-04,Animaux et articles pour animaux de compagnie,EAST,validation,34.0,35
+2025-08-11,Animaux et articles pour animaux de compagnie,EAST,validation,33.0,31
+2025-08-18,Animaux et articles pour animaux de compagnie,EAST,validation,34.99999999999999,30
+2025-08-25,Animaux et articles pour animaux de compagnie,EAST,validation,30.0,30
+2025-09-01,Animaux et articles pour animaux de compagnie,EAST,validation,34.0,42
+2025-09-08,Animaux et articles pour animaux de compagnie,EAST,validation,24.0,37
+2025-09-15,Animaux et articles pour animaux de compagnie,EAST,validation,31.999999999999996,24
+2025-09-22,Animaux et articles pour animaux de compagnie,EAST,validation,34.0,34
+2025-09-29,Animaux et articles pour animaux de compagnie,EAST,validation,30.0,34
+2025-10-06,Animaux et articles pour animaux de compagnie,EAST,test,24.0,19
+2025-10-13,Animaux et articles pour animaux de compagnie,EAST,test,29.999999999999996,21
+2025-10-20,Animaux et articles pour animaux de compagnie,EAST,test,20.999999999999996,16
+2025-10-27,Animaux et articles pour animaux de compagnie,EAST,test,18.0,31
+2025-11-03,Animaux et articles pour animaux de compagnie,EAST,test,30.999999999999996,33
+2025-11-10,Animaux et articles pour animaux de compagnie,EAST,test,26.999999999999996,27
+2025-11-17,Animaux et articles pour animaux de compagnie,EAST,test,30.999999999999996,28
+2025-11-24,Animaux et articles pour animaux de compagnie,EAST,test,18.0,30
+2025-12-01,Animaux et articles pour animaux de compagnie,EAST,test,28.0,25
+2025-12-08,Animaux et articles pour animaux de compagnie,EAST,test,24.0,32
+2025-12-15,Animaux et articles pour animaux de compagnie,EAST,test,25.0,27
+2025-12-22,Animaux et articles pour animaux de compagnie,EAST,test,26.999999999999996,25
+2025-12-29,Animaux et articles pour animaux de compagnie,EAST,test,46.0,37
+2026-01-05,Animaux et articles pour animaux de compagnie,EAST,test,25.000000000004313,4
+2025-07-07,Animaux et articles pour animaux de compagnie,NORTH,validation,25.717748112880894,38
+2025-07-14,Animaux et articles pour animaux de compagnie,NORTH,validation,38.99999999999999,38
+2025-07-21,Animaux et articles pour animaux de compagnie,NORTH,validation,28.999999999999993,22
+2025-07-28,Animaux et articles pour animaux de compagnie,NORTH,validation,33.0,41
+2025-08-04,Animaux et articles pour animaux de compagnie,NORTH,validation,36.0,30
+2025-08-11,Animaux et articles pour animaux de compagnie,NORTH,validation,28.999999999999996,25
+2025-08-18,Animaux et articles pour animaux de compagnie,NORTH,validation,33.99999999999999,42
+2025-08-25,Animaux et articles pour animaux de compagnie,NORTH,validation,38.99999999999999,30
+2025-09-01,Animaux et articles pour animaux de compagnie,NORTH,validation,36.0,33
+2025-09-08,Animaux et articles pour animaux de compagnie,NORTH,validation,33.99999999999999,34
+2025-09-15,Animaux et articles pour animaux de compagnie,NORTH,validation,30.999999999999996,39
+2025-09-22,Animaux et articles pour animaux de compagnie,NORTH,validation,38.0,41
+2025-09-29,Animaux et articles pour animaux de compagnie,NORTH,validation,40.99999999999999,45
+2025-10-06,Animaux et articles pour animaux de compagnie,NORTH,test,30.04758551533462,31
+2025-10-13,Animaux et articles pour animaux de compagnie,NORTH,test,39.99999999999999,29
+2025-10-20,Animaux et articles pour animaux de compagnie,NORTH,test,28.0,28
+2025-10-27,Animaux et articles pour animaux de compagnie,NORTH,test,18.0,26
+2025-11-03,Animaux et articles pour animaux de compagnie,NORTH,test,24.999999999999996,27
+2025-11-10,Animaux et articles pour animaux de compagnie,NORTH,test,41.99999999999999,42
+2025-11-17,Animaux et articles pour animaux de compagnie,NORTH,test,33.99999999999999,39
+2025-11-24,Animaux et articles pour animaux de compagnie,NORTH,test,40.0,24
+2025-12-01,Animaux et articles pour animaux de compagnie,NORTH,test,28.0,27
+2025-12-08,Animaux et articles pour animaux de compagnie,NORTH,test,29.999999999999996,31
+2025-12-15,Animaux et articles pour animaux de compagnie,NORTH,test,31.999999999999996,30
+2025-12-22,Animaux et articles pour animaux de compagnie,NORTH,test,26.0,37
+2025-12-29,Animaux et articles pour animaux de compagnie,NORTH,test,28.0,25
+2026-01-05,Animaux et articles pour animaux de compagnie,NORTH,test,23.0,9
+2025-07-07,Animaux et articles pour animaux de compagnie,SOUTH,validation,18.999999999999996,29
+2025-07-14,Animaux et articles pour animaux de compagnie,SOUTH,validation,20.0,21
+2025-07-21,Animaux et articles pour animaux de compagnie,SOUTH,validation,18.999999999999996,21
+2025-07-28,Animaux et articles pour animaux de compagnie,SOUTH,validation,20.0,22
+2025-08-04,Animaux et articles pour animaux de compagnie,SOUTH,validation,20.0,23
+2025-08-11,Animaux et articles pour animaux de compagnie,SOUTH,validation,26.0,18
+2025-08-18,Animaux et articles pour animaux de compagnie,SOUTH,validation,17.0,28
+2025-08-25,Animaux et articles pour animaux de compagnie,SOUTH,validation,20.0,20
+2025-09-01,Animaux et articles pour animaux de compagnie,SOUTH,validation,22.999999999999996,20
+2025-09-08,Animaux et articles pour animaux de compagnie,SOUTH,validation,18.999999999999996,19
+2025-09-15,Animaux et articles pour animaux de compagnie,SOUTH,validation,24.000000000000004,24
+2025-09-22,Animaux et articles pour animaux de compagnie,SOUTH,validation,25.0,24
+2025-09-29,Animaux et articles pour animaux de compagnie,SOUTH,validation,22.0,24
+2025-10-06,Animaux et articles pour animaux de compagnie,SOUTH,test,12.0,18
+2025-10-13,Animaux et articles pour animaux de compagnie,SOUTH,test,16.0,13
+2025-10-20,Animaux et articles pour animaux de compagnie,SOUTH,test,11.0,17
+2025-10-27,Animaux et articles pour animaux de compagnie,SOUTH,test,16.0,14
+2025-11-03,Animaux et articles pour animaux de compagnie,SOUTH,test,13.000000000000002,31
+2025-11-10,Animaux et articles pour animaux de compagnie,SOUTH,test,17.000000000000004,11
+2025-11-17,Animaux et articles pour animaux de compagnie,SOUTH,test,16.0,11
+2025-11-24,Animaux et articles pour animaux de compagnie,SOUTH,test,22.0,14
+2025-12-01,Animaux et articles pour animaux de compagnie,SOUTH,test,19.0,30
+2025-12-08,Animaux et articles pour animaux de compagnie,SOUTH,test,14.0,16
+2025-12-15,Animaux et articles pour animaux de compagnie,SOUTH,test,11.0,16
+2025-12-22,Animaux et articles pour animaux de compagnie,SOUTH,test,19.0,16
+2025-12-29,Animaux et articles pour animaux de compagnie,SOUTH,test,16.0,18
+2026-01-05,Animaux et articles pour animaux de compagnie,SOUTH,test,15.999999999994362,10
+2025-07-07,Animaux et articles pour animaux de compagnie,WEST,validation,8.359899533754962,28
+2025-07-14,Animaux et articles pour animaux de compagnie,WEST,validation,33.0,20
+2025-07-21,Animaux et articles pour animaux de compagnie,WEST,validation,24.999999999999996,21
+2025-07-28,Animaux et articles pour animaux de compagnie,WEST,validation,33.0,28
+2025-08-04,Animaux et articles pour animaux de compagnie,WEST,validation,28.0,23
+2025-08-11,Animaux et articles pour animaux de compagnie,WEST,validation,21.000000000000004,19
+2025-08-18,Animaux et articles pour animaux de compagnie,WEST,validation,14.999999999999998,32
+2025-08-25,Animaux et articles pour animaux de compagnie,WEST,validation,28.0,24
+2025-09-01,Animaux et articles pour animaux de compagnie,WEST,validation,29.0,25
+2025-09-08,Animaux et articles pour animaux de compagnie,WEST,validation,19.999999999999996,21
+2025-09-15,Animaux et articles pour animaux de compagnie,WEST,validation,21.999999999999996,30
+2025-09-22,Animaux et articles pour animaux de compagnie,WEST,validation,38.0,29
+2025-09-29,Animaux et articles pour animaux de compagnie,WEST,validation,25.0,37
+2025-10-06,Animaux et articles pour animaux de compagnie,WEST,test,30.693064152709685,23
+2025-10-13,Animaux et articles pour animaux de compagnie,WEST,test,11.0,13
+2025-10-20,Animaux et articles pour animaux de compagnie,WEST,test,26.0,19
+2025-10-27,Animaux et articles pour animaux de compagnie,WEST,test,18.0,17
+2025-11-03,Animaux et articles pour animaux de compagnie,WEST,test,19.0,14
+2025-11-10,Animaux et articles pour animaux de compagnie,WEST,test,14.999999999999998,16
+2025-11-17,Animaux et articles pour animaux de compagnie,WEST,test,24.0,16
+2025-11-24,Animaux et articles pour animaux de compagnie,WEST,test,20.0,15
+2025-12-01,Animaux et articles pour animaux de compagnie,WEST,test,30.0,19
+2025-12-08,Animaux et articles pour animaux de compagnie,WEST,test,20.0,23
+2025-12-15,Animaux et articles pour animaux de compagnie,WEST,test,20.0,33
+2025-12-22,Animaux et articles pour animaux de compagnie,WEST,test,18.0,20
+2025-12-29,Animaux et articles pour animaux de compagnie,WEST,test,26.0,24
+2026-01-05,Animaux et articles pour animaux de compagnie,WEST,test,26.0,10
+2025-07-07,"Appareils photo, caméras et instruments d'optique",EAST,validation,14.0,9
+2025-07-14,"Appareils photo, caméras et instruments d'optique",EAST,validation,2.0,4
+2025-07-21,"Appareils photo, caméras et instruments d'optique",EAST,validation,5.0,13
+2025-07-28,"Appareils photo, caméras et instruments d'optique",EAST,validation,6.000000000000001,2
+2025-08-04,"Appareils photo, caméras et instruments d'optique",EAST,validation,7.0,4
+2025-08-11,"Appareils photo, caméras et instruments d'optique",EAST,validation,7.0,2
+2025-08-18,"Appareils photo, caméras et instruments d'optique",EAST,validation,8.0,8
+2025-08-25,"Appareils photo, caméras et instruments d'optique",EAST,validation,13.0,4
+2025-09-01,"Appareils photo, caméras et instruments d'optique",EAST,validation,3.0000000000000004,12
+2025-09-08,"Appareils photo, caméras et instruments d'optique",EAST,validation,1.0,8
+2025-09-15,"Appareils photo, caméras et instruments d'optique",EAST,validation,8.0,5
+2025-09-22,"Appareils photo, caméras et instruments d'optique",EAST,validation,6.000000000000001,3
+2025-09-29,"Appareils photo, caméras et instruments d'optique",EAST,validation,8.0,2
+2025-10-06,"Appareils photo, caméras et instruments d'optique",EAST,test,4.0,2
+2025-10-13,"Appareils photo, caméras et instruments d'optique",EAST,test,3.0000000000000004,6
+2025-10-20,"Appareils photo, caméras et instruments d'optique",EAST,test,5.0,1
+2025-10-27,"Appareils photo, caméras et instruments d'optique",EAST,test,1.0,6
+2025-11-03,"Appareils photo, caméras et instruments d'optique",EAST,test,4.0,4
+2025-11-10,"Appareils photo, caméras et instruments d'optique",EAST,test,3.0000000000000004,5
+2025-11-17,"Appareils photo, caméras et instruments d'optique",EAST,test,5.0,3
+2025-11-24,"Appareils photo, caméras et instruments d'optique",EAST,test,6.000000000000001,4
+2025-12-01,"Appareils photo, caméras et instruments d'optique",EAST,test,6.000000000000001,7
+2025-12-08,"Appareils photo, caméras et instruments d'optique",EAST,test,2.0,7
+2025-12-15,"Appareils photo, caméras et instruments d'optique",EAST,test,5.0,5
+2025-12-22,"Appareils photo, caméras et instruments d'optique",EAST,test,6.000000000000001,4
+2025-12-29,"Appareils photo, caméras et instruments d'optique",EAST,test,2.0,3
+2026-01-05,"Appareils photo, caméras et instruments d'optique",EAST,test,2.0000000000003393,4
+2025-07-07,"Appareils photo, caméras et instruments d'optique",NORTH,validation,11.0,3
+2025-07-14,"Appareils photo, caméras et instruments d'optique",NORTH,validation,8.0,4
+2025-07-21,"Appareils photo, caméras et instruments d'optique",NORTH,validation,7.0,9
+2025-07-28,"Appareils photo, caméras et instruments d'optique",NORTH,validation,14.0,7
+2025-08-04,"Appareils photo, caméras et instruments d'optique",NORTH,validation,4.0,3
+2025-08-11,"Appareils photo, caméras et instruments d'optique",NORTH,validation,5.000000000000001,4
+2025-08-18,"Appareils photo, caméras et instruments d'optique",NORTH,validation,7.0,12
+2025-08-25,"Appareils photo, caméras et instruments d'optique",NORTH,validation,9.0,7
+2025-09-01,"Appareils photo, caméras et instruments d'optique",NORTH,validation,8.0,7
+2025-09-08,"Appareils photo, caméras et instruments d'optique",NORTH,validation,3.0,7
+2025-09-15,"Appareils photo, caméras et instruments d'optique",NORTH,validation,4.0,10
+2025-09-22,"Appareils photo, caméras et instruments d'optique",NORTH,validation,7.0,8
+2025-09-29,"Appareils photo, caméras et instruments d'optique",NORTH,validation,9.0,6
+2025-10-06,"Appareils photo, caméras et instruments d'optique",NORTH,test,6.999999999999999,2
+2025-10-13,"Appareils photo, caméras et instruments d'optique",NORTH,test,3.0,4
+2025-10-20,"Appareils photo, caméras et instruments d'optique",NORTH,test,10.000000000000002,3
+2025-10-27,"Appareils photo, caméras et instruments d'optique",NORTH,test,3.0,6
+2025-11-03,"Appareils photo, caméras et instruments d'optique",NORTH,test,6.999999999999999,3
+2025-11-10,"Appareils photo, caméras et instruments d'optique",NORTH,test,5.000000000000001,4
+2025-11-17,"Appareils photo, caméras et instruments d'optique",NORTH,test,4.0,5
+2025-11-24,"Appareils photo, caméras et instruments d'optique",NORTH,test,6.0,5
+2025-12-01,"Appareils photo, caméras et instruments d'optique",NORTH,test,5.000000000000001,4
+2025-12-08,"Appareils photo, caméras et instruments d'optique",NORTH,test,3.0,6
+2025-12-15,"Appareils photo, caméras et instruments d'optique",NORTH,test,6.999999999999999,6
+2025-12-22,"Appareils photo, caméras et instruments d'optique",NORTH,test,9.0,9
+2025-12-29,"Appareils photo, caméras et instruments d'optique",NORTH,test,6.0,3
+2026-01-05,"Appareils photo, caméras et instruments d'optique",NORTH,test,2.0,2
+2025-07-07,"Appareils photo, caméras et instruments d'optique",SOUTH,validation,1.9999999999999998,2
+2025-07-14,"Appareils photo, caméras et instruments d'optique",SOUTH,validation,4.999999999999999,1
+2025-07-21,"Appareils photo, caméras et instruments d'optique",SOUTH,validation,10.999999999999998,1
+2025-07-28,"Appareils photo, caméras et instruments d'optique",SOUTH,validation,0.9999999999999999,6
+2025-08-04,"Appareils photo, caméras et instruments d'optique",SOUTH,validation,0.9999999999999999,2
+2025-08-11,"Appareils photo, caméras et instruments d'optique",SOUTH,validation,4.999999999999999,4
+2025-08-18,"Appareils photo, caméras et instruments d'optique",SOUTH,validation,6.0,5
+2025-08-25,"Appareils photo, caméras et instruments d'optique",SOUTH,validation,3.9999999999999996,3
+2025-09-01,"Appareils photo, caméras et instruments d'optique",SOUTH,validation,1.9999999999999998,3
+2025-09-08,"Appareils photo, caméras et instruments d'optique",SOUTH,validation,6.999999999999999,3
+2025-09-15,"Appareils photo, caméras et instruments d'optique",SOUTH,validation,7.999999999999999,4
+2025-09-22,"Appareils photo, caméras et instruments d'optique",SOUTH,validation,6.0,2
+2025-09-29,"Appareils photo, caméras et instruments d'optique",SOUTH,validation,1.9999999999999998,7
+2025-10-06,"Appareils photo, caméras et instruments d'optique",SOUTH,test,6.0,2
+2025-10-13,"Appareils photo, caméras et instruments d'optique",SOUTH,test,2.0,2
+2025-10-20,"Appareils photo, caméras et instruments d'optique",SOUTH,test,3.0,2
+2025-10-27,"Appareils photo, caméras et instruments d'optique",SOUTH,test,4.0,3
+2025-11-03,"Appareils photo, caméras et instruments d'optique",SOUTH,test,0.0,6
+2025-11-10,"Appareils photo, caméras et instruments d'optique",SOUTH,test,4.0,6
+2025-11-17,"Appareils photo, caméras et instruments d'optique",SOUTH,test,3.0,2
+2025-11-24,"Appareils photo, caméras et instruments d'optique",SOUTH,test,3.0,4
+2025-12-01,"Appareils photo, caméras et instruments d'optique",SOUTH,test,4.0,6
+2025-12-08,"Appareils photo, caméras et instruments d'optique",SOUTH,test,5.0,5
+2025-12-15,"Appareils photo, caméras et instruments d'optique",SOUTH,test,4.0,2
+2025-12-22,"Appareils photo, caméras et instruments d'optique",SOUTH,test,5.0,2
+2025-12-29,"Appareils photo, caméras et instruments d'optique",SOUTH,test,5.0,4
+2025-07-07,"Appareils photo, caméras et instruments d'optique",WEST,validation,3.0,3
+2025-07-14,"Appareils photo, caméras et instruments d'optique",WEST,validation,0.9999999999999999,5
+2025-07-21,"Appareils photo, caméras et instruments d'optique",WEST,validation,1.9999999999999998,2
+2025-07-28,"Appareils photo, caméras et instruments d'optique",WEST,validation,3.0,7
+2025-08-04,"Appareils photo, caméras et instruments d'optique",WEST,validation,3.0,9
+2025-08-11,"Appareils photo, caméras et instruments d'optique",WEST,validation,3.9999999999999996,8
+2025-08-18,"Appareils photo, caméras et instruments d'optique",WEST,validation,6.999999999999999,5
+2025-08-25,"Appareils photo, caméras et instruments d'optique",WEST,validation,4.999999999999999,7
+2025-09-01,"Appareils photo, caméras et instruments d'optique",WEST,validation,3.0,12
+2025-09-08,"Appareils photo, caméras et instruments d'optique",WEST,validation,4.999999999999999,7
+2025-09-15,"Appareils photo, caméras et instruments d'optique",WEST,validation,6.0,3
+2025-09-22,"Appareils photo, caméras et instruments d'optique",WEST,validation,3.9999999999999996,4
+2025-09-29,"Appareils photo, caméras et instruments d'optique",WEST,validation,1.9999999999999998,8
+2025-10-06,"Appareils photo, caméras et instruments d'optique",WEST,test,4.0,2
+2025-10-13,"Appareils photo, caméras et instruments d'optique",WEST,test,1.0,1
+2025-10-20,"Appareils photo, caméras et instruments d'optique",WEST,test,5.0,3
+2025-10-27,"Appareils photo, caméras et instruments d'optique",WEST,test,2.0,3
+2025-11-03,"Appareils photo, caméras et instruments d'optique",WEST,test,2.0,3
+2025-11-10,"Appareils photo, caméras et instruments d'optique",WEST,test,4.0,2
+2025-11-17,"Appareils photo, caméras et instruments d'optique",WEST,test,4.0,3
+2025-11-24,"Appareils photo, caméras et instruments d'optique",WEST,test,4.0,4
+2025-12-01,"Appareils photo, caméras et instruments d'optique",WEST,test,3.0000000000000004,2
+2025-12-08,"Appareils photo, caméras et instruments d'optique",WEST,test,4.0,5
+2025-12-15,"Appareils photo, caméras et instruments d'optique",WEST,test,6.000000000000001,6
+2025-12-22,"Appareils photo, caméras et instruments d'optique",WEST,test,4.0,1
+2025-12-29,"Appareils photo, caméras et instruments d'optique",WEST,test,1.0,4
+2026-01-05,"Appareils photo, caméras et instruments d'optique",WEST,test,6.999999999954424,2
+2025-07-07,Appareils électroniques,EAST,validation,39.99999999999999,51
+2025-07-14,Appareils électroniques,EAST,validation,51.0,37
+2025-07-21,Appareils électroniques,EAST,validation,42.99999999999999,44
+2025-07-28,Appareils électroniques,EAST,validation,36.0,40
+2025-08-04,Appareils électroniques,EAST,validation,56.0,35
+2025-08-11,Appareils électroniques,EAST,validation,46.0,51
+2025-08-18,Appareils électroniques,EAST,validation,54.0,42
+2025-08-25,Appareils électroniques,EAST,validation,39.99999999999999,46
+2025-09-01,Appareils électroniques,EAST,validation,46.0,51
+2025-09-08,Appareils électroniques,EAST,validation,54.0,38
+2025-09-15,Appareils électroniques,EAST,validation,50.0,43
+2025-09-22,Appareils électroniques,EAST,validation,49.0,50
+2025-09-29,Appareils électroniques,EAST,validation,42.0,46
+2025-10-06,Appareils électroniques,EAST,test,29.999999999999996,32
+2025-10-13,Appareils électroniques,EAST,test,33.0,49
+2025-10-20,Appareils électroniques,EAST,test,28.0,39
+2025-10-27,Appareils électroniques,EAST,test,28.0,38
+2025-11-03,Appareils électroniques,EAST,test,41.0,30
+2025-11-10,Appareils électroniques,EAST,test,30.999999999999996,39
+2025-11-17,Appareils électroniques,EAST,test,35.99999999999999,40
+2025-11-24,Appareils électroniques,EAST,test,33.99999999999999,34
+2025-12-01,Appareils électroniques,EAST,test,28.999999999999996,40
+2025-12-08,Appareils électroniques,EAST,test,33.0,34
+2025-12-15,Appareils électroniques,EAST,test,39.0,43
+2025-12-22,Appareils électroniques,EAST,test,27.0,32
+2025-12-29,Appareils électroniques,EAST,test,45.00000000000001,30
+2026-01-05,Appareils électroniques,EAST,test,31.00000000000218,14
+2025-07-07,Appareils électroniques,NORTH,validation,44.99999999999999,38
+2025-07-14,Appareils électroniques,NORTH,validation,44.99999999999999,46
+2025-07-21,Appareils électroniques,NORTH,validation,44.99999999999999,50
+2025-07-28,Appareils électroniques,NORTH,validation,44.99999999999999,52
+2025-08-04,Appareils électroniques,NORTH,validation,38.99999999999999,46
+2025-08-11,Appareils électroniques,NORTH,validation,44.99999999999999,48
+2025-08-18,Appareils électroniques,NORTH,validation,44.0,39
+2025-08-25,Appareils électroniques,NORTH,validation,48.99999999999999,52
+2025-09-01,Appareils électroniques,NORTH,validation,51.0,28
+2025-09-08,Appareils électroniques,NORTH,validation,47.0,37
+2025-09-15,Appareils électroniques,NORTH,validation,35.99999999999999,35
+2025-09-22,Appareils électroniques,NORTH,validation,38.99999999999999,42
+2025-09-29,Appareils électroniques,NORTH,validation,44.99999999999999,47
+2025-10-06,Appareils électroniques,NORTH,test,38.0,31
+2025-10-13,Appareils électroniques,NORTH,test,39.0,33
+2025-10-20,Appareils électroniques,NORTH,test,31.0,38
+2025-10-27,Appareils électroniques,NORTH,test,43.0,27
+2025-11-03,Appareils électroniques,NORTH,test,43.0,36
+2025-11-10,Appareils électroniques,NORTH,test,38.0,28
+2025-11-17,Appareils électroniques,NORTH,test,33.0,32
+2025-11-24,Appareils électroniques,NORTH,test,33.0,35
+2025-12-01,Appareils électroniques,NORTH,test,32.0,40
+2025-12-08,Appareils électroniques,NORTH,test,36.0,37
+2025-12-15,Appareils électroniques,NORTH,test,38.0,32
+2025-12-22,Appareils électroniques,NORTH,test,28.0,39
+2025-12-29,Appareils électroniques,NORTH,test,43.0,48
+2026-01-05,Appareils électroniques,NORTH,test,35.999999999999666,7
+2025-07-07,Appareils électroniques,SOUTH,validation,24.0,22
+2025-07-14,Appareils électroniques,SOUTH,validation,22.0,24
+2025-07-21,Appareils électroniques,SOUTH,validation,24.0,28
+2025-07-28,Appareils électroniques,SOUTH,validation,29.0,30
+2025-08-04,Appareils électroniques,SOUTH,validation,29.0,24
+2025-08-11,Appareils électroniques,SOUTH,validation,25.999999999999996,26
+2025-08-18,Appareils électroniques,SOUTH,validation,26.999999999999996,18
+2025-08-25,Appareils électroniques,SOUTH,validation,25.0,17
+2025-09-01,Appareils électroniques,SOUTH,validation,22.0,25
+2025-09-08,Appareils électroniques,SOUTH,validation,28.0,22
+2025-09-15,Appareils électroniques,SOUTH,validation,25.999999999999996,23
+2025-09-22,Appareils électroniques,SOUTH,validation,26.999999999999996,21
+2025-09-29,Appareils électroniques,SOUTH,validation,34.0,25
+2025-10-06,Appareils électroniques,SOUTH,test,22.000000000000004,26
+2025-10-13,Appareils électroniques,SOUTH,test,14.000000000000002,19
+2025-10-20,Appareils électroniques,SOUTH,test,15.0,20
+2025-10-27,Appareils électroniques,SOUTH,test,15.0,19
+2025-11-03,Appareils électroniques,SOUTH,test,20.0,18
+2025-11-10,Appareils électroniques,SOUTH,test,11.000000000000002,23
+2025-11-17,Appareils électroniques,SOUTH,test,20.0,19
+2025-11-24,Appareils électroniques,SOUTH,test,23.000000000000004,24
+2025-12-01,Appareils électroniques,SOUTH,test,16.0,20
+2025-12-08,Appareils électroniques,SOUTH,test,22.000000000000004,27
+2025-12-15,Appareils électroniques,SOUTH,test,26.000000000000004,27
+2025-12-22,Appareils électroniques,SOUTH,test,16.0,24
+2025-12-29,Appareils électroniques,SOUTH,test,17.0,25
+2026-01-05,Appareils électroniques,SOUTH,test,18.0,5
+2025-07-07,Appareils électroniques,WEST,validation,28.0,30
+2025-07-14,Appareils électroniques,WEST,validation,22.0,25
+2025-07-21,Appareils électroniques,WEST,validation,38.0,29
+2025-07-28,Appareils électroniques,WEST,validation,26.000000000000004,29
+2025-08-04,Appareils électroniques,WEST,validation,27.0,24
+2025-08-11,Appareils électroniques,WEST,validation,34.0,27
+2025-08-18,Appareils électroniques,WEST,validation,26.000000000000004,34
+2025-08-25,Appareils électroniques,WEST,validation,30.0,40
+2025-09-01,Appareils électroniques,WEST,validation,43.0,27
+2025-09-08,Appareils électroniques,WEST,validation,39.0,26
+2025-09-15,Appareils électroniques,WEST,validation,29.000000000000004,25
+2025-09-22,Appareils électroniques,WEST,validation,28.0,37
+2025-09-29,Appareils électroniques,WEST,validation,34.0,31
+2025-10-06,Appareils électroniques,WEST,test,21.0,22
+2025-10-13,Appareils électroniques,WEST,test,16.999999999999996,19
+2025-10-20,Appareils électroniques,WEST,test,29.0,24
+2025-10-27,Appareils électroniques,WEST,test,27.999999999999996,20
+2025-11-03,Appareils électroniques,WEST,test,30.999999999999996,28
+2025-11-10,Appareils électroniques,WEST,test,26.0,31
+2025-11-17,Appareils électroniques,WEST,test,24.999999999999996,28
+2025-11-24,Appareils électroniques,WEST,test,27.999999999999996,17
+2025-12-01,Appareils électroniques,WEST,test,20.0,33
+2025-12-08,Appareils électroniques,WEST,test,21.999999999999996,20
+2025-12-15,Appareils électroniques,WEST,test,27.0,24
+2025-12-22,Appareils électroniques,WEST,test,30.0,32
+2025-12-29,Appareils électroniques,WEST,test,27.999999999999996,24
+2026-01-05,Appareils électroniques,WEST,test,11.00000000000146,3
+2025-07-07,Arts et loisirs,EAST,validation,39.99999999999999,33
+2025-07-14,Arts et loisirs,EAST,validation,25.999999999999996,31
+2025-07-21,Arts et loisirs,EAST,validation,47.0,32
+2025-07-28,Arts et loisirs,EAST,validation,35.99999999999999,36
+2025-08-04,Arts et loisirs,EAST,validation,47.0,32
+2025-08-11,Arts et loisirs,EAST,validation,31.999999999999996,27
+2025-08-18,Arts et loisirs,EAST,validation,28.999999999999996,30
+2025-08-25,Arts et loisirs,EAST,validation,39.0,23
+2025-09-01,Arts et loisirs,EAST,validation,37.0,29
+2025-09-08,Arts et loisirs,EAST,validation,29.999999999999996,42
+2025-09-15,Arts et loisirs,EAST,validation,33.0,38
+2025-09-22,Arts et loisirs,EAST,validation,34.99999999999999,38
+2025-09-29,Arts et loisirs,EAST,validation,33.99999999999999,32
+2025-10-06,Arts et loisirs,EAST,test,21.0,19
+2025-10-13,Arts et loisirs,EAST,test,27.0,27
+2025-10-20,Arts et loisirs,EAST,test,23.999999999999996,27
+2025-10-27,Arts et loisirs,EAST,test,19.0,26
+2025-11-03,Arts et loisirs,EAST,test,28.0,18
+2025-11-10,Arts et loisirs,EAST,test,30.000000000000004,25
+2025-11-17,Arts et loisirs,EAST,test,23.0,30
+2025-11-24,Arts et loisirs,EAST,test,39.00000000000001,37
+2025-12-01,Arts et loisirs,EAST,test,31.000000000000004,35
+2025-12-08,Arts et loisirs,EAST,test,34.0,20
+2025-12-15,Arts et loisirs,EAST,test,27.0,35
+2025-12-22,Arts et loisirs,EAST,test,30.000000000000004,35
+2025-12-29,Arts et loisirs,EAST,test,28.0,28
+2026-01-05,Arts et loisirs,EAST,test,29.999999999995072,8
+2025-07-07,Arts et loisirs,NORTH,validation,33.0,45
+2025-07-14,Arts et loisirs,NORTH,validation,39.0,45
+2025-07-21,Arts et loisirs,NORTH,validation,33.0,44
+2025-07-28,Arts et loisirs,NORTH,validation,39.0,31
+2025-08-04,Arts et loisirs,NORTH,validation,42.0,36
+2025-08-11,Arts et loisirs,NORTH,validation,40.99999999999999,28
+2025-08-18,Arts et loisirs,NORTH,validation,26.999999999999996,33
+2025-08-25,Arts et loisirs,NORTH,validation,47.0,40
+2025-09-01,Arts et loisirs,NORTH,validation,36.0,43
+2025-09-08,Arts et loisirs,NORTH,validation,37.0,30
+2025-09-15,Arts et loisirs,NORTH,validation,35.0,32
+2025-09-22,Arts et loisirs,NORTH,validation,30.0,40
+2025-09-29,Arts et loisirs,NORTH,validation,32.0,37
+2025-10-06,Arts et loisirs,NORTH,test,27.0,23
+2025-10-13,Arts et loisirs,NORTH,test,22.000000000000004,29
+2025-10-20,Arts et loisirs,NORTH,test,18.0,30
+2025-10-27,Arts et loisirs,NORTH,test,30.000000000000004,28
+2025-11-03,Arts et loisirs,NORTH,test,30.000000000000004,30
+2025-11-10,Arts et loisirs,NORTH,test,32.0,36
+2025-11-17,Arts et loisirs,NORTH,test,26.000000000000004,24
+2025-11-24,Arts et loisirs,NORTH,test,28.000000000000004,27
+2025-12-01,Arts et loisirs,NORTH,test,29.0,32
+2025-12-08,Arts et loisirs,NORTH,test,37.0,31
+2025-12-15,Arts et loisirs,NORTH,test,31.0,28
+2025-12-22,Arts et loisirs,NORTH,test,22.000000000000004,20
+2025-12-29,Arts et loisirs,NORTH,test,32.0,29
+2026-01-05,Arts et loisirs,NORTH,test,30.00000000000037,7
+2025-07-07,Arts et loisirs,SOUTH,validation,23.801246105920185,23
+2025-07-14,Arts et loisirs,SOUTH,validation,27.281494550713532,14
+2025-07-21,Arts et loisirs,SOUTH,validation,14.569344397374715,18
+2025-07-28,Arts et loisirs,SOUTH,validation,22.74187495967257,28
+2025-08-04,Arts et loisirs,SOUTH,validation,16.845285801373837,25
+2025-08-11,Arts et loisirs,SOUTH,validation,19.90726787596364,26
+2025-08-18,Arts et loisirs,SOUTH,validation,22.944418502602502,22
+2025-08-25,Arts et loisirs,SOUTH,validation,18.966685731777947,20
+2025-09-01,Arts et loisirs,SOUTH,validation,15.980032195620183,22
+2025-09-08,Arts et loisirs,SOUTH,validation,23.988031758371722,20
+2025-09-15,Arts et loisirs,SOUTH,validation,19.9928265118714,16
+2025-09-22,Arts et loisirs,SOUTH,validation,19.99570037658585,24
+2025-09-29,Arts et loisirs,SOUTH,validation,20.9974229048446,16
+2025-10-06,Arts et loisirs,SOUTH,test,19.51108920652367,12
+2025-10-13,Arts et loisirs,SOUTH,test,10.761064612414442,15
+2025-10-20,Arts et loisirs,SOUTH,test,15.383280068279243,10
+2025-10-27,Arts et loisirs,SOUTH,test,15.693007821075424,14
+2025-11-03,Arts et loisirs,SOUTH,test,13.847184770471255,13
+2025-11-10,Arts et loisirs,SOUTH,test,10.92393130516312,24
+2025-11-17,Arts et loisirs,SOUTH,test,15.962134360874693,18
+2025-11-24,Arts et loisirs,SOUTH,test,21.98115116041569,18
+2025-12-01,Arts et loisirs,SOUTH,test,15.990617383942755,21
+2025-12-08,Arts et loisirs,SOUTH,test,17.99532950112478,22
+2025-12-15,Arts et loisirs,SOUTH,test,12.997675108987693,17
+2025-12-22,Arts et loisirs,SOUTH,test,23.998842710733154,20
+2025-12-29,Arts et loisirs,SOUTH,test,14.999423922050509,17
+2026-01-05,Arts et loisirs,SOUTH,test,14.999713238674724,3
+2025-07-07,Arts et loisirs,WEST,validation,28.000000000000004,27
+2025-07-14,Arts et loisirs,WEST,validation,20.0,21
+2025-07-21,Arts et loisirs,WEST,validation,24.0,15
+2025-07-28,Arts et loisirs,WEST,validation,20.0,22
+2025-08-04,Arts et loisirs,WEST,validation,26.0,20
+2025-08-11,Arts et loisirs,WEST,validation,23.000000000000004,26
+2025-08-18,Arts et loisirs,WEST,validation,27.0,30
+2025-08-25,Arts et loisirs,WEST,validation,24.0,14
+2025-09-01,Arts et loisirs,WEST,validation,27.0,30
+2025-09-08,Arts et loisirs,WEST,validation,27.0,27
+2025-09-15,Arts et loisirs,WEST,validation,26.0,22
+2025-09-22,Arts et loisirs,WEST,validation,26.0,32
+2025-09-29,Arts et loisirs,WEST,validation,32.0,22
+2025-10-06,Arts et loisirs,WEST,test,16.999999999999996,18
+2025-10-13,Arts et loisirs,WEST,test,16.999999999999996,13
+2025-10-20,Arts et loisirs,WEST,test,16.999999999999996,20
+2025-10-27,Arts et loisirs,WEST,test,21.0,15
+2025-11-03,Arts et loisirs,WEST,test,24.0,15
+2025-11-10,Arts et loisirs,WEST,test,19.999999999999996,20
+2025-11-17,Arts et loisirs,WEST,test,22.0,20
+2025-11-24,Arts et loisirs,WEST,test,19.999999999999996,12
+2025-12-01,Arts et loisirs,WEST,test,15.0,19
+2025-12-08,Arts et loisirs,WEST,test,16.0,21
+2025-12-15,Arts et loisirs,WEST,test,13.0,19
+2025-12-22,Arts et loisirs,WEST,test,17.999999999999996,15
+2025-12-29,Arts et loisirs,WEST,test,12.000000000000002,18
+2026-01-05,Arts et loisirs,WEST,test,16.999999999998778,7
+2025-07-07,Bagages et maroquinerie,EAST,validation,29.590382223583294,37
+2025-07-14,Bagages et maroquinerie,EAST,validation,34.22282951449564,36
+2025-07-21,Bagages et maroquinerie,EAST,validation,33.76793316087176,40
+2025-07-28,Bagages et maroquinerie,EAST,validation,28.15720420690613,34
+2025-08-04,Bagages et maroquinerie,EAST,validation,30.681737083080506,38
+2025-08-11,Bagages et maroquinerie,EAST,validation,36.691299019695116,35
+2025-08-18,Bagages et maroquinerie,EAST,validation,42.14872577524329,46
+2025-08-25,Bagages et maroquinerie,EAST,validation,31.836219859922455,43
+2025-09-01,Bagages et maroquinerie,EAST,validation,31.85324301386926,21
+2025-09-08,Bagages et maroquinerie,EAST,validation,38.97527572575919,34
+2025-09-15,Bagages et maroquinerie,EAST,validation,26.038670558493386,27
+2025-09-22,Bagages et maroquinerie,EAST,validation,27.03091567719774,44
+2025-09-29,Bagages et maroquinerie,EAST,validation,34.00370984184213,31
+2025-10-06,Bagages et maroquinerie,EAST,test,16.18544943391052,34
+2025-10-13,Bagages et maroquinerie,EAST,test,21.545369297131614,27
+2025-10-20,Bagages et maroquinerie,EAST,test,25.910415283567783,28
+2025-10-27,Bagages et maroquinerie,EAST,test,27.22161516747565,30
+2025-11-03,Bagages et maroquinerie,EAST,test,22.323410597062804,30
+2025-11-10,Bagages et maroquinerie,EAST,test,21.778718269194158,36
+2025-11-17,Bagages et maroquinerie,EAST,test,27.788584850779838,34
+2025-11-24,Bagages et maroquinerie,EAST,test,45.96397382017312,23
+2025-12-01,Bagages et maroquinerie,EAST,test,28.048227261464103,24
+2025-12-08,Bagages et maroquinerie,EAST,test,21.03529187763457,19
+2025-12-15,Bagages et maroquinerie,EAST,test,29.00248093184775,27
+2025-12-22,Bagages et maroquinerie,EAST,test,33.99018996697337,32
+2025-12-29,Bagages et maroquinerie,EAST,test,31.99433825844382,25
+2026-01-05,Bagages et maroquinerie,EAST,test,23.000250829114556,5
+2025-07-07,Bagages et maroquinerie,NORTH,validation,24.000000000000004,49
+2025-07-14,Bagages et maroquinerie,NORTH,validation,34.0,40
+2025-07-21,Bagages et maroquinerie,NORTH,validation,33.0,31
+2025-07-28,Bagages et maroquinerie,NORTH,validation,32.0,38
+2025-08-04,Bagages et maroquinerie,NORTH,validation,40.0,36
+2025-08-11,Bagages et maroquinerie,NORTH,validation,31.0,42
+2025-08-18,Bagages et maroquinerie,NORTH,validation,25.000000000000004,35
+2025-08-25,Bagages et maroquinerie,NORTH,validation,33.0,43
+2025-09-01,Bagages et maroquinerie,NORTH,validation,35.0,38
+2025-09-08,Bagages et maroquinerie,NORTH,validation,30.000000000000004,25
+2025-09-15,Bagages et maroquinerie,NORTH,validation,33.0,31
+2025-09-22,Bagages et maroquinerie,NORTH,validation,25.000000000000004,31
+2025-09-29,Bagages et maroquinerie,NORTH,validation,41.0,34
+2025-10-06,Bagages et maroquinerie,NORTH,test,28.000000000000004,33
+2025-10-13,Bagages et maroquinerie,NORTH,test,25.0,30
+2025-10-20,Bagages et maroquinerie,NORTH,test,19.999999999999996,30
+2025-10-27,Bagages et maroquinerie,NORTH,test,31.0,20
+2025-11-03,Bagages et maroquinerie,NORTH,test,25.0,30
+2025-11-10,Bagages et maroquinerie,NORTH,test,25.0,32
+2025-11-17,Bagages et maroquinerie,NORTH,test,26.0,31
+2025-11-24,Bagages et maroquinerie,NORTH,test,18.999999999999996,38
+2025-12-01,Bagages et maroquinerie,NORTH,test,45.00000000000001,35
+2025-12-08,Bagages et maroquinerie,NORTH,test,31.0,33
+2025-12-15,Bagages et maroquinerie,NORTH,test,33.0,29
+2025-12-22,Bagages et maroquinerie,NORTH,test,41.00000000000001,25
+2025-12-29,Bagages et maroquinerie,NORTH,test,27.0,34
+2026-01-05,Bagages et maroquinerie,NORTH,test,17.999999999998074,4
+2025-07-07,Bagages et maroquinerie,SOUTH,validation,28.000000000000004,10
+2025-07-14,Bagages et maroquinerie,SOUTH,validation,24.000000000000004,23
+2025-07-21,Bagages et maroquinerie,SOUTH,validation,21.0,23
+2025-07-28,Bagages et maroquinerie,SOUTH,validation,14.000000000000002,30
+2025-08-04,Bagages et maroquinerie,SOUTH,validation,20.000000000000004,14
+2025-08-11,Bagages et maroquinerie,SOUTH,validation,22.000000000000004,30
+2025-08-18,Bagages et maroquinerie,SOUTH,validation,25.000000000000004,31
+2025-08-25,Bagages et maroquinerie,SOUTH,validation,18.000000000000004,10
+2025-09-01,Bagages et maroquinerie,SOUTH,validation,25.000000000000004,17
+2025-09-08,Bagages et maroquinerie,SOUTH,validation,17.0,14
+2025-09-15,Bagages et maroquinerie,SOUTH,validation,17.0,20
+2025-09-22,Bagages et maroquinerie,SOUTH,validation,26.000000000000004,14
+2025-09-29,Bagages et maroquinerie,SOUTH,validation,29.0,25
+2025-10-06,Bagages et maroquinerie,SOUTH,test,13.999999999999998,25
+2025-10-13,Bagages et maroquinerie,SOUTH,test,11.0,17
+2025-10-20,Bagages et maroquinerie,SOUTH,test,11.0,14
+2025-10-27,Bagages et maroquinerie,SOUTH,test,24.0,16
+2025-11-03,Bagages et maroquinerie,SOUTH,test,13.999999999999998,20
+2025-11-10,Bagages et maroquinerie,SOUTH,test,13.999999999999998,12
+2025-11-17,Bagages et maroquinerie,SOUTH,test,8.0,13
+2025-11-24,Bagages et maroquinerie,SOUTH,test,18.0,17
+2025-12-01,Bagages et maroquinerie,SOUTH,test,12.0,15
+2025-12-08,Bagages et maroquinerie,SOUTH,test,21.0,12
+2025-12-15,Bagages et maroquinerie,SOUTH,test,18.0,12
+2025-12-22,Bagages et maroquinerie,SOUTH,test,18.0,27
+2025-12-29,Bagages et maroquinerie,SOUTH,test,23.0,15
+2026-01-05,Bagages et maroquinerie,SOUTH,test,14.000000000003528,6
+2025-07-07,Bagages et maroquinerie,WEST,validation,24.000000000000004,25
+2025-07-14,Bagages et maroquinerie,WEST,validation,25.0,19
+2025-07-21,Bagages et maroquinerie,WEST,validation,21.000000000000004,27
+2025-07-28,Bagages et maroquinerie,WEST,validation,25.0,20
+2025-08-04,Bagages et maroquinerie,WEST,validation,21.000000000000004,29
+2025-08-11,Bagages et maroquinerie,WEST,validation,22.0,22
+2025-08-18,Bagages et maroquinerie,WEST,validation,27.000000000000004,22
+2025-08-25,Bagages et maroquinerie,WEST,validation,26.0,22
+2025-09-01,Bagages et maroquinerie,WEST,validation,30.000000000000004,27
+2025-09-08,Bagages et maroquinerie,WEST,validation,23.0,27
+2025-09-15,Bagages et maroquinerie,WEST,validation,18.0,24
+2025-09-22,Bagages et maroquinerie,WEST,validation,22.0,25
+2025-09-29,Bagages et maroquinerie,WEST,validation,16.0,18
+2025-10-06,Bagages et maroquinerie,WEST,test,24.000000000000004,17
+2025-10-13,Bagages et maroquinerie,WEST,test,20.0,19
+2025-10-20,Bagages et maroquinerie,WEST,test,13.000000000000002,16
+2025-10-27,Bagages et maroquinerie,WEST,test,22.0,17
+2025-11-03,Bagages et maroquinerie,WEST,test,18.000000000000004,9
+2025-11-10,Bagages et maroquinerie,WEST,test,16.0,19
+2025-11-17,Bagages et maroquinerie,WEST,test,21.0,17
+2025-11-24,Bagages et maroquinerie,WEST,test,18.000000000000004,18
+2025-12-01,Bagages et maroquinerie,WEST,test,27.000000000000004,14
+2025-12-08,Bagages et maroquinerie,WEST,test,15.000000000000002,22
+2025-12-15,Bagages et maroquinerie,WEST,test,24.000000000000004,20
+2025-12-22,Bagages et maroquinerie,WEST,test,19.0,23
+2025-12-29,Bagages et maroquinerie,WEST,test,23.0,21
+2026-01-05,Bagages et maroquinerie,WEST,test,11.000000000007116,9
+2025-07-07,Bébés et tout-petits,EAST,validation,31.720096175485338,41
+2025-07-14,Bébés et tout-petits,EAST,validation,43.0,30
+2025-07-21,Bébés et tout-petits,EAST,validation,34.00000000000001,33
+2025-07-28,Bébés et tout-petits,EAST,validation,44.99999999999999,27
+2025-08-04,Bébés et tout-petits,EAST,validation,37.0,36
+2025-08-11,Bébés et tout-petits,EAST,validation,42.0,32
+2025-08-18,Bébés et tout-petits,EAST,validation,34.0,35
+2025-08-25,Bébés et tout-petits,EAST,validation,30.000000000000004,36
+2025-09-01,Bébés et tout-petits,EAST,validation,39.00000000000001,37
+2025-09-08,Bébés et tout-petits,EAST,validation,29.0,38
+2025-09-15,Bébés et tout-petits,EAST,validation,34.0,33
+2025-09-22,Bébés et tout-petits,EAST,validation,27.000000000000004,47
+2025-09-29,Bébés et tout-petits,EAST,validation,41.0,43
+2025-10-06,Bébés et tout-petits,EAST,test,25.177255772606525,31
+2025-10-13,Bébés et tout-petits,EAST,test,23.999999999999993,19
+2025-10-20,Bébés et tout-petits,EAST,test,23.999999999999993,18
+2025-10-27,Bébés et tout-petits,EAST,test,20.999999999999996,31
+2025-11-03,Bébés et tout-petits,EAST,test,23.999999999999996,17
+2025-11-10,Bébés et tout-petits,EAST,test,22.0,25
+2025-11-17,Bébés et tout-petits,EAST,test,18.999999999999996,34
+2025-11-24,Bébés et tout-petits,EAST,test,33.99999999999999,24
+2025-12-01,Bébés et tout-petits,EAST,test,32.99999999999999,22
+2025-12-08,Bébés et tout-petits,EAST,test,28.999999999999996,27
+2025-12-15,Bébés et tout-petits,EAST,test,17.0,35
+2025-12-22,Bébés et tout-petits,EAST,test,33.99999999999999,32
+2025-12-29,Bébés et tout-petits,EAST,test,27.0,27
+2026-01-05,Bébés et tout-petits,EAST,test,32.0,6
+2025-07-07,Bébés et tout-petits,NORTH,validation,37.0,38
+2025-07-14,Bébés et tout-petits,NORTH,validation,35.0,37
+2025-07-21,Bébés et tout-petits,NORTH,validation,34.0,36
+2025-07-28,Bébés et tout-petits,NORTH,validation,36.0,45
+2025-08-04,Bébés et tout-petits,NORTH,validation,33.0,39
+2025-08-11,Bébés et tout-petits,NORTH,validation,35.0,32
+2025-08-18,Bébés et tout-petits,NORTH,validation,40.0,27
+2025-08-25,Bébés et tout-petits,NORTH,validation,37.0,28
+2025-09-01,Bébés et tout-petits,NORTH,validation,42.0,38
+2025-09-08,Bébés et tout-petits,NORTH,validation,39.0,30
+2025-09-15,Bébés et tout-petits,NORTH,validation,30.0,43
+2025-09-22,Bébés et tout-petits,NORTH,validation,40.0,36
+2025-09-29,Bébés et tout-petits,NORTH,validation,30.0,31
+2025-10-06,Bébés et tout-petits,NORTH,test,24.0,24
+2025-10-13,Bébés et tout-petits,NORTH,test,22.0,14
+2025-10-20,Bébés et tout-petits,NORTH,test,23.0,25
+2025-10-27,Bébés et tout-petits,NORTH,test,29.000000000000004,32
+2025-11-03,Bébés et tout-petits,NORTH,test,34.0,23
+2025-11-10,Bébés et tout-petits,NORTH,test,37.0,23
+2025-11-17,Bébés et tout-petits,NORTH,test,24.0,35
+2025-11-24,Bébés et tout-petits,NORTH,test,36.00000000000001,35
+2025-12-01,Bébés et tout-petits,NORTH,test,28.0,27
+2025-12-08,Bébés et tout-petits,NORTH,test,41.00000000000001,33
+2025-12-15,Bébés et tout-petits,NORTH,test,29.000000000000004,19
+2025-12-22,Bébés et tout-petits,NORTH,test,34.0,45
+2025-12-29,Bébés et tout-petits,NORTH,test,28.0,32
+2026-01-05,Bébés et tout-petits,NORTH,test,24.00000000000026,5
+2025-07-07,Bébés et tout-petits,SOUTH,validation,24.677274810930907,24
+2025-07-14,Bébés et tout-petits,SOUTH,validation,17.999999999999996,11
+2025-07-21,Bébés et tout-petits,SOUTH,validation,18.999999999999996,25
+2025-07-28,Bébés et tout-petits,SOUTH,validation,27.999999999999996,17
+2025-08-04,Bébés et tout-petits,SOUTH,validation,21.999999999999996,24
+2025-08-11,Bébés et tout-petits,SOUTH,validation,23.0,24
+2025-08-18,Bébés et tout-petits,SOUTH,validation,17.0,15
+2025-08-25,Bébés et tout-petits,SOUTH,validation,17.999999999999993,20
+2025-09-01,Bébés et tout-petits,SOUTH,validation,19.0,16
+2025-09-08,Bébés et tout-petits,SOUTH,validation,24.0,28
+2025-09-15,Bébés et tout-petits,SOUTH,validation,19.999999999999996,18
+2025-09-22,Bébés et tout-petits,SOUTH,validation,12.999999999999998,18
+2025-09-29,Bébés et tout-petits,SOUTH,validation,20.999999999999996,23
+2025-10-06,Bébés et tout-petits,SOUTH,test,13.903776050362078,20
+2025-10-13,Bébés et tout-petits,SOUTH,test,24.0,13
+2025-10-20,Bébés et tout-petits,SOUTH,test,13.0,15
+2025-10-27,Bébés et tout-petits,SOUTH,test,13.000000000000002,13
+2025-11-03,Bébés et tout-petits,SOUTH,test,18.0,16
+2025-11-10,Bébés et tout-petits,SOUTH,test,21.0,24
+2025-11-17,Bébés et tout-petits,SOUTH,test,24.0,16
+2025-11-24,Bébés et tout-petits,SOUTH,test,18.999999999999996,15
+2025-12-01,Bébés et tout-petits,SOUTH,test,18.999999999999996,15
+2025-12-08,Bébés et tout-petits,SOUTH,test,20.0,23
+2025-12-15,Bébés et tout-petits,SOUTH,test,18.999999999999996,19
+2025-12-22,Bébés et tout-petits,SOUTH,test,15.0,29
+2025-12-29,Bébés et tout-petits,SOUTH,test,8.0,16
+2026-01-05,Bébés et tout-petits,SOUTH,test,6.0,5
+2025-07-07,Bébés et tout-petits,WEST,validation,19.000000000000004,19
+2025-07-14,Bébés et tout-petits,WEST,validation,31.000000000000004,25
+2025-07-21,Bébés et tout-petits,WEST,validation,22.0,27
+2025-07-28,Bébés et tout-petits,WEST,validation,32.0,23
+2025-08-04,Bébés et tout-petits,WEST,validation,27.000000000000004,34
+2025-08-11,Bébés et tout-petits,WEST,validation,30.000000000000004,25
+2025-08-18,Bébés et tout-petits,WEST,validation,27.000000000000004,24
+2025-08-25,Bébés et tout-petits,WEST,validation,33.0,25
+2025-09-01,Bébés et tout-petits,WEST,validation,26.000000000000004,27
+2025-09-08,Bébés et tout-petits,WEST,validation,21.000000000000004,20
+2025-09-15,Bébés et tout-petits,WEST,validation,25.000000000000004,31
+2025-09-22,Bébés et tout-petits,WEST,validation,23.000000000000004,28
+2025-09-29,Bébés et tout-petits,WEST,validation,23.000000000000004,26
+2025-10-06,Bébés et tout-petits,WEST,test,17.000000000000004,14
+2025-10-13,Bébés et tout-petits,WEST,test,19.0,16
+2025-10-20,Bébés et tout-petits,WEST,test,22.000000000000004,19
+2025-10-27,Bébés et tout-petits,WEST,test,19.0,19
+2025-11-03,Bébés et tout-petits,WEST,test,29.000000000000004,20
+2025-11-10,Bébés et tout-petits,WEST,test,22.000000000000004,24
+2025-11-17,Bébés et tout-petits,WEST,test,21.000000000000004,22
+2025-11-24,Bébés et tout-petits,WEST,test,14.000000000000002,20
+2025-12-01,Bébés et tout-petits,WEST,test,18.000000000000004,16
+2025-12-08,Bébés et tout-petits,WEST,test,19.0,21
+2025-12-15,Bébés et tout-petits,WEST,test,16.000000000000004,22
+2025-12-22,Bébés et tout-petits,WEST,test,14.000000000000002,25
+2025-12-29,Bébés et tout-petits,WEST,test,18.000000000000004,17
+2026-01-05,Bébés et tout-petits,WEST,test,15.00000000000561,11
+2025-07-07,Entreprise et industrie,EAST,validation,14.999999999999998,15
+2025-07-14,Entreprise et industrie,EAST,validation,17.0,9
+2025-07-21,Entreprise et industrie,EAST,validation,11.999999999999998,14
+2025-07-28,Entreprise et industrie,EAST,validation,13.0,15
+2025-08-04,Entreprise et industrie,EAST,validation,13.0,7
+2025-08-11,Entreprise et industrie,EAST,validation,6.999999999999999,16
+2025-08-18,Entreprise et industrie,EAST,validation,13.0,15
+2025-08-25,Entreprise et industrie,EAST,validation,13.999999999999998,14
+2025-09-01,Entreprise et industrie,EAST,validation,21.999999999999996,9
+2025-09-08,Entreprise et industrie,EAST,validation,10.0,11
+2025-09-15,Entreprise et industrie,EAST,validation,10.999999999999998,17
+2025-09-22,Entreprise et industrie,EAST,validation,17.0,10
+2025-09-29,Entreprise et industrie,EAST,validation,13.999999999999998,13
+2025-10-06,Entreprise et industrie,EAST,test,10.999999999999998,18
+2025-10-13,Entreprise et industrie,EAST,test,10.999999999999998,8
+2025-10-20,Entreprise et industrie,EAST,test,9.999999999999998,8
+2025-10-27,Entreprise et industrie,EAST,test,9.999999999999998,11
+2025-11-03,Entreprise et industrie,EAST,test,7.999999999999999,12
+2025-11-10,Entreprise et industrie,EAST,test,9.999999999999998,10
+2025-11-17,Entreprise et industrie,EAST,test,5.999999999999999,9
+2025-11-24,Entreprise et industrie,EAST,test,9.0,10
+2025-12-01,Entreprise et industrie,EAST,test,13.0,16
+2025-12-08,Entreprise et industrie,EAST,test,15.999999999999998,11
+2025-12-15,Entreprise et industrie,EAST,test,18.0,13
+2025-12-22,Entreprise et industrie,EAST,test,13.0,14
+2025-12-29,Entreprise et industrie,EAST,test,12.0,18
+2026-01-05,Entreprise et industrie,EAST,test,4.999999999988174,4
+2025-07-07,Entreprise et industrie,NORTH,validation,20.445400526401933,19
+2025-07-14,Entreprise et industrie,NORTH,validation,10.0,13
+2025-07-21,Entreprise et industrie,NORTH,validation,15.0,15
+2025-07-28,Entreprise et industrie,NORTH,validation,14.000000000000002,13
+2025-08-04,Entreprise et industrie,NORTH,validation,10.999999999999998,18
+2025-08-11,Entreprise et industrie,NORTH,validation,14.999999999999998,13
+2025-08-18,Entreprise et industrie,NORTH,validation,10.999999999999998,16
+2025-08-25,Entreprise et industrie,NORTH,validation,15.0,20
+2025-09-01,Entreprise et industrie,NORTH,validation,12.999999999999998,15
+2025-09-08,Entreprise et industrie,NORTH,validation,13.999999999999998,12
+2025-09-15,Entreprise et industrie,NORTH,validation,12.0,15
+2025-09-22,Entreprise et industrie,NORTH,validation,13.999999999999998,16
+2025-09-29,Entreprise et industrie,NORTH,validation,17.999999999999996,11
+2025-10-06,Entreprise et industrie,NORTH,test,7.394744334381452,11
+2025-10-13,Entreprise et industrie,NORTH,test,11.0,9
+2025-10-20,Entreprise et industrie,NORTH,test,13.999999999999998,6
+2025-10-27,Entreprise et industrie,NORTH,test,9.0,8
+2025-11-03,Entreprise et industrie,NORTH,test,10.999999999999998,21
+2025-11-10,Entreprise et industrie,NORTH,test,9.999999999999998,19
+2025-11-17,Entreprise et industrie,NORTH,test,10.0,8
+2025-11-24,Entreprise et industrie,NORTH,test,10.0,9
+2025-12-01,Entreprise et industrie,NORTH,test,12.999999999999998,14
+2025-12-08,Entreprise et industrie,NORTH,test,12.999999999999998,13
+2025-12-15,Entreprise et industrie,NORTH,test,10.999999999999998,14
+2025-12-22,Entreprise et industrie,NORTH,test,6.999999999999999,10
+2025-12-29,Entreprise et industrie,NORTH,test,8.0,13
+2026-01-05,Entreprise et industrie,NORTH,test,11.0,4
+2025-07-07,Entreprise et industrie,SOUTH,validation,5.999999999999999,14
+2025-07-14,Entreprise et industrie,SOUTH,validation,7.999999999999999,12
+2025-07-21,Entreprise et industrie,SOUTH,validation,6.999999999999999,9
+2025-07-28,Entreprise et industrie,SOUTH,validation,3.9999999999999996,8
+2025-08-04,Entreprise et industrie,SOUTH,validation,7.999999999999999,7
+2025-08-11,Entreprise et industrie,SOUTH,validation,11.999999999999998,4
+2025-08-18,Entreprise et industrie,SOUTH,validation,10.999999999999998,8
+2025-08-25,Entreprise et industrie,SOUTH,validation,10.0,9
+2025-09-01,Entreprise et industrie,SOUTH,validation,11.999999999999998,7
+2025-09-08,Entreprise et industrie,SOUTH,validation,5.999999999999999,6
+2025-09-15,Entreprise et industrie,SOUTH,validation,5.999999999999999,7
+2025-09-22,Entreprise et industrie,SOUTH,validation,10.999999999999998,14
+2025-09-29,Entreprise et industrie,SOUTH,validation,7.999999999999999,12
+2025-10-06,Entreprise et industrie,SOUTH,test,5.0,1
+2025-10-13,Entreprise et industrie,SOUTH,test,5.0,10
+2025-10-20,Entreprise et industrie,SOUTH,test,5.0,2
+2025-10-27,Entreprise et industrie,SOUTH,test,4.0,5
+2025-11-03,Entreprise et industrie,SOUTH,test,3.0000000000000004,2
+2025-11-10,Entreprise et industrie,SOUTH,test,3.0000000000000004,4
+2025-11-17,Entreprise et industrie,SOUTH,test,4.0,3
+2025-11-24,Entreprise et industrie,SOUTH,test,6.000000000000001,9
+2025-12-01,Entreprise et industrie,SOUTH,test,3.0000000000000004,7
+2025-12-08,Entreprise et industrie,SOUTH,test,2.0,5
+2025-12-15,Entreprise et industrie,SOUTH,test,7.0,7
+2025-12-22,Entreprise et industrie,SOUTH,test,8.0,7
+2025-12-29,Entreprise et industrie,SOUTH,test,2.0,6
+2026-01-05,Entreprise et industrie,SOUTH,test,6.999999999997314,2
+2025-07-07,Entreprise et industrie,WEST,validation,4.159847296104383,11
+2025-07-14,Entreprise et industrie,WEST,validation,5.0,6
+2025-07-21,Entreprise et industrie,WEST,validation,12.0,10
+2025-07-28,Entreprise et industrie,WEST,validation,12.0,8
+2025-08-04,Entreprise et industrie,WEST,validation,6.0,9
+2025-08-11,Entreprise et industrie,WEST,validation,7.000000000000001,13
+2025-08-18,Entreprise et industrie,WEST,validation,14.0,15
+2025-08-25,Entreprise et industrie,WEST,validation,7.999999999999999,7
+2025-09-01,Entreprise et industrie,WEST,validation,7.0,11
+2025-09-08,Entreprise et industrie,WEST,validation,16.000000000000004,8
+2025-09-15,Entreprise et industrie,WEST,validation,4.0,12
+2025-09-22,Entreprise et industrie,WEST,validation,7.0,5
+2025-09-29,Entreprise et industrie,WEST,validation,7.999999999999999,9
+2025-10-06,Entreprise et industrie,WEST,test,5.494011212261525,6
+2025-10-13,Entreprise et industrie,WEST,test,9.0,3
+2025-10-20,Entreprise et industrie,WEST,test,7.0,10
+2025-10-27,Entreprise et industrie,WEST,test,5.999999999999999,3
+2025-11-03,Entreprise et industrie,WEST,test,11.0,8
+2025-11-10,Entreprise et industrie,WEST,test,7.0,10
+2025-11-17,Entreprise et industrie,WEST,test,8.0,9
+2025-11-24,Entreprise et industrie,WEST,test,12.0,5
+2025-12-01,Entreprise et industrie,WEST,test,4.999999999999999,6
+2025-12-08,Entreprise et industrie,WEST,test,13.0,7
+2025-12-15,Entreprise et industrie,WEST,test,14.999999999999998,12
+2025-12-22,Entreprise et industrie,WEST,test,8.999999999999998,6
+2025-12-29,Entreprise et industrie,WEST,test,7.0,9
+2026-01-05,Entreprise et industrie,WEST,test,2.0,3
+2025-07-07,Fournitures de bureau,EAST,validation,44.99999999999999,39
+2025-07-14,Fournitures de bureau,EAST,validation,39.99999999999999,33
+2025-07-21,Fournitures de bureau,EAST,validation,34.0,27
+2025-07-28,Fournitures de bureau,EAST,validation,27.0,34
+2025-08-04,Fournitures de bureau,EAST,validation,34.0,35
+2025-08-11,Fournitures de bureau,EAST,validation,37.0,45
+2025-08-18,Fournitures de bureau,EAST,validation,22.0,39
+2025-08-25,Fournitures de bureau,EAST,validation,39.99999999999999,44
+2025-09-01,Fournitures de bureau,EAST,validation,37.99999999999999,26
+2025-09-08,Fournitures de bureau,EAST,validation,47.0,49
+2025-09-15,Fournitures de bureau,EAST,validation,36.0,22
+2025-09-22,Fournitures de bureau,EAST,validation,42.99999999999999,42
+2025-09-29,Fournitures de bureau,EAST,validation,31.999999999999996,40
+2025-10-06,Fournitures de bureau,EAST,test,18.000000000000004,18
+2025-10-13,Fournitures de bureau,EAST,test,20.000000000000004,33
+2025-10-20,Fournitures de bureau,EAST,test,31.000000000000007,21
+2025-10-27,Fournitures de bureau,EAST,test,24.000000000000004,18
+2025-11-03,Fournitures de bureau,EAST,test,39.00000000000001,21
+2025-11-10,Fournitures de bureau,EAST,test,19.000000000000004,30
+2025-11-17,Fournitures de bureau,EAST,test,35.00000000000001,31
+2025-11-24,Fournitures de bureau,EAST,test,25.000000000000004,28
+2025-12-01,Fournitures de bureau,EAST,test,35.00000000000001,27
+2025-12-08,Fournitures de bureau,EAST,test,27.0,25
+2025-12-15,Fournitures de bureau,EAST,test,27.0,26
+2025-12-22,Fournitures de bureau,EAST,test,31.000000000000007,28
+2025-12-29,Fournitures de bureau,EAST,test,27.0,20
+2026-01-05,Fournitures de bureau,EAST,test,24.999999999999094,9
+2025-07-07,Fournitures de bureau,NORTH,validation,39.00000000000001,40
+2025-07-14,Fournitures de bureau,NORTH,validation,29.000000000000004,30
+2025-07-21,Fournitures de bureau,NORTH,validation,31.0,32
+2025-07-28,Fournitures de bureau,NORTH,validation,44.00000000000001,37
+2025-08-04,Fournitures de bureau,NORTH,validation,37.00000000000001,42
+2025-08-11,Fournitures de bureau,NORTH,validation,46.00000000000001,48
+2025-08-18,Fournitures de bureau,NORTH,validation,40.00000000000001,47
+2025-08-25,Fournitures de bureau,NORTH,validation,31.0,38
+2025-09-01,Fournitures de bureau,NORTH,validation,33.0,27
+2025-09-08,Fournitures de bureau,NORTH,validation,30.000000000000004,28
+2025-09-15,Fournitures de bureau,NORTH,validation,47.00000000000001,36
+2025-09-22,Fournitures de bureau,NORTH,validation,29.000000000000004,34
+2025-09-29,Fournitures de bureau,NORTH,validation,32.0,27
+2025-10-06,Fournitures de bureau,NORTH,test,28.0,24
+2025-10-13,Fournitures de bureau,NORTH,test,33.0,33
+2025-10-20,Fournitures de bureau,NORTH,test,26.000000000000004,35
+2025-10-27,Fournitures de bureau,NORTH,test,28.0,28
+2025-11-03,Fournitures de bureau,NORTH,test,34.00000000000001,32
+2025-11-10,Fournitures de bureau,NORTH,test,27.000000000000004,22
+2025-11-17,Fournitures de bureau,NORTH,test,33.0,22
+2025-11-24,Fournitures de bureau,NORTH,test,28.0,30
+2025-12-01,Fournitures de bureau,NORTH,test,32.00000000000001,25
+2025-12-08,Fournitures de bureau,NORTH,test,32.00000000000001,34
+2025-12-15,Fournitures de bureau,NORTH,test,26.000000000000004,31
+2025-12-22,Fournitures de bureau,NORTH,test,23.000000000000004,23
+2025-12-29,Fournitures de bureau,NORTH,test,35.0,28
+2026-01-05,Fournitures de bureau,NORTH,test,21.00000000000372,6
+2025-07-07,Fournitures de bureau,SOUTH,validation,23.0,17
+2025-07-14,Fournitures de bureau,SOUTH,validation,19.999999999999996,23
+2025-07-21,Fournitures de bureau,SOUTH,validation,21.000000000000004,16
+2025-07-28,Fournitures de bureau,SOUTH,validation,28.000000000000004,27
+2025-08-04,Fournitures de bureau,SOUTH,validation,19.0,24
+2025-08-11,Fournitures de bureau,SOUTH,validation,23.0,22
+2025-08-18,Fournitures de bureau,SOUTH,validation,26.0,20
+2025-08-25,Fournitures de bureau,SOUTH,validation,19.0,25
+2025-09-01,Fournitures de bureau,SOUTH,validation,23.0,19
+2025-09-08,Fournitures de bureau,SOUTH,validation,21.000000000000004,17
+2025-09-15,Fournitures de bureau,SOUTH,validation,21.000000000000004,19
+2025-09-22,Fournitures de bureau,SOUTH,validation,22.0,22
+2025-09-29,Fournitures de bureau,SOUTH,validation,13.0,14
+2025-10-06,Fournitures de bureau,SOUTH,test,18.0,19
+2025-10-13,Fournitures de bureau,SOUTH,test,15.000000000000002,14
+2025-10-20,Fournitures de bureau,SOUTH,test,16.0,14
+2025-10-27,Fournitures de bureau,SOUTH,test,16.0,8
+2025-11-03,Fournitures de bureau,SOUTH,test,14.0,19
+2025-11-10,Fournitures de bureau,SOUTH,test,19.0,16
+2025-11-17,Fournitures de bureau,SOUTH,test,12.000000000000002,11
+2025-11-24,Fournitures de bureau,SOUTH,test,11.0,25
+2025-12-01,Fournitures de bureau,SOUTH,test,18.0,13
+2025-12-08,Fournitures de bureau,SOUTH,test,19.0,15
+2025-12-15,Fournitures de bureau,SOUTH,test,24.000000000000004,18
+2025-12-22,Fournitures de bureau,SOUTH,test,24.000000000000004,14
+2025-12-29,Fournitures de bureau,SOUTH,test,12.0,16
+2026-01-05,Fournitures de bureau,SOUTH,test,9.000000000000208,9
+2025-07-07,Fournitures de bureau,WEST,validation,27.0,15
+2025-07-14,Fournitures de bureau,WEST,validation,23.0,23
+2025-07-21,Fournitures de bureau,WEST,validation,29.0,23
+2025-07-28,Fournitures de bureau,WEST,validation,27.999999999999996,27
+2025-08-04,Fournitures de bureau,WEST,validation,26.0,29
+2025-08-11,Fournitures de bureau,WEST,validation,26.0,23
+2025-08-18,Fournitures de bureau,WEST,validation,21.0,30
+2025-08-25,Fournitures de bureau,WEST,validation,23.999999999999996,19
+2025-09-01,Fournitures de bureau,WEST,validation,27.999999999999996,23
+2025-09-08,Fournitures de bureau,WEST,validation,20.0,18
+2025-09-15,Fournitures de bureau,WEST,validation,26.0,19
+2025-09-22,Fournitures de bureau,WEST,validation,22.0,25
+2025-09-29,Fournitures de bureau,WEST,validation,16.0,20
+2025-10-06,Fournitures de bureau,WEST,test,18.0,26
+2025-10-13,Fournitures de bureau,WEST,test,21.999999999999996,16
+2025-10-20,Fournitures de bureau,WEST,test,19.999999999999996,24
+2025-10-27,Fournitures de bureau,WEST,test,19.999999999999996,21
+2025-11-03,Fournitures de bureau,WEST,test,18.999999999999996,19
+2025-11-10,Fournitures de bureau,WEST,test,23.999999999999996,18
+2025-11-17,Fournitures de bureau,WEST,test,21.999999999999996,22
+2025-11-24,Fournitures de bureau,WEST,test,21.999999999999996,19
+2025-12-01,Fournitures de bureau,WEST,test,21.0,25
+2025-12-08,Fournitures de bureau,WEST,test,13.0,20
+2025-12-15,Fournitures de bureau,WEST,test,19.999999999999996,27
+2025-12-22,Fournitures de bureau,WEST,test,13.999999999999998,20
+2025-12-29,Fournitures de bureau,WEST,test,22.0,23
+2026-01-05,Fournitures de bureau,WEST,test,10.999999999992891,4
+2025-07-07,Jeux et jouets,EAST,validation,19.999999999999996,13
+2025-07-14,Jeux et jouets,EAST,validation,15.999999999999998,14
+2025-07-21,Jeux et jouets,EAST,validation,17.0,16
+2025-07-28,Jeux et jouets,EAST,validation,14.0,25
+2025-08-04,Jeux et jouets,EAST,validation,14.0,11
+2025-08-11,Jeux et jouets,EAST,validation,19.0,14
+2025-08-18,Jeux et jouets,EAST,validation,15.0,11
+2025-08-25,Jeux et jouets,EAST,validation,15.0,9
+2025-09-01,Jeux et jouets,EAST,validation,15.0,13
+2025-09-08,Jeux et jouets,EAST,validation,22.0,21
+2025-09-15,Jeux et jouets,EAST,validation,15.999999999999998,17
+2025-09-22,Jeux et jouets,EAST,validation,19.0,15
+2025-09-29,Jeux et jouets,EAST,validation,11.0,21
+2025-10-06,Jeux et jouets,EAST,test,14.0,9
+2025-10-13,Jeux et jouets,EAST,test,9.0,14
+2025-10-20,Jeux et jouets,EAST,test,12.0,13
+2025-10-27,Jeux et jouets,EAST,test,10.0,17
+2025-11-03,Jeux et jouets,EAST,test,15.999999999999998,18
+2025-11-10,Jeux et jouets,EAST,test,24.0,16
+2025-11-17,Jeux et jouets,EAST,test,10.0,14
+2025-11-24,Jeux et jouets,EAST,test,18.0,11
+2025-12-01,Jeux et jouets,EAST,test,15.0,13
+2025-12-08,Jeux et jouets,EAST,test,12.999999999999998,6
+2025-12-15,Jeux et jouets,EAST,test,12.999999999999998,6
+2025-12-22,Jeux et jouets,EAST,test,12.999999999999998,13
+2025-12-29,Jeux et jouets,EAST,test,7.0,18
+2026-01-05,Jeux et jouets,EAST,test,10.999999999993396,2
+2025-07-07,Jeux et jouets,NORTH,validation,12.822805968024847,22
+2025-07-14,Jeux et jouets,NORTH,validation,20.0,20
+2025-07-21,Jeux et jouets,NORTH,validation,14.999999999999998,14
+2025-07-28,Jeux et jouets,NORTH,validation,10.999999999999996,26
+2025-08-04,Jeux et jouets,NORTH,validation,11.0,15
+2025-08-11,Jeux et jouets,NORTH,validation,18.999999999999996,16
+2025-08-18,Jeux et jouets,NORTH,validation,10.999999999999998,16
+2025-08-25,Jeux et jouets,NORTH,validation,18.999999999999996,19
+2025-09-01,Jeux et jouets,NORTH,validation,13.999999999999998,18
+2025-09-08,Jeux et jouets,NORTH,validation,25.0,23
+2025-09-15,Jeux et jouets,NORTH,validation,15.999999999999998,17
+2025-09-22,Jeux et jouets,NORTH,validation,22.999999999999996,21
+2025-09-29,Jeux et jouets,NORTH,validation,11.999999999999998,20
+2025-10-06,Jeux et jouets,NORTH,test,11.165811181496828,11
+2025-10-13,Jeux et jouets,NORTH,test,8.999999999999998,17
+2025-10-20,Jeux et jouets,NORTH,test,16.999999999999996,13
+2025-10-27,Jeux et jouets,NORTH,test,7.0,20
+2025-11-03,Jeux et jouets,NORTH,test,14.999999999999998,21
+2025-11-10,Jeux et jouets,NORTH,test,14.999999999999998,13
+2025-11-17,Jeux et jouets,NORTH,test,14.0,12
+2025-11-24,Jeux et jouets,NORTH,test,14.999999999999998,17
+2025-12-01,Jeux et jouets,NORTH,test,9.0,16
+2025-12-08,Jeux et jouets,NORTH,test,16.0,11
+2025-12-15,Jeux et jouets,NORTH,test,11.0,17
+2025-12-22,Jeux et jouets,NORTH,test,15.999999999999998,14
+2025-12-29,Jeux et jouets,NORTH,test,10.0,14
+2026-01-05,Jeux et jouets,NORTH,test,14.0,6
+2025-07-07,Jeux et jouets,SOUTH,validation,18.0,5
+2025-07-14,Jeux et jouets,SOUTH,validation,14.0,8
+2025-07-21,Jeux et jouets,SOUTH,validation,10.0,7
+2025-07-28,Jeux et jouets,SOUTH,validation,10.999999999999998,9
+2025-08-04,Jeux et jouets,SOUTH,validation,9.0,11
+2025-08-11,Jeux et jouets,SOUTH,validation,8.0,6
+2025-08-18,Jeux et jouets,SOUTH,validation,9.0,6
+2025-08-25,Jeux et jouets,SOUTH,validation,10.0,12
+2025-09-01,Jeux et jouets,SOUTH,validation,9.0,5
+2025-09-08,Jeux et jouets,SOUTH,validation,15.0,14
+2025-09-15,Jeux et jouets,SOUTH,validation,10.0,10
+2025-09-22,Jeux et jouets,SOUTH,validation,12.000000000000002,8
+2025-09-29,Jeux et jouets,SOUTH,validation,10.999999999999998,13
+2025-10-06,Jeux et jouets,SOUTH,test,10.0,11
+2025-10-13,Jeux et jouets,SOUTH,test,10.0,10
+2025-10-20,Jeux et jouets,SOUTH,test,8.0,8
+2025-10-27,Jeux et jouets,SOUTH,test,5.0,8
+2025-11-03,Jeux et jouets,SOUTH,test,4.0,9
+2025-11-10,Jeux et jouets,SOUTH,test,5.0,6
+2025-11-17,Jeux et jouets,SOUTH,test,10.0,9
+2025-11-24,Jeux et jouets,SOUTH,test,4.0,8
+2025-12-01,Jeux et jouets,SOUTH,test,10.999999999999998,7
+2025-12-08,Jeux et jouets,SOUTH,test,9.0,11
+2025-12-15,Jeux et jouets,SOUTH,test,5.0,10
+2025-12-22,Jeux et jouets,SOUTH,test,9.0,3
+2025-12-29,Jeux et jouets,SOUTH,test,4.0,7
+2026-01-05,Jeux et jouets,SOUTH,test,7.999999999991557,1
+2025-07-07,Jeux et jouets,WEST,validation,16.0,13
+2025-07-14,Jeux et jouets,WEST,validation,10.0,11
+2025-07-21,Jeux et jouets,WEST,validation,10.0,7
+2025-07-28,Jeux et jouets,WEST,validation,16.0,13
+2025-08-04,Jeux et jouets,WEST,validation,18.0,21
+2025-08-11,Jeux et jouets,WEST,validation,11.000000000000002,14
+2025-08-18,Jeux et jouets,WEST,validation,8.0,9
+2025-08-25,Jeux et jouets,WEST,validation,13.0,6
+2025-09-01,Jeux et jouets,WEST,validation,2.0,8
+2025-09-08,Jeux et jouets,WEST,validation,9.0,15
+2025-09-15,Jeux et jouets,WEST,validation,10.0,15
+2025-09-22,Jeux et jouets,WEST,validation,9.0,16
+2025-09-29,Jeux et jouets,WEST,validation,13.0,9
+2025-10-06,Jeux et jouets,WEST,test,9.000000000000002,7
+2025-10-13,Jeux et jouets,WEST,test,8.0,12
+2025-10-20,Jeux et jouets,WEST,test,5.0,9
+2025-10-27,Jeux et jouets,WEST,test,6.000000000000001,9
+2025-11-03,Jeux et jouets,WEST,test,12.000000000000002,6
+2025-11-10,Jeux et jouets,WEST,test,9.000000000000002,5
+2025-11-17,Jeux et jouets,WEST,test,10.0,13
+2025-11-24,Jeux et jouets,WEST,test,10.0,10
+2025-12-01,Jeux et jouets,WEST,test,12.000000000000002,10
+2025-12-08,Jeux et jouets,WEST,test,6.000000000000001,12
+2025-12-15,Jeux et jouets,WEST,test,5.0,14
+2025-12-22,Jeux et jouets,WEST,test,11.0,10
+2025-12-29,Jeux et jouets,WEST,test,12.0,5
+2026-01-05,Jeux et jouets,WEST,test,6.999999999999888,1
+2025-06-30,Logiciels,EAST,validation,4.0,4
+2025-07-07,Logiciels,EAST,validation,4.0,4
+2025-07-14,Logiciels,EAST,validation,4.0,5
+2025-07-21,Logiciels,EAST,validation,3.0,2
+2025-07-28,Logiciels,EAST,validation,3.0,4
+2025-08-04,Logiciels,EAST,validation,4.0,4
+2025-08-11,Logiciels,EAST,validation,5.000000000000001,6
+2025-08-18,Logiciels,EAST,validation,5.000000000000001,3
+2025-08-25,Logiciels,EAST,validation,1.0,3
+2025-09-01,Logiciels,EAST,validation,4.0,2
+2025-09-08,Logiciels,EAST,validation,4.0,3
+2025-09-15,Logiciels,EAST,validation,2.0,4
+2025-09-22,Logiciels,EAST,validation,3.0,2
+2025-09-29,Logiciels,EAST,test,8.999999999999998,4
+2025-10-06,Logiciels,EAST,test,1.0,3
+2025-10-13,Logiciels,EAST,test,4.0,3
+2025-10-20,Logiciels,EAST,test,0.0,5
+2025-10-27,Logiciels,EAST,test,4.0,4
+2025-11-03,Logiciels,EAST,test,6.999999999999999,3
+2025-11-10,Logiciels,EAST,test,1.0,3
+2025-11-17,Logiciels,EAST,test,4.0,1
+2025-11-24,Logiciels,EAST,test,4.0,4
+2025-12-01,Logiciels,EAST,test,1.0,3
+2025-12-08,Logiciels,EAST,test,2.0,2
+2025-12-15,Logiciels,EAST,test,4.0,3
+2025-12-22,Logiciels,EAST,test,1.0,7
+2025-12-29,Logiciels,EAST,test,1.0,5
+2025-07-07,Logiciels,NORTH,validation,0.9999999999999999,1
+2025-07-14,Logiciels,NORTH,validation,1.9999999999999998,5
+2025-07-21,Logiciels,NORTH,validation,0.0,4
+2025-07-28,Logiciels,NORTH,validation,2.9999999999999996,5
+2025-08-04,Logiciels,NORTH,validation,2.9999999999999996,2
+2025-08-11,Logiciels,NORTH,validation,1.9999999999999998,4
+2025-08-18,Logiciels,NORTH,validation,2.9999999999999996,1
+2025-08-25,Logiciels,NORTH,validation,5.999999999999999,1
+2025-09-01,Logiciels,NORTH,validation,3.9999999999999996,5
+2025-09-08,Logiciels,NORTH,validation,0.9999999999999999,3
+2025-09-15,Logiciels,NORTH,validation,1.9999999999999998,3
+2025-09-22,Logiciels,NORTH,validation,3.9999999999999996,6
+2025-09-29,Logiciels,NORTH,validation,2.9999999999999996,2
+2025-10-06,Logiciels,NORTH,test,0.0,1
+2025-10-13,Logiciels,NORTH,test,3.0000000000000004,2
+2025-10-20,Logiciels,NORTH,test,2.0,3
+2025-10-27,Logiciels,NORTH,test,6.000000000000001,2
+2025-11-03,Logiciels,NORTH,test,2.0,2
+2025-11-10,Logiciels,NORTH,test,4.0,2
+2025-11-17,Logiciels,NORTH,test,0.0,2
+2025-11-24,Logiciels,NORTH,test,4.0,3
+2025-12-01,Logiciels,NORTH,test,4.0,4
+2025-12-08,Logiciels,NORTH,test,1.0,3
+2025-12-15,Logiciels,NORTH,test,3.0000000000000004,2
+2025-12-22,Logiciels,NORTH,test,4.0,3
+2025-12-29,Logiciels,NORTH,test,4.0,3
+2025-07-07,Logiciels,SOUTH,validation,5.0,0
+2025-07-14,Logiciels,SOUTH,validation,5.0,1
+2025-07-21,Logiciels,SOUTH,validation,0.0,5
+2025-07-28,Logiciels,SOUTH,validation,2.0,3
+2025-08-04,Logiciels,SOUTH,validation,2.0,2
+2025-08-11,Logiciels,SOUTH,validation,3.0000000000000004,0
+2025-08-18,Logiciels,SOUTH,validation,2.0,3
+2025-08-25,Logiciels,SOUTH,validation,2.0,3
+2025-09-01,Logiciels,SOUTH,validation,1.0,0
+2025-09-08,Logiciels,SOUTH,validation,2.0,2
+2025-09-15,Logiciels,SOUTH,validation,0.0,2
+2025-09-22,Logiciels,SOUTH,validation,1.0,1
+2025-09-29,Logiciels,SOUTH,validation,1.0,1
+2025-10-06,Logiciels,SOUTH,test,3.0,4
+2025-10-13,Logiciels,SOUTH,test,3.0,1
+2025-10-20,Logiciels,SOUTH,test,2.0,0
+2025-10-27,Logiciels,SOUTH,test,2.0,1
+2025-11-03,Logiciels,SOUTH,test,0.0,3
+2025-11-10,Logiciels,SOUTH,test,3.0,3
+2025-11-17,Logiciels,SOUTH,test,2.0,0
+2025-11-24,Logiciels,SOUTH,test,3.0,1
+2025-12-01,Logiciels,SOUTH,test,0.0,1
+2025-12-08,Logiciels,SOUTH,test,2.0,4
+2025-12-15,Logiciels,SOUTH,test,2.0,0
+2025-12-22,Logiciels,SOUTH,test,1.0,2
+2025-12-29,Logiciels,SOUTH,test,1.0,2
+2026-01-05,Logiciels,SOUTH,test,1.0,1
+2025-07-07,Logiciels,WEST,validation,1.0,1
+2025-07-14,Logiciels,WEST,validation,7.0,0
+2025-07-21,Logiciels,WEST,validation,4.0,4
+2025-07-28,Logiciels,WEST,validation,3.0,1
+2025-08-04,Logiciels,WEST,validation,5.000000000000001,2
+2025-08-11,Logiciels,WEST,validation,5.000000000000001,2
+2025-08-18,Logiciels,WEST,validation,2.0,1
+2025-08-25,Logiciels,WEST,validation,0.0,0
+2025-09-01,Logiciels,WEST,validation,1.0,2
+2025-09-08,Logiciels,WEST,validation,4.0,1
+2025-09-15,Logiciels,WEST,validation,1.0,0
+2025-09-22,Logiciels,WEST,validation,0.0,3
+2025-09-29,Logiciels,WEST,validation,3.0,4
+2025-10-06,Logiciels,WEST,test,1.9999999999999998,1
+2025-10-13,Logiciels,WEST,test,0.9999999999999999,1
+2025-10-20,Logiciels,WEST,test,0.9999999999999999,3
+2025-10-27,Logiciels,WEST,test,0.9999999999999999,4
+2025-11-03,Logiciels,WEST,test,0.9999999999999999,2
+2025-11-10,Logiciels,WEST,test,3.9999999999999996,0
+2025-11-17,Logiciels,WEST,test,0.9999999999999999,4
+2025-11-24,Logiciels,WEST,test,2.999999999999999,2
+2025-12-01,Logiciels,WEST,test,2.999999999999999,2
+2025-12-08,Logiciels,WEST,test,0.0,1
+2025-12-15,Logiciels,WEST,test,7.999999999999999,0
+2025-12-22,Logiciels,WEST,test,0.0,0
+2025-12-29,Logiciels,WEST,test,0.9999999999999999,3
+2025-07-07,Lots,EAST,validation,3.0,5
+2025-07-14,Lots,EAST,validation,6.0,5
+2025-07-21,Lots,EAST,validation,9.0,6
+2025-07-28,Lots,EAST,validation,7.000000000000001,4
+2025-08-04,Lots,EAST,validation,4.0,4
+2025-08-11,Lots,EAST,validation,9.0,4
+2025-08-18,Lots,EAST,validation,5.0,11
+2025-08-25,Lots,EAST,validation,3.0,8
+2025-09-01,Lots,EAST,validation,4.0,3
+2025-09-08,Lots,EAST,validation,5.0,9
+2025-09-15,Lots,EAST,validation,4.0,2
+2025-09-22,Lots,EAST,validation,7.000000000000001,12
+2025-09-29,Lots,EAST,validation,5.0,6
+2025-10-06,Lots,EAST,test,3.0,2
+2025-10-13,Lots,EAST,test,1.9999999999999998,4
+2025-10-20,Lots,EAST,test,3.9999999999999996,7
+2025-10-27,Lots,EAST,test,3.0,6
+2025-11-03,Lots,EAST,test,3.9999999999999996,3
+2025-11-10,Lots,EAST,test,7.0,2
+2025-11-17,Lots,EAST,test,3.9999999999999996,5
+2025-11-24,Lots,EAST,test,4.999999999999999,8
+2025-12-01,Lots,EAST,test,3.0,9
+2025-12-08,Lots,EAST,test,7.999999999999999,9
+2025-12-15,Lots,EAST,test,6.0,2
+2025-12-22,Lots,EAST,test,6.0,7
+2025-12-29,Lots,EAST,test,11.0,4
+2025-07-07,Lots,NORTH,validation,6.0,7
+2025-07-14,Lots,NORTH,validation,6.0,6
+2025-07-21,Lots,NORTH,validation,5.0,9
+2025-07-28,Lots,NORTH,validation,13.000000000000002,6
+2025-08-04,Lots,NORTH,validation,5.0,7
+2025-08-11,Lots,NORTH,validation,9.0,14
+2025-08-18,Lots,NORTH,validation,10.0,4
+2025-08-25,Lots,NORTH,validation,9.0,8
+2025-09-01,Lots,NORTH,validation,6.0,6
+2025-09-08,Lots,NORTH,validation,5.0,6
+2025-09-15,Lots,NORTH,validation,0.0,10
+2025-09-22,Lots,NORTH,validation,4.0,4
+2025-09-29,Lots,NORTH,validation,4.0,10
+2025-10-06,Lots,NORTH,test,10.999999999999998,7
+2025-10-13,Lots,NORTH,test,1.9999999999999998,2
+2025-10-20,Lots,NORTH,test,8.999999999999998,3
+2025-10-27,Lots,NORTH,test,5.999999999999999,6
+2025-11-03,Lots,NORTH,test,2.9999999999999996,4
+2025-11-10,Lots,NORTH,test,2.9999999999999996,5
+2025-11-17,Lots,NORTH,test,2.9999999999999996,7
+2025-11-24,Lots,NORTH,test,5.0,4
+2025-12-01,Lots,NORTH,test,6.999999999999999,5
+2025-12-08,Lots,NORTH,test,6.999999999999999,5
+2025-12-15,Lots,NORTH,test,3.9999999999999996,6
+2025-12-22,Lots,NORTH,test,5.0,9
+2025-12-29,Lots,NORTH,test,9.0,8
+2026-01-05,Lots,NORTH,test,2.9999999999847784,2
+2025-07-07,Lots,SOUTH,validation,3.0,4
+2025-07-14,Lots,SOUTH,validation,4.0,4
+2025-07-21,Lots,SOUTH,validation,1.0,3
+2025-07-28,Lots,SOUTH,validation,9.0,4
+2025-08-04,Lots,SOUTH,validation,3.0,4
+2025-08-11,Lots,SOUTH,validation,1.0,3
+2025-08-18,Lots,SOUTH,validation,3.0,4
+2025-08-25,Lots,SOUTH,validation,6.0,4
+2025-09-01,Lots,SOUTH,validation,7.000000000000001,4
+2025-09-08,Lots,SOUTH,validation,2.0,4
+2025-09-15,Lots,SOUTH,validation,2.0,2
+2025-09-22,Lots,SOUTH,validation,2.0,3
+2025-09-29,Lots,SOUTH,validation,8.0,4
+2025-10-06,Lots,SOUTH,test,7.000000000000001,4
+2025-10-13,Lots,SOUTH,test,3.0000000000000004,2
+2025-10-20,Lots,SOUTH,test,1.0000000000000002,2
+2025-10-27,Lots,SOUTH,test,5.000000000000001,1
+2025-11-03,Lots,SOUTH,test,3.0000000000000004,0
+2025-11-10,Lots,SOUTH,test,2.0000000000000004,2
+2025-11-17,Lots,SOUTH,test,4.000000000000001,4
+2025-11-24,Lots,SOUTH,test,3.0000000000000004,2
+2025-12-01,Lots,SOUTH,test,3.0000000000000004,0
+2025-12-08,Lots,SOUTH,test,2.0000000000000004,1
+2025-12-15,Lots,SOUTH,test,5.000000000000001,2
+2025-12-22,Lots,SOUTH,test,1.0000000000000002,3
+2025-12-29,Lots,SOUTH,test,3.0,2
+2026-01-05,Lots,SOUTH,test,4.999999999918446,1
+2025-07-07,Lots,WEST,validation,2.0,7
+2025-07-14,Lots,WEST,validation,7.0,6
+2025-07-21,Lots,WEST,validation,4.0,6
+2025-07-28,Lots,WEST,validation,4.0,4
+2025-08-04,Lots,WEST,validation,4.0,6
+2025-08-11,Lots,WEST,validation,1.0,1
+2025-08-18,Lots,WEST,validation,1.0,4
+2025-08-25,Lots,WEST,validation,5.0,3
+2025-09-01,Lots,WEST,validation,2.9999999999999996,3
+2025-09-08,Lots,WEST,validation,5.0,0
+2025-09-15,Lots,WEST,validation,2.9999999999999996,7
+2025-09-22,Lots,WEST,validation,8.0,6
+2025-09-29,Lots,WEST,validation,9.0,5
+2025-10-06,Lots,WEST,test,2.0,2
+2025-10-13,Lots,WEST,test,6.0,5
+2025-10-20,Lots,WEST,test,2.0,1
+2025-10-27,Lots,WEST,test,3.0,0
+2025-11-03,Lots,WEST,test,3.0,3
+2025-11-10,Lots,WEST,test,8.0,1
+2025-11-17,Lots,WEST,test,1.0,3
+2025-11-24,Lots,WEST,test,8.0,5
+2025-12-01,Lots,WEST,test,7.0,5
+2025-12-08,Lots,WEST,test,2.0,3
+2025-12-15,Lots,WEST,test,1.0,4
+2025-12-22,Lots,WEST,test,4.0,6
+2025-12-29,Lots,WEST,test,3.0,5
+2026-01-05,Lots,WEST,test,1.9999999999969793,1
+2025-07-07,Maison et jardin,EAST,validation,114.03074424242254,102
+2025-07-14,Maison et jardin,EAST,validation,105.0,111
+2025-07-21,Maison et jardin,EAST,validation,113.0,101
+2025-07-28,Maison et jardin,EAST,validation,119.00000000000001,110
+2025-08-04,Maison et jardin,EAST,validation,116.0,109
+2025-08-11,Maison et jardin,EAST,validation,98.0,122
+2025-08-18,Maison et jardin,EAST,validation,113.00000000000001,104
+2025-08-25,Maison et jardin,EAST,validation,123.00000000000001,120
+2025-09-01,Maison et jardin,EAST,validation,102.00000000000001,110
+2025-09-08,Maison et jardin,EAST,validation,110.0,108
+2025-09-15,Maison et jardin,EAST,validation,114.00000000000001,91
+2025-09-22,Maison et jardin,EAST,validation,107.0,119
+2025-09-29,Maison et jardin,EAST,validation,100.0,106
+2025-10-06,Maison et jardin,EAST,test,73.67302938160114,78
+2025-10-13,Maison et jardin,EAST,test,75.0,80
+2025-10-20,Maison et jardin,EAST,test,85.0,65
+2025-10-27,Maison et jardin,EAST,test,97.0,82
+2025-11-03,Maison et jardin,EAST,test,88.0,113
+2025-11-10,Maison et jardin,EAST,test,88.00000000000001,84
+2025-11-17,Maison et jardin,EAST,test,86.0,80
+2025-11-24,Maison et jardin,EAST,test,100.00000000000001,86
+2025-12-01,Maison et jardin,EAST,test,110.0,86
+2025-12-08,Maison et jardin,EAST,test,79.0,95
+2025-12-15,Maison et jardin,EAST,test,101.00000000000001,83
+2025-12-22,Maison et jardin,EAST,test,86.0,81
+2025-12-29,Maison et jardin,EAST,test,79.0,84
+2026-01-05,Maison et jardin,EAST,test,80.00000000000001,24
+2025-07-07,Maison et jardin,NORTH,validation,121.0,101
+2025-07-14,Maison et jardin,NORTH,validation,96.0,119
+2025-07-21,Maison et jardin,NORTH,validation,116.00000000000001,129
+2025-07-28,Maison et jardin,NORTH,validation,114.0,108
+2025-08-04,Maison et jardin,NORTH,validation,120.0,124
+2025-08-11,Maison et jardin,NORTH,validation,108.0,120
+2025-08-18,Maison et jardin,NORTH,validation,110.00000000000001,108
+2025-08-25,Maison et jardin,NORTH,validation,111.00000000000001,109
+2025-09-01,Maison et jardin,NORTH,validation,118.00000000000001,105
+2025-09-08,Maison et jardin,NORTH,validation,113.00000000000001,101
+2025-09-15,Maison et jardin,NORTH,validation,116.00000000000001,120
+2025-09-22,Maison et jardin,NORTH,validation,125.00000000000001,88
+2025-09-29,Maison et jardin,NORTH,validation,128.0,107
+2025-10-06,Maison et jardin,NORTH,test,74.0,93
+2025-10-13,Maison et jardin,NORTH,test,102.0,99
+2025-10-20,Maison et jardin,NORTH,test,104.0,79
+2025-10-27,Maison et jardin,NORTH,test,79.00000000000001,75
+2025-11-03,Maison et jardin,NORTH,test,95.99999999999999,86
+2025-11-10,Maison et jardin,NORTH,test,84.0,75
+2025-11-17,Maison et jardin,NORTH,test,93.00000000000001,90
+2025-11-24,Maison et jardin,NORTH,test,80.0,100
+2025-12-01,Maison et jardin,NORTH,test,94.0,84
+2025-12-08,Maison et jardin,NORTH,test,86.0,91
+2025-12-15,Maison et jardin,NORTH,test,106.0,94
+2025-12-22,Maison et jardin,NORTH,test,92.0,88
+2025-12-29,Maison et jardin,NORTH,test,113.0,80
+2026-01-05,Maison et jardin,NORTH,test,79.00000000000013,22
+2025-07-07,Maison et jardin,SOUTH,validation,56.99999999999999,55
+2025-07-14,Maison et jardin,SOUTH,validation,56.99999999999999,77
+2025-07-21,Maison et jardin,SOUTH,validation,62.0,58
+2025-07-28,Maison et jardin,SOUTH,validation,75.0,77
+2025-08-04,Maison et jardin,SOUTH,validation,70.0,59
+2025-08-11,Maison et jardin,SOUTH,validation,70.0,72
+2025-08-18,Maison et jardin,SOUTH,validation,58.99999999999999,64
+2025-08-25,Maison et jardin,SOUTH,validation,50.99999999999999,72
+2025-09-01,Maison et jardin,SOUTH,validation,78.0,61
+2025-09-08,Maison et jardin,SOUTH,validation,66.99999999999999,71
+2025-09-15,Maison et jardin,SOUTH,validation,68.99999999999999,52
+2025-09-22,Maison et jardin,SOUTH,validation,75.0,82
+2025-09-29,Maison et jardin,SOUTH,validation,64.0,65
+2025-10-06,Maison et jardin,SOUTH,test,43.99999999999999,50
+2025-10-13,Maison et jardin,SOUTH,test,44.99999999999999,52
+2025-10-20,Maison et jardin,SOUTH,test,39.99999999999999,57
+2025-10-27,Maison et jardin,SOUTH,test,37.99999999999999,56
+2025-11-03,Maison et jardin,SOUTH,test,48.0,49
+2025-11-10,Maison et jardin,SOUTH,test,66.99999999999999,52
+2025-11-17,Maison et jardin,SOUTH,test,54.99999999999999,52
+2025-11-24,Maison et jardin,SOUTH,test,50.99999999999999,51
+2025-12-01,Maison et jardin,SOUTH,test,59.999999999999986,52
+2025-12-08,Maison et jardin,SOUTH,test,48.0,66
+2025-12-15,Maison et jardin,SOUTH,test,60.99999999999999,52
+2025-12-22,Maison et jardin,SOUTH,test,60.99999999999999,68
+2025-12-29,Maison et jardin,SOUTH,test,51.0,46
+2026-01-05,Maison et jardin,SOUTH,test,42.99999999999942,21
+2025-07-07,Maison et jardin,WEST,validation,74.19684779027529,79
+2025-07-14,Maison et jardin,WEST,validation,65.01351699705836,78
+2025-07-21,Maison et jardin,WEST,validation,77.15637870742307,78
+2025-07-28,Maison et jardin,WEST,validation,81.2946453884399,71
+2025-08-04,Maison et jardin,WEST,validation,91.20419137131104,70
+2025-08-11,Maison et jardin,WEST,validation,81.008496122825,84
+2025-08-18,Maison et jardin,WEST,validation,83.56123257985766,72
+2025-08-25,Maison et jardin,WEST,validation,80.68492769725273,78
+2025-09-01,Maison et jardin,WEST,validation,75.9380780287229,74
+2025-09-08,Maison et jardin,WEST,validation,67.07235995518809,83
+2025-09-15,Maison et jardin,WEST,validation,85.07431594917911,96
+2025-09-22,Maison et jardin,WEST,validation,86.02610509374226,82
+2025-09-29,Maison et jardin,WEST,validation,73.99110792336941,92
+2025-10-06,Maison et jardin,WEST,test,72.33550597606778,67
+2025-10-13,Maison et jardin,WEST,test,49.8475144129779,52
+2025-10-20,Maison et jardin,WEST,test,68.42391186213887,65
+2025-10-27,Maison et jardin,WEST,test,63.32830347269455,57
+2025-11-03,Maison et jardin,WEST,test,56.083961012369635,56
+2025-11-10,Maison et jardin,WEST,test,62.28585646747291,60
+2025-11-17,Maison et jardin,WEST,test,48.49775873798959,53
+2025-11-24,Maison et jardin,WEST,test,76.2357734234016,57
+2025-12-01,Maison et jardin,WEST,test,48.99012509908217,53
+2025-12-08,Maison et jardin,WEST,test,71.9143293233072,70
+2025-12-15,Maison et jardin,WEST,test,51.946228789965616,65
+2025-12-22,Maison et jardin,WEST,test,68.99290983616822,68
+2025-12-29,Maison et jardin,WEST,test,68.01331341387954,49
+2026-01-05,Maison et jardin,WEST,test,43.01124936124211,17
+2025-07-07,Meubles,EAST,validation,38.9164065775049,41
+2025-07-14,Meubles,EAST,validation,33.99999999999999,44
+2025-07-21,Meubles,EAST,validation,37.99999999999999,57
+2025-07-28,Meubles,EAST,validation,64.0,41
+2025-08-04,Meubles,EAST,validation,52.99999999999999,42
+2025-08-11,Meubles,EAST,validation,41.0,40
+2025-08-18,Meubles,EAST,validation,33.99999999999999,43
+2025-08-25,Meubles,EAST,validation,47.0,49
+2025-09-01,Meubles,EAST,validation,33.99999999999999,49
+2025-09-08,Meubles,EAST,validation,43.99999999999999,43
+2025-09-15,Meubles,EAST,validation,42.99999999999999,50
+2025-09-22,Meubles,EAST,validation,47.0,46
+2025-09-29,Meubles,EAST,validation,48.99999999999999,45
+2025-10-06,Meubles,EAST,test,24.225706724514584,33
+2025-10-13,Meubles,EAST,test,36.0,37
+2025-10-20,Meubles,EAST,test,24.999999999999996,33
+2025-10-27,Meubles,EAST,test,37.0,29
+2025-11-03,Meubles,EAST,test,34.99999999999999,33
+2025-11-10,Meubles,EAST,test,33.0,36
+2025-11-17,Meubles,EAST,test,44.00000000000001,37
+2025-11-24,Meubles,EAST,test,41.99999999999999,46
+2025-12-01,Meubles,EAST,test,34.00000000000001,32
+2025-12-08,Meubles,EAST,test,34.00000000000001,39
+2025-12-15,Meubles,EAST,test,38.00000000000001,44
+2025-12-22,Meubles,EAST,test,31.000000000000004,40
+2025-12-29,Meubles,EAST,test,45.0,37
+2026-01-05,Meubles,EAST,test,33.0,11
+2025-07-07,Meubles,NORTH,validation,44.95024598535664,57
+2025-07-14,Meubles,NORTH,validation,34.446589641540314,53
+2025-07-21,Meubles,NORTH,validation,42.584445415593656,48
+2025-07-28,Meubles,NORTH,validation,52.058176832156704,55
+2025-08-04,Meubles,NORTH,validation,42.29463891646705,47
+2025-08-11,Meubles,NORTH,validation,39.52858503684602,44
+2025-08-18,Meubles,NORTH,validation,41.22265594158573,43
+2025-08-25,Meubles,NORTH,validation,61.945877243248724,49
+2025-09-01,Meubles,NORTH,validation,45.88474648351598,52
+2025-09-08,Meubles,NORTH,validation,42.94775068044687,42
+2025-09-15,Meubles,NORTH,validation,45.009487587495286,49
+2025-09-22,Meubles,NORTH,validation,39.02503745051468,52
+2025-09-29,Meubles,NORTH,validation,41.01218063329867,51
+2025-10-06,Meubles,NORTH,test,38.04471367896152,36
+2025-10-13,Meubles,NORTH,test,31.088184900831983,34
+2025-10-20,Meubles,NORTH,test,29.171496100708215,35
+2025-10-27,Meubles,NORTH,test,30.478482104457104,36
+2025-11-03,Meubles,NORTH,test,28.25847873657008,34
+2025-11-10,Meubles,NORTH,test,33.3249869190329,35
+2025-11-17,Meubles,NORTH,test,25.11849631857642,45
+2025-11-24,Meubles,NORTH,test,39.96998174723988,29
+2025-12-01,Meubles,NORTH,test,35.943874054802045,31
+2025-12-08,Meubles,NORTH,test,37.974895353856965,30
+2025-12-15,Meubles,NORTH,test,29.002321203637777,43
+2025-12-22,Meubles,NORTH,test,42.00939903995214,43
+2025-12-29,Meubles,NORTH,test,39.005062764017886,35
+2026-01-05,Meubles,NORTH,test,33.00014108993012,8
+2025-07-07,Meubles,SOUTH,validation,27.000000000000004,18
+2025-07-14,Meubles,SOUTH,validation,32.0,26
+2025-07-21,Meubles,SOUTH,validation,33.0,29
+2025-07-28,Meubles,SOUTH,validation,34.0,30
+2025-08-04,Meubles,SOUTH,validation,22.0,33
+2025-08-11,Meubles,SOUTH,validation,30.000000000000004,22
+2025-08-18,Meubles,SOUTH,validation,21.0,26
+2025-08-25,Meubles,SOUTH,validation,30.000000000000004,29
+2025-09-01,Meubles,SOUTH,validation,29.000000000000004,25
+2025-09-08,Meubles,SOUTH,validation,34.0,22
+2025-09-15,Meubles,SOUTH,validation,19.0,28
+2025-09-22,Meubles,SOUTH,validation,23.0,20
+2025-09-29,Meubles,SOUTH,validation,29.000000000000004,31
+2025-10-06,Meubles,SOUTH,test,12.0,19
+2025-10-13,Meubles,SOUTH,test,19.999999999999996,15
+2025-10-20,Meubles,SOUTH,test,18.0,13
+2025-10-27,Meubles,SOUTH,test,17.0,19
+2025-11-03,Meubles,SOUTH,test,19.999999999999996,20
+2025-11-10,Meubles,SOUTH,test,19.0,27
+2025-11-17,Meubles,SOUTH,test,22.0,13
+2025-11-24,Meubles,SOUTH,test,25.0,20
+2025-12-01,Meubles,SOUTH,test,18.0,16
+2025-12-08,Meubles,SOUTH,test,28.999999999999996,29
+2025-12-15,Meubles,SOUTH,test,15.0,25
+2025-12-22,Meubles,SOUTH,test,16.0,23
+2025-12-29,Meubles,SOUTH,test,23.0,26
+2026-01-05,Meubles,SOUTH,test,13.999999999997936,7
+2025-07-07,Meubles,WEST,validation,27.0,34
+2025-07-14,Meubles,WEST,validation,32.0,44
+2025-07-21,Meubles,WEST,validation,32.0,27
+2025-07-28,Meubles,WEST,validation,35.99999999999999,27
+2025-08-04,Meubles,WEST,validation,25.999999999999996,33
+2025-08-11,Meubles,WEST,validation,33.0,26
+2025-08-18,Meubles,WEST,validation,35.0,29
+2025-08-25,Meubles,WEST,validation,28.999999999999996,26
+2025-09-01,Meubles,WEST,validation,35.99999999999999,28
+2025-09-08,Meubles,WEST,validation,30.999999999999996,29
+2025-09-15,Meubles,WEST,validation,30.000000000000004,29
+2025-09-22,Meubles,WEST,validation,25.999999999999996,25
+2025-09-29,Meubles,WEST,validation,33.0,36
+2025-10-06,Meubles,WEST,test,24.000000000000004,22
+2025-10-13,Meubles,WEST,test,29.000000000000004,29
+2025-10-20,Meubles,WEST,test,21.000000000000004,30
+2025-10-27,Meubles,WEST,test,19.0,26
+2025-11-03,Meubles,WEST,test,20.0,30
+2025-11-10,Meubles,WEST,test,15.0,20
+2025-11-17,Meubles,WEST,test,30.0,25
+2025-11-24,Meubles,WEST,test,25.0,31
+2025-12-01,Meubles,WEST,test,25.0,26
+2025-12-08,Meubles,WEST,test,27.000000000000004,26
+2025-12-15,Meubles,WEST,test,33.00000000000001,23
+2025-12-22,Meubles,WEST,test,28.000000000000004,31
+2025-12-29,Meubles,WEST,test,26.999999999999996,19
+2026-01-05,Meubles,WEST,test,19.999999999996042,13
+2025-07-07,Modules complémentaires du produit,EAST,validation,3.0,2
+2025-07-14,Modules complémentaires du produit,EAST,validation,6.0,2
+2025-07-21,Modules complémentaires du produit,EAST,validation,0.0,4
+2025-07-28,Modules complémentaires du produit,EAST,validation,5.000000000000001,1
+2025-08-04,Modules complémentaires du produit,EAST,validation,7.000000000000001,2
+2025-08-11,Modules complémentaires du produit,EAST,validation,4.0,2
+2025-08-18,Modules complémentaires du produit,EAST,validation,5.000000000000001,2
+2025-08-25,Modules complémentaires du produit,EAST,validation,4.0,2
+2025-09-01,Modules complémentaires du produit,EAST,validation,5.000000000000001,3
+2025-09-08,Modules complémentaires du produit,EAST,validation,3.0,1
+2025-09-15,Modules complémentaires du produit,EAST,validation,2.0,3
+2025-09-22,Modules complémentaires du produit,EAST,validation,3.0,1
+2025-09-29,Modules complémentaires du produit,EAST,validation,1.0,5
+2025-10-06,Modules complémentaires du produit,EAST,test,5.0,4
+2025-10-13,Modules complémentaires du produit,EAST,test,1.0,3
+2025-10-20,Modules complémentaires du produit,EAST,test,3.0,0
+2025-10-27,Modules complémentaires du produit,EAST,test,4.0,2
+2025-11-03,Modules complémentaires du produit,EAST,test,1.0,2
+2025-11-10,Modules complémentaires du produit,EAST,test,0.0,5
+2025-11-17,Modules complémentaires du produit,EAST,test,4.0,2
+2025-11-24,Modules complémentaires du produit,EAST,test,6.0,0
+2025-12-01,Modules complémentaires du produit,EAST,test,2.0,2
+2025-12-08,Modules complémentaires du produit,EAST,test,4.0,3
+2025-12-15,Modules complémentaires du produit,EAST,test,5.0,1
+2025-12-22,Modules complémentaires du produit,EAST,test,1.0,4
+2025-12-29,Modules complémentaires du produit,EAST,test,2.0,8
+2025-06-30,Modules complémentaires du produit,NORTH,validation,3.0,2
+2025-07-07,Modules complémentaires du produit,NORTH,validation,4.0,7
+2025-07-14,Modules complémentaires du produit,NORTH,validation,3.0,5
+2025-07-21,Modules complémentaires du produit,NORTH,validation,5.0,4
+2025-07-28,Modules complémentaires du produit,NORTH,validation,3.0,1
+2025-08-04,Modules complémentaires du produit,NORTH,validation,1.0,4
+2025-08-11,Modules complémentaires du produit,NORTH,validation,2.0,3
+2025-08-18,Modules complémentaires du produit,NORTH,validation,5.0,2
+2025-08-25,Modules complémentaires du produit,NORTH,validation,4.0,2
+2025-09-01,Modules complémentaires du produit,NORTH,validation,5.0,4
+2025-09-08,Modules complémentaires du produit,NORTH,validation,4.0,1
+2025-09-15,Modules complémentaires du produit,NORTH,validation,0.0,3
+2025-09-22,Modules complémentaires du produit,NORTH,validation,4.0,3
+2025-09-29,Modules complémentaires du produit,NORTH,test,2.9999999999999996,5
+2025-10-06,Modules complémentaires du produit,NORTH,test,1.9999999999999998,6
+2025-10-13,Modules complémentaires du produit,NORTH,test,3.9999999999999996,4
+2025-10-20,Modules complémentaires du produit,NORTH,test,1.9999999999999998,6
+2025-10-27,Modules complémentaires du produit,NORTH,test,2.9999999999999996,1
+2025-11-03,Modules complémentaires du produit,NORTH,test,6.999999999999999,3
+2025-11-10,Modules complémentaires du produit,NORTH,test,2.9999999999999996,1
+2025-11-17,Modules complémentaires du produit,NORTH,test,0.0,3
+2025-11-24,Modules complémentaires du produit,NORTH,test,5.999999999999999,1
+2025-12-01,Modules complémentaires du produit,NORTH,test,2.9999999999999996,2
+2025-12-08,Modules complémentaires du produit,NORTH,test,4.999999999999999,2
+2025-12-15,Modules complémentaires du produit,NORTH,test,2.9999999999999996,5
+2025-12-22,Modules complémentaires du produit,NORTH,test,1.9999999999999998,3
+2025-12-29,Modules complémentaires du produit,NORTH,test,9.0,6
+2025-07-07,Modules complémentaires du produit,SOUTH,validation,1.9999999999999998,3
+2025-07-14,Modules complémentaires du produit,SOUTH,validation,1.9999999999999998,1
+2025-07-21,Modules complémentaires du produit,SOUTH,validation,0.9999999999999999,1
+2025-07-28,Modules complémentaires du produit,SOUTH,validation,3.9999999999999996,2
+2025-08-04,Modules complémentaires du produit,SOUTH,validation,1.9999999999999998,2
+2025-08-11,Modules complémentaires du produit,SOUTH,validation,3.0,2
+2025-08-18,Modules complémentaires du produit,SOUTH,validation,1.9999999999999998,2
+2025-08-25,Modules complémentaires du produit,SOUTH,validation,0.0,1
+2025-09-01,Modules complémentaires du produit,SOUTH,validation,1.9999999999999998,1
+2025-09-08,Modules complémentaires du produit,SOUTH,validation,3.0,7
+2025-09-15,Modules complémentaires du produit,SOUTH,validation,0.9999999999999999,3
+2025-09-22,Modules complémentaires du produit,SOUTH,validation,3.0,3
+2025-09-29,Modules complémentaires du produit,SOUTH,validation,4.999999999999999,3
+2025-10-06,Modules complémentaires du produit,SOUTH,test,2.0,2
+2025-10-13,Modules complémentaires du produit,SOUTH,test,5.0,0
+2025-10-20,Modules complémentaires du produit,SOUTH,test,1.0,0
+2025-10-27,Modules complémentaires du produit,SOUTH,test,3.0,1
+2025-11-03,Modules complémentaires du produit,SOUTH,test,1.0,0
+2025-11-10,Modules complémentaires du produit,SOUTH,test,3.0,1
+2025-11-17,Modules complémentaires du produit,SOUTH,test,3.0,0
+2025-11-24,Modules complémentaires du produit,SOUTH,test,1.0,1
+2025-12-01,Modules complémentaires du produit,SOUTH,test,2.0,0
+2025-12-08,Modules complémentaires du produit,SOUTH,test,2.0,1
+2025-12-15,Modules complémentaires du produit,SOUTH,test,3.0,1
+2025-12-22,Modules complémentaires du produit,SOUTH,test,3.0,0
+2025-12-29,Modules complémentaires du produit,SOUTH,test,1.0,1
+2026-01-05,Modules complémentaires du produit,SOUTH,test,6.572964394990777e-12,1
+2025-07-07,Modules complémentaires du produit,WEST,validation,5.375222567617705,3
+2025-07-14,Modules complémentaires du produit,WEST,validation,3.0,1
+2025-07-21,Modules complémentaires du produit,WEST,validation,1.0,1
+2025-07-28,Modules complémentaires du produit,WEST,validation,-4.235164736271502e-22,4
+2025-08-04,Modules complémentaires du produit,WEST,validation,2.9999999999999996,1
+2025-08-11,Modules complémentaires du produit,WEST,validation,3.0,2
+2025-08-18,Modules complémentaires du produit,WEST,validation,5.0,5
+2025-08-25,Modules complémentaires du produit,WEST,validation,2.0,2
+2025-09-01,Modules complémentaires du produit,WEST,validation,1.0,1
+2025-09-08,Modules complémentaires du produit,WEST,validation,2.0,2
+2025-09-15,Modules complémentaires du produit,WEST,validation,1.0,4
+2025-09-22,Modules complémentaires du produit,WEST,validation,1.0,3
+2025-09-29,Modules complémentaires du produit,WEST,validation,3.0000000000000004,5
+2025-10-06,Modules complémentaires du produit,WEST,test,2.77055759468545,3
+2025-10-13,Modules complémentaires du produit,WEST,test,2.0,5
+2025-10-20,Modules complémentaires du produit,WEST,test,2.0000000000000004,4
+2025-10-27,Modules complémentaires du produit,WEST,test,2.0000000000000004,2
+2025-11-03,Modules complémentaires du produit,WEST,test,-4.440864462159301e-22,2
+2025-11-10,Modules complémentaires du produit,WEST,test,2.0,1
+2025-11-17,Modules complémentaires du produit,WEST,test,-4.440854094903011e-22,1
+2025-11-24,Modules complémentaires du produit,WEST,test,2.0,2
+2025-12-01,Modules complémentaires du produit,WEST,test,2.0000000000000004,1
+2025-12-08,Modules complémentaires du produit,WEST,test,-6.661296693210516e-22,1
+2025-12-15,Modules complémentaires du produit,WEST,test,3.0000000000000004,3
+2025-12-22,Modules complémentaires du produit,WEST,test,-3.663304784070782e-22,2
+2025-12-29,Modules complémentaires du produit,WEST,test,1.0,2
+2025-07-07,Médias,EAST,validation,22.0,10
+2025-07-14,Médias,EAST,validation,15.000000000000002,29
+2025-07-21,Médias,EAST,validation,11.0,24
+2025-07-28,Médias,EAST,validation,16.0,16
+2025-08-04,Médias,EAST,validation,9.000000000000002,25
+2025-08-11,Médias,EAST,validation,19.0,11
+2025-08-18,Médias,EAST,validation,17.0,11
+2025-08-25,Médias,EAST,validation,18.000000000000004,21
+2025-09-01,Médias,EAST,validation,11.0,13
+2025-09-08,Médias,EAST,validation,17.0,16
+2025-09-15,Médias,EAST,validation,21.0,12
+2025-09-22,Médias,EAST,validation,17.0,13
+2025-09-29,Médias,EAST,validation,8.0,21
+2025-10-06,Médias,EAST,test,15.000000000000002,20
+2025-10-13,Médias,EAST,test,11.000000000000002,15
+2025-10-20,Médias,EAST,test,16.0,18
+2025-10-27,Médias,EAST,test,15.000000000000002,14
+2025-11-03,Médias,EAST,test,8.0,11
+2025-11-10,Médias,EAST,test,10.0,19
+2025-11-17,Médias,EAST,test,9.0,14
+2025-11-24,Médias,EAST,test,14.000000000000002,9
+2025-12-01,Médias,EAST,test,22.000000000000004,18
+2025-12-08,Médias,EAST,test,16.0,19
+2025-12-15,Médias,EAST,test,9.0,12
+2025-12-22,Médias,EAST,test,17.000000000000004,16
+2025-12-29,Médias,EAST,test,21.0,17
+2026-01-05,Médias,EAST,test,12.999999999994117,5
+2025-07-07,Médias,NORTH,validation,16.653729829617372,19
+2025-07-14,Médias,NORTH,validation,16.645586406864716,24
+2025-07-21,Médias,NORTH,validation,12.822362926076725,10
+2025-07-28,Médias,NORTH,validation,13.493954327615468,18
+2025-08-04,Médias,NORTH,validation,9.848474703254825,22
+2025-08-11,Médias,NORTH,validation,20.226733296628574,14
+2025-08-18,Médias,NORTH,validation,15.239549712857672,9
+2025-08-25,Médias,NORTH,validation,16.761561219286396,21
+2025-09-01,Médias,NORTH,validation,16.855039717403,10
+2025-09-08,Médias,NORTH,validation,13.67404195522778,15
+2025-09-15,Médias,NORTH,validation,10.383516171652325,8
+2025-09-22,Médias,NORTH,validation,18.109348144934323,15
+2025-09-29,Médias,NORTH,validation,18.92011164527233,14
+2025-10-06,Médias,NORTH,test,10.838610963079182,9
+2025-10-13,Médias,NORTH,test,13.887227908363993,12
+2025-10-20,Médias,NORTH,test,20.61812954736512,13
+2025-10-27,Médias,NORTH,test,15.565890176180643,11
+2025-11-03,Médias,NORTH,test,15.165241940347327,15
+2025-11-10,Médias,NORTH,test,15.700351350221492,11
+2025-11-17,Médias,NORTH,test,13.317647857537478,23
+2025-11-24,Médias,NORTH,test,10.064860297549108,10
+2025-12-01,Médias,NORTH,test,17.932745674532594,12
+2025-12-08,Médias,NORTH,test,14.888023868299747,13
+2025-12-15,Médias,NORTH,test,16.894338674012825,23
+2025-12-22,Médias,NORTH,test,10.922659075524306,18
+2025-12-29,Médias,NORTH,test,11.954311900490012,18
+2026-01-05,Médias,NORTH,test,15.97988877242709,5
+2025-07-07,Médias,SOUTH,validation,12.799397915765258,15
+2025-07-14,Médias,SOUTH,validation,11.999999999999996,4
+2025-07-21,Médias,SOUTH,validation,10.999999999999998,7
+2025-07-28,Médias,SOUTH,validation,9.0,14
+2025-08-04,Médias,SOUTH,validation,10.999999999999996,15
+2025-08-11,Médias,SOUTH,validation,4.999999999999999,5
+2025-08-18,Médias,SOUTH,validation,12.999999999999998,12
+2025-08-25,Médias,SOUTH,validation,9.000000000000002,11
+2025-09-01,Médias,SOUTH,validation,7.999999999999999,7
+2025-09-08,Médias,SOUTH,validation,9.0,12
+2025-09-15,Médias,SOUTH,validation,14.999999999999998,8
+2025-09-22,Médias,SOUTH,validation,7.999999999999999,9
+2025-09-29,Médias,SOUTH,validation,9.0,8
+2025-10-06,Médias,SOUTH,test,10.024777750590436,7
+2025-10-13,Médias,SOUTH,test,8.0,12
+2025-10-20,Médias,SOUTH,test,3.0,5
+2025-10-27,Médias,SOUTH,test,8.0,7
+2025-11-03,Médias,SOUTH,test,5.0,10
+2025-11-10,Médias,SOUTH,test,10.0,9
+2025-11-17,Médias,SOUTH,test,11.0,6
+2025-11-24,Médias,SOUTH,test,12.0,9
+2025-12-01,Médias,SOUTH,test,9.0,6
+2025-12-08,Médias,SOUTH,test,13.0,7
+2025-12-15,Médias,SOUTH,test,2.0000000000000004,4
+2025-12-22,Médias,SOUTH,test,12.000000000000002,12
+2025-12-29,Médias,SOUTH,test,8.0,7
+2026-01-05,Médias,SOUTH,test,10.0,1
+2025-07-07,Médias,WEST,validation,11.0,9
+2025-07-14,Médias,WEST,validation,6.0,18
+2025-07-21,Médias,WEST,validation,12.0,20
+2025-07-28,Médias,WEST,validation,14.0,9
+2025-08-04,Médias,WEST,validation,13.0,15
+2025-08-11,Médias,WEST,validation,11.0,8
+2025-08-18,Médias,WEST,validation,11.0,8
+2025-08-25,Médias,WEST,validation,5.0,10
+2025-09-01,Médias,WEST,validation,12.0,12
+2025-09-08,Médias,WEST,validation,14.0,16
+2025-09-15,Médias,WEST,validation,10.0,14
+2025-09-22,Médias,WEST,validation,8.0,7
+2025-09-29,Médias,WEST,validation,7.0,13
+2025-10-06,Médias,WEST,test,10.000000000000002,10
+2025-10-13,Médias,WEST,test,10.000000000000002,10
+2025-10-20,Médias,WEST,test,6.0,10
+2025-10-27,Médias,WEST,test,10.000000000000002,11
+2025-11-03,Médias,WEST,test,9.0,6
+2025-11-10,Médias,WEST,test,6.0,11
+2025-11-17,Médias,WEST,test,11.000000000000002,6
+2025-11-24,Médias,WEST,test,10.000000000000002,8
+2025-12-01,Médias,WEST,test,16.000000000000004,6
+2025-12-08,Médias,WEST,test,8.000000000000002,9
+2025-12-15,Médias,WEST,test,6.0,10
+2025-12-22,Médias,WEST,test,14.0,9
+2025-12-29,Médias,WEST,test,7.999999999999999,7
+2026-01-05,Médias,WEST,test,11.999999999981686,2
+2025-07-07,Non classé,EAST,validation,1.0,0
+2025-07-14,Non classé,EAST,validation,3.0,2
+2025-07-21,Non classé,EAST,validation,4.0,1
+2025-07-28,Non classé,EAST,validation,1.0,1
+2025-08-04,Non classé,EAST,validation,3.0,2
+2025-08-11,Non classé,EAST,validation,2.0,0
+2025-08-18,Non classé,EAST,validation,6.0,0
+2025-08-25,Non classé,EAST,validation,0.0,2
+2025-09-01,Non classé,EAST,validation,2.0,1
+2025-09-08,Non classé,EAST,validation,0.0,2
+2025-09-15,Non classé,EAST,validation,4.0,1
+2025-09-22,Non classé,EAST,validation,2.0,0
+2025-09-29,Non classé,EAST,validation,1.0,3
+2025-10-06,Non classé,EAST,test,0.0,1
+2025-10-13,Non classé,EAST,test,2.0,2
+2025-10-20,Non classé,EAST,test,2.0,0
+2025-10-27,Non classé,EAST,test,1.0,1
+2025-11-03,Non classé,EAST,test,2.0,1
+2025-11-10,Non classé,EAST,test,0.0,1
+2025-11-17,Non classé,EAST,test,2.0,4
+2025-11-24,Non classé,EAST,test,2.0,4
+2025-12-01,Non classé,EAST,test,3.0,1
+2025-12-08,Non classé,EAST,test,1.0,1
+2025-12-15,Non classé,EAST,test,2.0,0
+2025-12-22,Non classé,EAST,test,1.0,4
+2025-12-29,Non classé,EAST,test,1.0,2
+2025-06-30,Non classé,NORTH,validation,2.0,0
+2025-07-07,Non classé,NORTH,validation,0.0,2
+2025-07-14,Non classé,NORTH,validation,4.0,2
+2025-07-21,Non classé,NORTH,validation,4.0,1
+2025-07-28,Non classé,NORTH,validation,0.0,0
+2025-08-04,Non classé,NORTH,validation,0.0,3
+2025-08-11,Non classé,NORTH,validation,3.0,0
+2025-08-18,Non classé,NORTH,validation,3.0,2
+2025-08-25,Non classé,NORTH,validation,3.0,0
+2025-09-01,Non classé,NORTH,validation,2.0,2
+2025-09-08,Non classé,NORTH,validation,2.0,3
+2025-09-15,Non classé,NORTH,validation,1.0,1
+2025-09-22,Non classé,NORTH,validation,0.0,3
+2025-09-29,Non classé,NORTH,test,1.0,1
+2025-10-06,Non classé,NORTH,test,2.0,4
+2025-10-13,Non classé,NORTH,test,3.0,1
+2025-10-20,Non classé,NORTH,test,0.0,3
+2025-10-27,Non classé,NORTH,test,2.0,0
+2025-11-03,Non classé,NORTH,test,1.0,1
+2025-11-10,Non classé,NORTH,test,0.0,2
+2025-11-17,Non classé,NORTH,test,1.0,2
+2025-11-24,Non classé,NORTH,test,0.0,1
+2025-12-01,Non classé,NORTH,test,3.0,1
+2025-12-08,Non classé,NORTH,test,2.0,5
+2025-12-15,Non classé,NORTH,test,1.0,4
+2025-12-22,Non classé,NORTH,test,0.0,0
+2025-12-29,Non classé,NORTH,test,2.0,1
+2025-07-07,Non classé,SOUTH,validation,1.4927536232004917,1
+2025-07-14,Non classé,SOUTH,validation,0.24280613317125663,1
+2025-07-21,Non classé,SOUTH,validation,2.119643601852504,0
+2025-07-28,Non classé,SOUTH,validation,1.058954818304132,1
+2025-08-04,Non classé,SOUTH,validation,1.0290502003237751,1
+2025-08-11,Non classé,SOUTH,validation,1.0143145914638891,2
+2025-08-18,Non classé,SOUTH,validation,2.007053566808293,0
+2025-08-25,Non classé,SOUTH,validation,1.003475670601188,1
+2025-09-01,Non classé,SOUTH,validation,0.0017126492817448003,1
+2025-09-08,Non classé,SOUTH,validation,1.0008439141388308,3
+2025-09-15,Non classé,SOUTH,validation,0.0004158417495687858,2
+2025-09-22,Non classé,SOUTH,validation,0.0002049075287730249,3
+2025-09-29,Non classé,SOUTH,validation,0.00010096892722149052,0
+2025-10-06,Non classé,SOUTH,test,1.000000000020106,1
+2025-10-13,Non classé,SOUTH,test,1.000000000008617,0
+2025-10-20,Non classé,SOUTH,test,1.0000000000036928,1
+2025-10-27,Non classé,SOUTH,test,1.0000000000015825,0
+2025-11-03,Non classé,SOUTH,test,3.000000000000678,0
+2025-11-10,Non classé,SOUTH,test,4.00000000000029,0
+2025-11-17,Non classé,SOUTH,test,1.0000000000001246,2
+2025-11-24,Non classé,SOUTH,test,1.0000000000000533,1
+2025-12-01,Non classé,SOUTH,test,1.0000000000000229,0
+2025-12-08,Non classé,SOUTH,test,1.00000000000001,0
+2025-12-15,Non classé,SOUTH,test,2.000000000000004,0
+2025-12-22,Non classé,SOUTH,test,3.000000000000002,1
+2025-12-29,Non classé,SOUTH,test,6.813395519722116e-16,1
+2025-07-14,Non classé,WEST,validation,1.0,1
+2025-07-21,Non classé,WEST,validation,2.0,2
+2025-07-28,Non classé,WEST,validation,1.0,1
+2025-08-04,Non classé,WEST,validation,1.0,1
+2025-08-11,Non classé,WEST,validation,4.0,1
+2025-08-18,Non classé,WEST,validation,1.0,1
+2025-08-25,Non classé,WEST,validation,4.0,0
+2025-09-01,Non classé,WEST,validation,0.0,1
+2025-09-08,Non classé,WEST,validation,1.0,0
+2025-09-15,Non classé,WEST,validation,3.0,6
+2025-09-22,Non classé,WEST,validation,2.0,0
+2025-09-29,Non classé,WEST,validation,2.0,3
+2025-10-06,Non classé,WEST,validation,1.0,0
+2025-10-13,Non classé,WEST,test,0.0,0
+2025-10-20,Non classé,WEST,test,0.0,1
+2025-10-27,Non classé,WEST,test,1.0,2
+2025-11-03,Non classé,WEST,test,1.0,1
+2025-11-10,Non classé,WEST,test,2.0,0
+2025-11-17,Non classé,WEST,test,1.0,0
+2025-11-24,Non classé,WEST,test,2.0,3
+2025-12-01,Non classé,WEST,test,2.0,0
+2025-12-08,Non classé,WEST,test,2.0,2
+2025-12-15,Non classé,WEST,test,0.0,0
+2025-12-22,Non classé,WEST,test,0.0,0
+2025-12-29,Non classé,WEST,test,0.0,1
+2026-01-05,Non classé,WEST,test,1.0,1
+2025-06-30,Offices religieux et cérémonies,EAST,validation,11.0,6
+2025-07-07,Offices religieux et cérémonies,EAST,validation,16.000000000000004,8
+2025-07-14,Offices religieux et cérémonies,EAST,validation,8.000000000000002,12
+2025-07-21,Offices religieux et cérémonies,EAST,validation,13.000000000000004,11
+2025-07-28,Offices religieux et cérémonies,EAST,validation,11.0,8
+2025-08-04,Offices religieux et cérémonies,EAST,validation,17.000000000000004,10
+2025-08-11,Offices religieux et cérémonies,EAST,validation,6.000000000000001,9
+2025-08-18,Offices religieux et cérémonies,EAST,validation,17.000000000000004,11
+2025-08-25,Offices religieux et cérémonies,EAST,validation,11.0,10
+2025-09-01,Offices religieux et cérémonies,EAST,validation,11.0,11
+2025-09-08,Offices religieux et cérémonies,EAST,validation,17.000000000000004,11
+2025-09-15,Offices religieux et cérémonies,EAST,validation,8.000000000000002,9
+2025-09-22,Offices religieux et cérémonies,EAST,validation,11.0,5
+2025-09-29,Offices religieux et cérémonies,EAST,test,13.000000000000002,10
+2025-10-06,Offices religieux et cérémonies,EAST,test,7.0,6
+2025-10-13,Offices religieux et cérémonies,EAST,test,4.0,9
+2025-10-20,Offices religieux et cérémonies,EAST,test,5.000000000000001,9
+2025-10-27,Offices religieux et cérémonies,EAST,test,9.000000000000002,12
+2025-11-03,Offices religieux et cérémonies,EAST,test,9.000000000000002,9
+2025-11-10,Offices religieux et cérémonies,EAST,test,5.000000000000001,8
+2025-11-17,Offices religieux et cérémonies,EAST,test,10.000000000000002,7
+2025-11-24,Offices religieux et cérémonies,EAST,test,7.0,6
+2025-12-01,Offices religieux et cérémonies,EAST,test,8.0,4
+2025-12-08,Offices religieux et cérémonies,EAST,test,6.000000000000001,7
+2025-12-15,Offices religieux et cérémonies,EAST,test,10.000000000000002,8
+2025-12-22,Offices religieux et cérémonies,EAST,test,12.000000000000002,12
+2025-12-29,Offices religieux et cérémonies,EAST,test,4.0,7
+2025-07-07,Offices religieux et cérémonies,NORTH,validation,7.887759079210123,8
+2025-07-14,Offices religieux et cérémonies,NORTH,validation,10.999999999999998,12
+2025-07-21,Offices religieux et cérémonies,NORTH,validation,8.0,21
+2025-07-28,Offices religieux et cérémonies,NORTH,validation,12.999999999999998,11
+2025-08-04,Offices religieux et cérémonies,NORTH,validation,14.999999999999998,9
+2025-08-11,Offices religieux et cérémonies,NORTH,validation,8.999999999999998,12
+2025-08-18,Offices religieux et cérémonies,NORTH,validation,8.0,15
+2025-08-25,Offices religieux et cérémonies,NORTH,validation,13.999999999999998,7
+2025-09-01,Offices religieux et cérémonies,NORTH,validation,4.999999999999999,11
+2025-09-08,Offices religieux et cérémonies,NORTH,validation,11.999999999999998,5
+2025-09-15,Offices religieux et cérémonies,NORTH,validation,9.0,7
+2025-09-22,Offices religieux et cérémonies,NORTH,validation,12.0,10
+2025-09-29,Offices religieux et cérémonies,NORTH,validation,6.0,13
+2025-10-06,Offices religieux et cérémonies,NORTH,test,12.181267454236487,10
+2025-10-13,Offices religieux et cérémonies,NORTH,test,7.0,6
+2025-10-20,Offices religieux et cérémonies,NORTH,test,13.000000000000002,13
+2025-10-27,Offices religieux et cérémonies,NORTH,test,7.0,11
+2025-11-03,Offices religieux et cérémonies,NORTH,test,6.0,12
+2025-11-10,Offices religieux et cérémonies,NORTH,test,6.999999999999999,9
+2025-11-17,Offices religieux et cérémonies,NORTH,test,6.0,12
+2025-11-24,Offices religieux et cérémonies,NORTH,test,8.000000000000002,3
+2025-12-01,Offices religieux et cérémonies,NORTH,test,10.000000000000002,7
+2025-12-08,Offices religieux et cérémonies,NORTH,test,9.0,10
+2025-12-15,Offices religieux et cérémonies,NORTH,test,6.0,10
+2025-12-22,Offices religieux et cérémonies,NORTH,test,13.0,9
+2025-12-29,Offices religieux et cérémonies,NORTH,test,7.0,6
+2026-01-05,Offices religieux et cérémonies,NORTH,test,3.0,1
+2025-07-07,Offices religieux et cérémonies,SOUTH,validation,3.0,8
+2025-07-14,Offices religieux et cérémonies,SOUTH,validation,7.0,13
+2025-07-21,Offices religieux et cérémonies,SOUTH,validation,5.000000000000001,5
+2025-07-28,Offices religieux et cérémonies,SOUTH,validation,6.0,7
+2025-08-04,Offices religieux et cérémonies,SOUTH,validation,5.000000000000001,6
+2025-08-11,Offices religieux et cérémonies,SOUTH,validation,3.0,6
+2025-08-18,Offices religieux et cérémonies,SOUTH,validation,5.000000000000001,2
+2025-08-25,Offices religieux et cérémonies,SOUTH,validation,7.0,9
+2025-09-01,Offices religieux et cérémonies,SOUTH,validation,3.0,8
+2025-09-08,Offices religieux et cérémonies,SOUTH,validation,10.000000000000002,4
+2025-09-15,Offices religieux et cérémonies,SOUTH,validation,5.000000000000001,7
+2025-09-22,Offices religieux et cérémonies,SOUTH,validation,6.0,6
+2025-09-29,Offices religieux et cérémonies,SOUTH,validation,8.0,5
+2025-10-06,Offices religieux et cérémonies,SOUTH,test,10.0,6
+2025-10-13,Offices religieux et cérémonies,SOUTH,test,3.9999999999999996,5
+2025-10-20,Offices religieux et cérémonies,SOUTH,test,3.9999999999999996,6
+2025-10-27,Offices religieux et cérémonies,SOUTH,test,1.9999999999999998,8
+2025-11-03,Offices religieux et cérémonies,SOUTH,test,3.0,6
+2025-11-10,Offices religieux et cérémonies,SOUTH,test,3.0,4
+2025-11-17,Offices religieux et cérémonies,SOUTH,test,3.0,6
+2025-11-24,Offices religieux et cérémonies,SOUTH,test,3.9999999999999996,8
+2025-12-01,Offices religieux et cérémonies,SOUTH,test,8.999999999999998,6
+2025-12-08,Offices religieux et cérémonies,SOUTH,test,5.0,2
+2025-12-15,Offices religieux et cérémonies,SOUTH,test,3.0,4
+2025-12-22,Offices religieux et cérémonies,SOUTH,test,5.0,3
+2025-12-29,Offices religieux et cérémonies,SOUTH,test,3.9999999999999996,9
+2025-06-30,Offices religieux et cérémonies,WEST,validation,4.999999999999999,10
+2025-07-07,Offices religieux et cérémonies,WEST,validation,4.999999999999999,10
+2025-07-14,Offices religieux et cérémonies,WEST,validation,13.0,8
+2025-07-21,Offices religieux et cérémonies,WEST,validation,5.999999999999999,5
+2025-07-28,Offices religieux et cérémonies,WEST,validation,9.999999999999998,7
+2025-08-04,Offices religieux et cérémonies,WEST,validation,4.999999999999999,8
+2025-08-11,Offices religieux et cérémonies,WEST,validation,5.999999999999999,7
+2025-08-18,Offices religieux et cérémonies,WEST,validation,5.999999999999999,3
+2025-08-25,Offices religieux et cérémonies,WEST,validation,8.0,5
+2025-09-01,Offices religieux et cérémonies,WEST,validation,8.0,5
+2025-09-08,Offices religieux et cérémonies,WEST,validation,5.999999999999999,10
+2025-09-15,Offices religieux et cérémonies,WEST,validation,4.999999999999999,7
+2025-09-22,Offices religieux et cérémonies,WEST,validation,4.0,3
+2025-09-29,Offices religieux et cérémonies,WEST,test,5.999999999999999,8
+2025-10-06,Offices religieux et cérémonies,WEST,test,2.0,12
+2025-10-13,Offices religieux et cérémonies,WEST,test,4.0,6
+2025-10-20,Offices religieux et cérémonies,WEST,test,5.0,5
+2025-10-27,Offices religieux et cérémonies,WEST,test,5.999999999999999,6
+2025-11-03,Offices religieux et cérémonies,WEST,test,1.0,4
+2025-11-10,Offices religieux et cérémonies,WEST,test,2.0,5
+2025-11-17,Offices religieux et cérémonies,WEST,test,10.0,5
+2025-11-24,Offices religieux et cérémonies,WEST,test,2.9999999999999996,12
+2025-12-01,Offices religieux et cérémonies,WEST,test,8.0,4
+2025-12-08,Offices religieux et cérémonies,WEST,test,4.0,4
+2025-12-15,Offices religieux et cérémonies,WEST,test,8.0,7
+2025-12-22,Offices religieux et cérémonies,WEST,test,4.0,7
+2025-12-29,Offices religieux et cérémonies,WEST,test,10.0,3
+2025-07-07,Quincaillerie,EAST,validation,28.30734251694946,33
+2025-07-14,Quincaillerie,EAST,validation,36.24807238549477,36
+2025-07-21,Quincaillerie,EAST,validation,40.395893659241324,33
+2025-07-28,Quincaillerie,EAST,validation,53.10831283432052,45
+2025-08-04,Quincaillerie,EAST,validation,36.84455038975427,36
+2025-08-11,Quincaillerie,EAST,validation,38.80243149654582,28
+2025-08-18,Quincaillerie,EAST,validation,28.92203599303774,42
+2025-08-25,Quincaillerie,EAST,validation,37.55553871210972,31
+2025-09-01,Quincaillerie,EAST,validation,34.60861270474519,27
+2025-09-08,Quincaillerie,EAST,validation,46.82840345348447,51
+2025-09-15,Quincaillerie,EAST,validation,49.01526229275834,21
+2025-09-22,Quincaillerie,EAST,validation,40.093690647106705,30
+2025-09-29,Quincaillerie,EAST,validation,38.08304264930519,45
+2025-10-06,Quincaillerie,EAST,test,28.653567928959234,26
+2025-10-13,Quincaillerie,EAST,test,39.59864508200668,39
+2025-10-20,Quincaillerie,EAST,test,43.53190677976352,29
+2025-10-27,Quincaillerie,EAST,test,34.42241006105901,31
+2025-11-03,Quincaillerie,EAST,test,33.446465492116815,24
+2025-11-10,Quincaillerie,EAST,test,18.758701400461106,26
+2025-11-17,Quincaillerie,EAST,test,41.975063511417524,26
+2025-11-24,Quincaillerie,EAST,test,29.04638353897801,19
+2025-12-01,Quincaillerie,EAST,test,28.039723528556063,19
+2025-12-08,Quincaillerie,EAST,test,26.016004277449966,24
+2025-12-15,Quincaillerie,EAST,test,29.000853405942394,29
+2025-12-22,Quincaillerie,EAST,test,32.99635246376076,36
+2025-12-29,Quincaillerie,EAST,test,29.997170757656715,25
+2026-01-05,Quincaillerie,EAST,test,23.998951595304444,10
+2025-07-07,Quincaillerie,NORTH,validation,17.862383826541972,40
+2025-07-14,Quincaillerie,NORTH,validation,30.51977423180856,35
+2025-07-21,Quincaillerie,NORTH,validation,36.10143754983105,40
+2025-07-28,Quincaillerie,NORTH,validation,45.144692837881955,40
+2025-08-04,Quincaillerie,NORTH,validation,33.71935967632749,28
+2025-08-11,Quincaillerie,NORTH,validation,40.39066064425363,50
+2025-08-18,Quincaillerie,NORTH,validation,25.937603999027797,42
+2025-08-25,Quincaillerie,NORTH,validation,27.486813293410645,36
+2025-09-01,Quincaillerie,NORTH,validation,34.277060249720336,24
+2025-09-08,Quincaillerie,NORTH,validation,37.9072538043286,33
+2025-09-15,Quincaillerie,NORTH,validation,28.76685698895366,37
+2025-09-22,Quincaillerie,NORTH,validation,26.387225670663273,48
+2025-09-29,Quincaillerie,NORTH,validation,34.591013263480164,40
+2025-10-06,Quincaillerie,NORTH,test,21.224813645019918,30
+2025-10-13,Quincaillerie,NORTH,test,20.580055671143356,19
+2025-10-20,Quincaillerie,NORTH,test,23.0823642954264,23
+2025-10-27,Quincaillerie,NORTH,test,27.731167105109513,20
+2025-11-03,Quincaillerie,NORTH,test,25.333848658882353,16
+2025-11-10,Quincaillerie,NORTH,test,36.654993903350594,15
+2025-11-17,Quincaillerie,NORTH,test,20.109245634499317,24
+2025-11-24,Quincaillerie,NORTH,test,21.809701765097085,31
+2025-12-01,Quincaillerie,NORTH,test,28.719132195059277,33
+2025-12-08,Quincaillerie,NORTH,test,30.260747046532245,33
+2025-12-15,Quincaillerie,NORTH,test,34.36356431533231,19
+2025-12-22,Quincaillerie,NORTH,test,32.7221076097381,29
+2025-12-29,Quincaillerie,NORTH,test,31.048917114822082,48
+2026-01-05,Quincaillerie,NORTH,test,23.203048130528693,6
+2025-07-07,Quincaillerie,SOUTH,validation,14.0,18
+2025-07-14,Quincaillerie,SOUTH,validation,20.0,14
+2025-07-21,Quincaillerie,SOUTH,validation,23.0,23
+2025-07-28,Quincaillerie,SOUTH,validation,28.0,19
+2025-08-04,Quincaillerie,SOUTH,validation,20.0,20
+2025-08-11,Quincaillerie,SOUTH,validation,19.0,19
+2025-08-18,Quincaillerie,SOUTH,validation,18.0,20
+2025-08-25,Quincaillerie,SOUTH,validation,19.0,21
+2025-09-01,Quincaillerie,SOUTH,validation,18.0,24
+2025-09-08,Quincaillerie,SOUTH,validation,19.0,13
+2025-09-15,Quincaillerie,SOUTH,validation,25.0,19
+2025-09-22,Quincaillerie,SOUTH,validation,22.0,21
+2025-09-29,Quincaillerie,SOUTH,validation,22.0,22
+2025-10-06,Quincaillerie,SOUTH,test,11.0,12
+2025-10-13,Quincaillerie,SOUTH,test,10.0,9
+2025-10-20,Quincaillerie,SOUTH,test,14.0,14
+2025-10-27,Quincaillerie,SOUTH,test,14.999999999999998,20
+2025-11-03,Quincaillerie,SOUTH,test,7.999999999999999,14
+2025-11-10,Quincaillerie,SOUTH,test,21.0,14
+2025-11-17,Quincaillerie,SOUTH,test,18.999999999999996,26
+2025-11-24,Quincaillerie,SOUTH,test,17.0,18
+2025-12-01,Quincaillerie,SOUTH,test,10.0,15
+2025-12-08,Quincaillerie,SOUTH,test,22.0,11
+2025-12-15,Quincaillerie,SOUTH,test,22.0,9
+2025-12-22,Quincaillerie,SOUTH,test,12.0,22
+2025-12-29,Quincaillerie,SOUTH,test,20.0,16
+2026-01-05,Quincaillerie,SOUTH,test,15.000000000008038,7
+2025-07-07,Quincaillerie,WEST,validation,24.0,18
+2025-07-14,Quincaillerie,WEST,validation,27.999999999999996,21
+2025-07-21,Quincaillerie,WEST,validation,29.999999999999993,13
+2025-07-28,Quincaillerie,WEST,validation,18.999999999999996,15
+2025-08-04,Quincaillerie,WEST,validation,27.999999999999996,15
+2025-08-11,Quincaillerie,WEST,validation,40.0,28
+2025-08-18,Quincaillerie,WEST,validation,20.999999999999996,32
+2025-08-25,Quincaillerie,WEST,validation,18.999999999999996,23
+2025-09-01,Quincaillerie,WEST,validation,27.999999999999996,27
+2025-09-08,Quincaillerie,WEST,validation,18.0,20
+2025-09-15,Quincaillerie,WEST,validation,22.999999999999996,27
+2025-09-22,Quincaillerie,WEST,validation,35.0,25
+2025-09-29,Quincaillerie,WEST,validation,27.999999999999996,29
+2025-10-06,Quincaillerie,WEST,test,26.999999999999996,22
+2025-10-13,Quincaillerie,WEST,test,19.0,20
+2025-10-20,Quincaillerie,WEST,test,15.0,14
+2025-10-27,Quincaillerie,WEST,test,21.999999999999996,14
+2025-11-03,Quincaillerie,WEST,test,20.999999999999996,15
+2025-11-10,Quincaillerie,WEST,test,15.999999999999998,18
+2025-11-17,Quincaillerie,WEST,test,17.999999999999996,12
+2025-11-24,Quincaillerie,WEST,test,12.999999999999998,17
+2025-12-01,Quincaillerie,WEST,test,22.999999999999996,17
+2025-12-08,Quincaillerie,WEST,test,30.999999999999993,23
+2025-12-15,Quincaillerie,WEST,test,11.999999999999998,19
+2025-12-22,Quincaillerie,WEST,test,25.0,18
+2025-12-29,Quincaillerie,WEST,test,24.0,18
+2026-01-05,Quincaillerie,WEST,test,17.99999999999345,5
+2025-07-07,Santé et beauté,EAST,validation,48.10376927383663,31
+2025-07-14,Santé et beauté,EAST,validation,41.0,38
+2025-07-21,Santé et beauté,EAST,validation,53.0,47
+2025-07-28,Santé et beauté,EAST,validation,36.00000000000001,45
+2025-08-04,Santé et beauté,EAST,validation,51.00000000000001,38
+2025-08-11,Santé et beauté,EAST,validation,56.0,36
+2025-08-18,Santé et beauté,EAST,validation,39.0,40
+2025-08-25,Santé et beauté,EAST,validation,43.0,34
+2025-09-01,Santé et beauté,EAST,validation,42.0,37
+2025-09-08,Santé et beauté,EAST,validation,49.0,45
+2025-09-15,Santé et beauté,EAST,validation,47.0,37
+2025-09-22,Santé et beauté,EAST,validation,41.00000000000001,48
+2025-09-29,Santé et beauté,EAST,validation,43.00000000000001,43
+2025-10-06,Santé et beauté,EAST,test,27.829081333208208,37
+2025-10-13,Santé et beauté,EAST,test,34.0,29
+2025-10-20,Santé et beauté,EAST,test,43.00000000000001,35
+2025-10-27,Santé et beauté,EAST,test,41.00000000000001,21
+2025-11-03,Santé et beauté,EAST,test,51.00000000000001,40
+2025-11-10,Santé et beauté,EAST,test,33.00000000000001,34
+2025-11-17,Santé et beauté,EAST,test,32.0,28
+2025-11-24,Santé et beauté,EAST,test,42.0,25
+2025-12-01,Santé et beauté,EAST,test,39.0,34
+2025-12-08,Santé et beauté,EAST,test,49.99999999999999,35
+2025-12-15,Santé et beauté,EAST,test,34.0,33
+2025-12-22,Santé et beauté,EAST,test,34.00000000000001,42
+2025-12-29,Santé et beauté,EAST,test,24.0,36
+2026-01-05,Santé et beauté,EAST,test,20.000000000000004,10
+2025-07-07,Santé et beauté,NORTH,validation,47.99999999999999,38
+2025-07-14,Santé et beauté,NORTH,validation,37.99999999999999,48
+2025-07-21,Santé et beauté,NORTH,validation,37.99999999999999,30
+2025-07-28,Santé et beauté,NORTH,validation,53.99999999999999,49
+2025-08-04,Santé et beauté,NORTH,validation,49.0,52
+2025-08-11,Santé et beauté,NORTH,validation,52.99999999999999,43
+2025-08-18,Santé et beauté,NORTH,validation,51.0,54
+2025-08-25,Santé et beauté,NORTH,validation,44.0,59
+2025-09-01,Santé et beauté,NORTH,validation,41.0,42
+2025-09-08,Santé et beauté,NORTH,validation,37.99999999999999,45
+2025-09-15,Santé et beauté,NORTH,validation,37.99999999999999,40
+2025-09-22,Santé et beauté,NORTH,validation,36.0,51
+2025-09-29,Santé et beauté,NORTH,validation,55.0,46
+2025-10-06,Santé et beauté,NORTH,test,36.0,47
+2025-10-13,Santé et beauté,NORTH,test,30.0,24
+2025-10-20,Santé et beauté,NORTH,test,34.0,35
+2025-10-27,Santé et beauté,NORTH,test,27.0,39
+2025-11-03,Santé et beauté,NORTH,test,32.0,29
+2025-11-10,Santé et beauté,NORTH,test,33.0,36
+2025-11-17,Santé et beauté,NORTH,test,48.0,42
+2025-11-24,Santé et beauté,NORTH,test,33.0,40
+2025-12-01,Santé et beauté,NORTH,test,33.0,41
+2025-12-08,Santé et beauté,NORTH,test,39.0,46
+2025-12-15,Santé et beauté,NORTH,test,37.0,36
+2025-12-22,Santé et beauté,NORTH,test,44.0,32
+2025-12-29,Santé et beauté,NORTH,test,32.0,42
+2026-01-05,Santé et beauté,NORTH,test,30.0,11
+2025-07-07,Santé et beauté,SOUTH,validation,26.558912615560285,31
+2025-07-14,Santé et beauté,SOUTH,validation,24.0,17
+2025-07-21,Santé et beauté,SOUTH,validation,26.000000000000007,30
+2025-07-28,Santé et beauté,SOUTH,validation,27.000000000000004,28
+2025-08-04,Santé et beauté,SOUTH,validation,30.000000000000004,25
+2025-08-11,Santé et beauté,SOUTH,validation,31.000000000000004,33
+2025-08-18,Santé et beauté,SOUTH,validation,32.00000000000001,31
+2025-08-25,Santé et beauté,SOUTH,validation,25.000000000000004,24
+2025-09-01,Santé et beauté,SOUTH,validation,18.000000000000004,22
+2025-09-08,Santé et beauté,SOUTH,validation,28.0,24
+2025-09-15,Santé et beauté,SOUTH,validation,27.000000000000004,27
+2025-09-22,Santé et beauté,SOUTH,validation,23.0,29
+2025-09-29,Santé et beauté,SOUTH,validation,28.0,33
+2025-10-06,Santé et beauté,SOUTH,test,27.203937189850624,18
+2025-10-13,Santé et beauté,SOUTH,test,22.999999999999996,20
+2025-10-20,Santé et beauté,SOUTH,test,22.0,12
+2025-10-27,Santé et beauté,SOUTH,test,27.0,27
+2025-11-03,Santé et beauté,SOUTH,test,19.999999999999996,20
+2025-11-10,Santé et beauté,SOUTH,test,19.999999999999996,24
+2025-11-17,Santé et beauté,SOUTH,test,26.0,22
+2025-11-24,Santé et beauté,SOUTH,test,17.000000000000004,22
+2025-12-01,Santé et beauté,SOUTH,test,15.0,24
+2025-12-08,Santé et beauté,SOUTH,test,28.0,32
+2025-12-15,Santé et beauté,SOUTH,test,20.999999999999996,20
+2025-12-22,Santé et beauté,SOUTH,test,21.0,27
+2025-12-29,Santé et beauté,SOUTH,test,15.999999999999998,20
+2026-01-05,Santé et beauté,SOUTH,test,14.0,8
+2025-07-07,Santé et beauté,WEST,validation,26.000000000000004,36
+2025-07-14,Santé et beauté,WEST,validation,30.000000000000004,28
+2025-07-21,Santé et beauté,WEST,validation,31.000000000000004,31
+2025-07-28,Santé et beauté,WEST,validation,32.00000000000001,44
+2025-08-04,Santé et beauté,WEST,validation,30.000000000000004,27
+2025-08-11,Santé et beauté,WEST,validation,33.0,32
+2025-08-18,Santé et beauté,WEST,validation,28.000000000000004,29
+2025-08-25,Santé et beauté,WEST,validation,49.00000000000001,33
+2025-09-01,Santé et beauté,WEST,validation,29.000000000000004,29
+2025-09-08,Santé et beauté,WEST,validation,26.000000000000004,31
+2025-09-15,Santé et beauté,WEST,validation,38.0,24
+2025-09-22,Santé et beauté,WEST,validation,25.0,35
+2025-09-29,Santé et beauté,WEST,validation,26.000000000000004,37
+2025-10-06,Santé et beauté,WEST,test,31.000000000000004,26
+2025-10-13,Santé et beauté,WEST,test,22.0,19
+2025-10-20,Santé et beauté,WEST,test,20.000000000000004,27
+2025-10-27,Santé et beauté,WEST,test,17.0,28
+2025-11-03,Santé et beauté,WEST,test,19.0,22
+2025-11-10,Santé et beauté,WEST,test,23.000000000000004,33
+2025-11-17,Santé et beauté,WEST,test,37.00000000000001,19
+2025-11-24,Santé et beauté,WEST,test,28.000000000000007,20
+2025-12-01,Santé et beauté,WEST,test,26.000000000000004,18
+2025-12-08,Santé et beauté,WEST,test,27.000000000000004,31
+2025-12-15,Santé et beauté,WEST,test,27.000000000000004,15
+2025-12-22,Santé et beauté,WEST,test,21.0,22
+2025-12-29,Santé et beauté,WEST,test,22.0,26
+2026-01-05,Santé et beauté,WEST,test,17.000000000007006,12
+2025-07-07,Véhicules et accessoires,EAST,validation,41.0,42
+2025-07-14,Véhicules et accessoires,EAST,validation,42.00000000000001,38
+2025-07-21,Véhicules et accessoires,EAST,validation,35.0,35
+2025-07-28,Véhicules et accessoires,EAST,validation,39.00000000000001,40
+2025-08-04,Véhicules et accessoires,EAST,validation,30.000000000000004,40
+2025-08-11,Véhicules et accessoires,EAST,validation,38.00000000000001,43
+2025-08-18,Véhicules et accessoires,EAST,validation,39.00000000000001,34
+2025-08-25,Véhicules et accessoires,EAST,validation,44.00000000000001,38
+2025-09-01,Véhicules et accessoires,EAST,validation,46.0,49
+2025-09-08,Véhicules et accessoires,EAST,validation,30.000000000000004,35
+2025-09-15,Véhicules et accessoires,EAST,validation,43.00000000000001,37
+2025-09-22,Véhicules et accessoires,EAST,validation,31.000000000000004,39
+2025-09-29,Véhicules et accessoires,EAST,validation,41.0,35
+2025-10-06,Véhicules et accessoires,EAST,test,26.000000000000004,21
+2025-10-13,Véhicules et accessoires,EAST,test,24.0,23
+2025-10-20,Véhicules et accessoires,EAST,test,22.000000000000004,27
+2025-10-27,Véhicules et accessoires,EAST,test,30.000000000000004,21
+2025-11-03,Véhicules et accessoires,EAST,test,21.0,23
+2025-11-10,Véhicules et accessoires,EAST,test,35.0,28
+2025-11-17,Véhicules et accessoires,EAST,test,41.0,26
+2025-11-24,Véhicules et accessoires,EAST,test,29.0,30
+2025-12-01,Véhicules et accessoires,EAST,test,29.0,36
+2025-12-08,Véhicules et accessoires,EAST,test,22.000000000000004,27
+2025-12-15,Véhicules et accessoires,EAST,test,35.0,27
+2025-12-22,Véhicules et accessoires,EAST,test,28.0,32
+2025-12-29,Véhicules et accessoires,EAST,test,33.0,30
+2026-01-05,Véhicules et accessoires,EAST,test,21.000000000003283,6
+2025-07-07,Véhicules et accessoires,NORTH,validation,35.373496689782975,36
+2025-07-14,Véhicules et accessoires,NORTH,validation,33.0,39
+2025-07-21,Véhicules et accessoires,NORTH,validation,38.00000000000001,36
+2025-07-28,Véhicules et accessoires,NORTH,validation,35.0,42
+2025-08-04,Véhicules et accessoires,NORTH,validation,41.0,29
+2025-08-11,Véhicules et accessoires,NORTH,validation,41.00000000000001,40
+2025-08-18,Véhicules et accessoires,NORTH,validation,29.000000000000004,25
+2025-08-25,Véhicules et accessoires,NORTH,validation,31.0,30
+2025-09-01,Véhicules et accessoires,NORTH,validation,30.000000000000004,33
+2025-09-08,Véhicules et accessoires,NORTH,validation,37.00000000000001,36
+2025-09-15,Véhicules et accessoires,NORTH,validation,47.00000000000001,41
+2025-09-22,Véhicules et accessoires,NORTH,validation,34.000000000000014,32
+2025-09-29,Véhicules et accessoires,NORTH,validation,41.0,31
+2025-10-06,Véhicules et accessoires,NORTH,test,20.39927693974411,22
+2025-10-13,Véhicules et accessoires,NORTH,test,28.000000000000004,29
+2025-10-20,Véhicules et accessoires,NORTH,test,29.000000000000004,19
+2025-10-27,Véhicules et accessoires,NORTH,test,30.0,28
+2025-11-03,Véhicules et accessoires,NORTH,test,23.0,33
+2025-11-10,Véhicules et accessoires,NORTH,test,20.0,27
+2025-11-17,Véhicules et accessoires,NORTH,test,20.000000000000004,36
+2025-11-24,Véhicules et accessoires,NORTH,test,30.000000000000004,28
+2025-12-01,Véhicules et accessoires,NORTH,test,19.0,25
+2025-12-08,Véhicules et accessoires,NORTH,test,31.000000000000004,31
+2025-12-15,Véhicules et accessoires,NORTH,test,30.0,36
+2025-12-22,Véhicules et accessoires,NORTH,test,33.0,36
+2025-12-29,Véhicules et accessoires,NORTH,test,34.0,27
+2026-01-05,Véhicules et accessoires,NORTH,test,34.0,9
+2025-07-07,Véhicules et accessoires,SOUTH,validation,20.0,21
+2025-07-14,Véhicules et accessoires,SOUTH,validation,13.0,24
+2025-07-21,Véhicules et accessoires,SOUTH,validation,18.0,21
+2025-07-28,Véhicules et accessoires,SOUTH,validation,20.0,17
+2025-08-04,Véhicules et accessoires,SOUTH,validation,18.0,27
+2025-08-11,Véhicules et accessoires,SOUTH,validation,22.999999999999996,21
+2025-08-18,Véhicules et accessoires,SOUTH,validation,22.0,17
+2025-08-25,Véhicules et accessoires,SOUTH,validation,27.0,26
+2025-09-01,Véhicules et accessoires,SOUTH,validation,20.0,25
+2025-09-08,Véhicules et accessoires,SOUTH,validation,19.0,22
+2025-09-15,Véhicules et accessoires,SOUTH,validation,22.0,15
+2025-09-22,Véhicules et accessoires,SOUTH,validation,16.0,17
+2025-09-29,Véhicules et accessoires,SOUTH,validation,18.0,18
+2025-10-06,Véhicules et accessoires,SOUTH,test,14.0,10
+2025-10-13,Véhicules et accessoires,SOUTH,test,19.999999999999996,17
+2025-10-20,Véhicules et accessoires,SOUTH,test,19.0,20
+2025-10-27,Véhicules et accessoires,SOUTH,test,15.0,17
+2025-11-03,Véhicules et accessoires,SOUTH,test,18.0,18
+2025-11-10,Véhicules et accessoires,SOUTH,test,13.000000000000002,18
+2025-11-17,Véhicules et accessoires,SOUTH,test,13.000000000000002,26
+2025-11-24,Véhicules et accessoires,SOUTH,test,14.0,16
+2025-12-01,Véhicules et accessoires,SOUTH,test,17.0,12
+2025-12-08,Véhicules et accessoires,SOUTH,test,16.0,12
+2025-12-15,Véhicules et accessoires,SOUTH,test,19.0,16
+2025-12-22,Véhicules et accessoires,SOUTH,test,14.0,20
+2025-12-29,Véhicules et accessoires,SOUTH,test,19.0,15
+2026-01-05,Véhicules et accessoires,SOUTH,test,13.999999999999861,4
+2025-07-07,Véhicules et accessoires,WEST,validation,22.0,33
+2025-07-14,Véhicules et accessoires,WEST,validation,31.0,24
+2025-07-21,Véhicules et accessoires,WEST,validation,24.0,34
+2025-07-28,Véhicules et accessoires,WEST,validation,17.0,26
+2025-08-04,Véhicules et accessoires,WEST,validation,21.0,24
+2025-08-11,Véhicules et accessoires,WEST,validation,19.0,24
+2025-08-18,Véhicules et accessoires,WEST,validation,28.999999999999996,22
+2025-08-25,Véhicules et accessoires,WEST,validation,21.0,25
+2025-09-01,Véhicules et accessoires,WEST,validation,31.0,29
+2025-09-08,Véhicules et accessoires,WEST,validation,34.0,33
+2025-09-15,Véhicules et accessoires,WEST,validation,24.999999999999996,26
+2025-09-22,Véhicules et accessoires,WEST,validation,24.999999999999996,19
+2025-09-29,Véhicules et accessoires,WEST,validation,29.999999999999996,23
+2025-10-06,Véhicules et accessoires,WEST,test,17.0,22
+2025-10-13,Véhicules et accessoires,WEST,test,11.0,16
+2025-10-20,Véhicules et accessoires,WEST,test,12.0,12
+2025-10-27,Véhicules et accessoires,WEST,test,26.0,17
+2025-11-03,Véhicules et accessoires,WEST,test,17.999999999999996,11
+2025-11-10,Véhicules et accessoires,WEST,test,28.0,16
+2025-11-17,Véhicules et accessoires,WEST,test,16.0,18
+2025-11-24,Véhicules et accessoires,WEST,test,19.999999999999996,26
+2025-12-01,Véhicules et accessoires,WEST,test,17.999999999999996,20
+2025-12-08,Véhicules et accessoires,WEST,test,21.000000000000004,25
+2025-12-15,Véhicules et accessoires,WEST,test,13.0,18
+2025-12-22,Véhicules et accessoires,WEST,test,21.000000000000004,17
+2025-12-29,Véhicules et accessoires,WEST,test,28.0,25
+2026-01-05,Véhicules et accessoires,WEST,test,22.0,8
+2025-07-07,Vêtements et accessoires,EAST,validation,57.38985956553732,65
+2025-07-14,Vêtements et accessoires,EAST,validation,84.00000000000001,63
+2025-07-21,Vêtements et accessoires,EAST,validation,69.0,70
+2025-07-28,Vêtements et accessoires,EAST,validation,67.00000000000001,67
+2025-08-04,Vêtements et accessoires,EAST,validation,60.0,75
+2025-08-11,Vêtements et accessoires,EAST,validation,83.0,81
+2025-08-18,Vêtements et accessoires,EAST,validation,71.0,67
+2025-08-25,Vêtements et accessoires,EAST,validation,59.99999999999999,71
+2025-09-01,Vêtements et accessoires,EAST,validation,65.00000000000001,64
+2025-09-08,Vêtements et accessoires,EAST,validation,63.0,67
+2025-09-15,Vêtements et accessoires,EAST,validation,70.0,88
+2025-09-22,Vêtements et accessoires,EAST,validation,61.99999999999999,73
+2025-09-29,Vêtements et accessoires,EAST,validation,60.0,73
+2025-10-06,Vêtements et accessoires,EAST,test,61.66641141214405,40
+2025-10-13,Vêtements et accessoires,EAST,test,58.000000000000014,56
+2025-10-20,Vêtements et accessoires,EAST,test,46.00000000000001,61
+2025-10-27,Vêtements et accessoires,EAST,test,57.000000000000014,57
+2025-11-03,Vêtements et accessoires,EAST,test,50.00000000000001,63
+2025-11-10,Vêtements et accessoires,EAST,test,70.00000000000003,61
+2025-11-17,Vêtements et accessoires,EAST,test,61.00000000000001,58
+2025-11-24,Vêtements et accessoires,EAST,test,56.00000000000001,63
+2025-12-01,Vêtements et accessoires,EAST,test,54.000000000000014,59
+2025-12-08,Vêtements et accessoires,EAST,test,44.00000000000001,53
+2025-12-15,Vêtements et accessoires,EAST,test,61.00000000000001,63
+2025-12-22,Vêtements et accessoires,EAST,test,55.00000000000001,50
+2025-12-29,Vêtements et accessoires,EAST,test,55.0,58
+2026-01-05,Vêtements et accessoires,EAST,test,47.0,12
+2025-07-07,Vêtements et accessoires,NORTH,validation,81.93136501885682,72
+2025-07-14,Vêtements et accessoires,NORTH,validation,73.0,78
+2025-07-21,Vêtements et accessoires,NORTH,validation,77.0,85
+2025-07-28,Vêtements et accessoires,NORTH,validation,85.00000000000001,87
+2025-08-04,Vêtements et accessoires,NORTH,validation,67.00000000000001,64
+2025-08-11,Vêtements et accessoires,NORTH,validation,62.00000000000001,74
+2025-08-18,Vêtements et accessoires,NORTH,validation,64.99999999999999,87
+2025-08-25,Vêtements et accessoires,NORTH,validation,63.99999999999999,77
+2025-09-01,Vêtements et accessoires,NORTH,validation,66.0,79
+2025-09-08,Vêtements et accessoires,NORTH,validation,66.0,66
+2025-09-15,Vêtements et accessoires,NORTH,validation,72.0,72
+2025-09-22,Vêtements et accessoires,NORTH,validation,69.0,60
+2025-09-29,Vêtements et accessoires,NORTH,validation,87.99999999999999,74
+2025-10-06,Vêtements et accessoires,NORTH,test,55.59042851339598,55
+2025-10-13,Vêtements et accessoires,NORTH,test,56.999999999999986,46
+2025-10-20,Vêtements et accessoires,NORTH,test,47.99999999999999,45
+2025-10-27,Vêtements et accessoires,NORTH,test,46.99999999999999,54
+2025-11-03,Vêtements et accessoires,NORTH,test,59.99999999999999,46
+2025-11-10,Vêtements et accessoires,NORTH,test,61.999999999999986,47
+2025-11-17,Vêtements et accessoires,NORTH,test,48.99999999999999,44
+2025-11-24,Vêtements et accessoires,NORTH,test,56.999999999999986,61
+2025-12-01,Vêtements et accessoires,NORTH,test,66.0,49
+2025-12-08,Vêtements et accessoires,NORTH,test,56.99999999999999,60
+2025-12-15,Vêtements et accessoires,NORTH,test,54.99999999999999,58
+2025-12-22,Vêtements et accessoires,NORTH,test,59.99999999999999,65
+2025-12-29,Vêtements et accessoires,NORTH,test,56.99999999999999,67
+2026-01-05,Vêtements et accessoires,NORTH,test,43.0,23
+2025-07-07,Vêtements et accessoires,SOUTH,validation,36.0,44
+2025-07-14,Vêtements et accessoires,SOUTH,validation,42.99999999999999,49
+2025-07-21,Vêtements et accessoires,SOUTH,validation,51.99999999999999,50
+2025-07-28,Vêtements et accessoires,SOUTH,validation,37.99999999999999,33
+2025-08-04,Vêtements et accessoires,SOUTH,validation,44.99999999999999,36
+2025-08-11,Vêtements et accessoires,SOUTH,validation,41.99999999999999,42
+2025-08-18,Vêtements et accessoires,SOUTH,validation,29.999999999999996,54
+2025-08-25,Vêtements et accessoires,SOUTH,validation,42.99999999999999,34
+2025-09-01,Vêtements et accessoires,SOUTH,validation,29.999999999999996,34
+2025-09-08,Vêtements et accessoires,SOUTH,validation,40.0,46
+2025-09-15,Vêtements et accessoires,SOUTH,validation,45.99999999999999,44
+2025-09-22,Vêtements et accessoires,SOUTH,validation,41.0,35
+2025-09-29,Vêtements et accessoires,SOUTH,validation,36.0,38
+2025-10-06,Vêtements et accessoires,SOUTH,test,40.0,33
+2025-10-13,Vêtements et accessoires,SOUTH,test,30.0,33
+2025-10-20,Vêtements et accessoires,SOUTH,test,26.0,21
+2025-10-27,Vêtements et accessoires,SOUTH,test,22.0,28
+2025-11-03,Vêtements et accessoires,SOUTH,test,35.0,48
+2025-11-10,Vêtements et accessoires,SOUTH,test,35.0,37
+2025-11-17,Vêtements et accessoires,SOUTH,test,29.0,34
+2025-11-24,Vêtements et accessoires,SOUTH,test,37.00000000000001,24
+2025-12-01,Vêtements et accessoires,SOUTH,test,36.0,45
+2025-12-08,Vêtements et accessoires,SOUTH,test,39.0,33
+2025-12-15,Vêtements et accessoires,SOUTH,test,45.0,39
+2025-12-22,Vêtements et accessoires,SOUTH,test,40.0,39
+2025-12-29,Vêtements et accessoires,SOUTH,test,40.0,25
+2026-01-05,Vêtements et accessoires,SOUTH,test,29.99999999999982,6
+2025-07-07,Vêtements et accessoires,WEST,validation,54.85870924321069,56
+2025-07-14,Vêtements et accessoires,WEST,validation,43.0,49
+2025-07-21,Vêtements et accessoires,WEST,validation,46.00000000000001,47
+2025-07-28,Vêtements et accessoires,WEST,validation,51.00000000000001,45
+2025-08-04,Vêtements et accessoires,WEST,validation,45.0,54
+2025-08-11,Vêtements et accessoires,WEST,validation,54.00000000000001,49
+2025-08-18,Vêtements et accessoires,WEST,validation,57.00000000000001,45
+2025-08-25,Vêtements et accessoires,WEST,validation,38.00000000000001,45
+2025-09-01,Vêtements et accessoires,WEST,validation,43.99999999999999,48
+2025-09-08,Vêtements et accessoires,WEST,validation,47.0,50
+2025-09-15,Vêtements et accessoires,WEST,validation,51.00000000000001,50
+2025-09-22,Vêtements et accessoires,WEST,validation,34.00000000000001,43
+2025-09-29,Vêtements et accessoires,WEST,validation,58.00000000000001,45
+2025-10-06,Vêtements et accessoires,WEST,test,19.255165015065437,41
+2025-10-13,Vêtements et accessoires,WEST,test,34.0,38
+2025-10-20,Vêtements et accessoires,WEST,test,28.0,38
+2025-10-27,Vêtements et accessoires,WEST,test,33.0,39
+2025-11-03,Vêtements et accessoires,WEST,test,31.000000000000007,49
+2025-11-10,Vêtements et accessoires,WEST,test,38.00000000000001,22
+2025-11-17,Vêtements et accessoires,WEST,test,31.000000000000004,34
+2025-11-24,Vêtements et accessoires,WEST,test,41.00000000000001,35
+2025-12-01,Vêtements et accessoires,WEST,test,51.00000000000001,44
+2025-12-08,Vêtements et accessoires,WEST,test,49.00000000000001,54
+2025-12-15,Vêtements et accessoires,WEST,test,45.00000000000001,44
+2025-12-22,Vêtements et accessoires,WEST,test,37.00000000000001,40
+2025-12-29,Vêtements et accessoires,WEST,test,49.00000000000001,29
+2026-01-05,Vêtements et accessoires,WEST,test,32.0,9
+2025-07-07,Équipements sportifs,EAST,validation,43.23299735995438,36
+2025-07-14,Équipements sportifs,EAST,validation,31.0,33
+2025-07-21,Équipements sportifs,EAST,validation,35.00000000000001,37
+2025-07-28,Équipements sportifs,EAST,validation,41.0,27
+2025-08-04,Équipements sportifs,EAST,validation,35.00000000000001,36
+2025-08-11,Équipements sportifs,EAST,validation,44.0,38
+2025-08-18,Équipements sportifs,EAST,validation,31.0,36
+2025-08-25,Équipements sportifs,EAST,validation,39.0,36
+2025-09-01,Équipements sportifs,EAST,validation,32.0,39
+2025-09-08,Équipements sportifs,EAST,validation,40.0,35
+2025-09-15,Équipements sportifs,EAST,validation,35.00000000000001,45
+2025-09-22,Équipements sportifs,EAST,validation,35.00000000000001,34
+2025-09-29,Équipements sportifs,EAST,validation,33.00000000000001,28
+2025-10-06,Équipements sportifs,EAST,test,29.035234120768312,30
+2025-10-13,Équipements sportifs,EAST,test,16.000000000000004,40
+2025-10-20,Équipements sportifs,EAST,test,26.999999999999996,32
+2025-10-27,Équipements sportifs,EAST,test,34.00000000000001,23
+2025-11-03,Équipements sportifs,EAST,test,31.000000000000004,20
+2025-11-10,Équipements sportifs,EAST,test,35.00000000000001,27
+2025-11-17,Équipements sportifs,EAST,test,23.000000000000004,28
+2025-11-24,Équipements sportifs,EAST,test,28.000000000000004,33
+2025-12-01,Équipements sportifs,EAST,test,28.0,22
+2025-12-08,Équipements sportifs,EAST,test,32.0,22
+2025-12-15,Équipements sportifs,EAST,test,16.0,30
+2025-12-22,Équipements sportifs,EAST,test,27.000000000000004,31
+2025-12-29,Équipements sportifs,EAST,test,31.999999999999996,28
+2026-01-05,Équipements sportifs,EAST,test,22.0,12
+2025-07-07,Équipements sportifs,NORTH,validation,36.0,39
+2025-07-14,Équipements sportifs,NORTH,validation,44.0,37
+2025-07-21,Équipements sportifs,NORTH,validation,31.000000000000004,36
+2025-07-28,Équipements sportifs,NORTH,validation,30.0,32
+2025-08-04,Équipements sportifs,NORTH,validation,28.0,31
+2025-08-11,Équipements sportifs,NORTH,validation,40.00000000000001,42
+2025-08-18,Équipements sportifs,NORTH,validation,34.0,49
+2025-08-25,Équipements sportifs,NORTH,validation,29.0,37
+2025-09-01,Équipements sportifs,NORTH,validation,41.99999999999999,29
+2025-09-08,Équipements sportifs,NORTH,validation,39.0,38
+2025-09-15,Équipements sportifs,NORTH,validation,32.0,33
+2025-09-22,Équipements sportifs,NORTH,validation,36.0,28
+2025-09-29,Équipements sportifs,NORTH,validation,37.0,34
+2025-10-06,Équipements sportifs,NORTH,test,36.0,36
+2025-10-13,Équipements sportifs,NORTH,test,24.999999999999996,37
+2025-10-20,Équipements sportifs,NORTH,test,20.0,34
+2025-10-27,Équipements sportifs,NORTH,test,36.0,25
+2025-11-03,Équipements sportifs,NORTH,test,28.999999999999996,33
+2025-11-10,Équipements sportifs,NORTH,test,32.0,29
+2025-11-17,Équipements sportifs,NORTH,test,35.0,29
+2025-11-24,Équipements sportifs,NORTH,test,28.999999999999996,25
+2025-12-01,Équipements sportifs,NORTH,test,29.999999999999996,28
+2025-12-08,Équipements sportifs,NORTH,test,23.999999999999996,34
+2025-12-15,Équipements sportifs,NORTH,test,27.0,42
+2025-12-22,Équipements sportifs,NORTH,test,27.0,35
+2025-12-29,Équipements sportifs,NORTH,test,28.0,31
+2026-01-05,Équipements sportifs,NORTH,test,26.999999999999805,8
+2025-07-07,Équipements sportifs,SOUTH,validation,25.2730616626368,21
+2025-07-14,Équipements sportifs,SOUTH,validation,27.0,23
+2025-07-21,Équipements sportifs,SOUTH,validation,21.0,15
+2025-07-28,Équipements sportifs,SOUTH,validation,18.0,20
+2025-08-04,Équipements sportifs,SOUTH,validation,20.0,21
+2025-08-11,Équipements sportifs,SOUTH,validation,25.0,20
+2025-08-18,Équipements sportifs,SOUTH,validation,21.999999999999996,20
+2025-08-25,Équipements sportifs,SOUTH,validation,15.0,21
+2025-09-01,Équipements sportifs,SOUTH,validation,21.0,19
+2025-09-08,Équipements sportifs,SOUTH,validation,21.0,19
+2025-09-15,Équipements sportifs,SOUTH,validation,24.0,24
+2025-09-22,Équipements sportifs,SOUTH,validation,20.0,23
+2025-09-29,Équipements sportifs,SOUTH,validation,26.0,18
+2025-10-06,Équipements sportifs,SOUTH,test,11.932625313483145,18
+2025-10-13,Équipements sportifs,SOUTH,test,12.999999999999998,21
+2025-10-20,Équipements sportifs,SOUTH,test,14.999999999999998,10
+2025-10-27,Équipements sportifs,SOUTH,test,14.0,22
+2025-11-03,Équipements sportifs,SOUTH,test,19.0,18
+2025-11-10,Équipements sportifs,SOUTH,test,21.0,24
+2025-11-17,Équipements sportifs,SOUTH,test,14.0,22
+2025-11-24,Équipements sportifs,SOUTH,test,15.0,18
+2025-12-01,Équipements sportifs,SOUTH,test,21.999999999999996,21
+2025-12-08,Équipements sportifs,SOUTH,test,7.999999999999999,12
+2025-12-15,Équipements sportifs,SOUTH,test,13.0,21
+2025-12-22,Équipements sportifs,SOUTH,test,25.0,21
+2025-12-29,Équipements sportifs,SOUTH,test,19.0,11
+2026-01-05,Équipements sportifs,SOUTH,test,12.0,4
+2025-07-07,Équipements sportifs,WEST,validation,29.999999999999996,25
+2025-07-14,Équipements sportifs,WEST,validation,24.999999999999996,27
+2025-07-21,Équipements sportifs,WEST,validation,28.999999999999996,28
+2025-07-28,Équipements sportifs,WEST,validation,21.0,20
+2025-08-04,Équipements sportifs,WEST,validation,20.0,26
+2025-08-11,Équipements sportifs,WEST,validation,27.999999999999996,24
+2025-08-18,Équipements sportifs,WEST,validation,26.0,27
+2025-08-25,Équipements sportifs,WEST,validation,21.999999999999996,27
+2025-09-01,Équipements sportifs,WEST,validation,24.999999999999996,26
+2025-09-08,Équipements sportifs,WEST,validation,21.999999999999996,23
+2025-09-15,Équipements sportifs,WEST,validation,26.999999999999996,25
+2025-09-22,Équipements sportifs,WEST,validation,28.999999999999996,30
+2025-09-29,Équipements sportifs,WEST,validation,29.999999999999996,25
+2025-10-06,Équipements sportifs,WEST,test,21.0,20
+2025-10-13,Équipements sportifs,WEST,test,14.0,18
+2025-10-20,Équipements sportifs,WEST,test,14.999999999999998,14
+2025-10-27,Équipements sportifs,WEST,test,18.999999999999996,18
+2025-11-03,Équipements sportifs,WEST,test,19.999999999999996,8
+2025-11-10,Équipements sportifs,WEST,test,22.0,20
+2025-11-17,Équipements sportifs,WEST,test,13.0,24
+2025-11-24,Équipements sportifs,WEST,test,14.0,23
+2025-12-01,Équipements sportifs,WEST,test,18.999999999999996,18
+2025-12-08,Équipements sportifs,WEST,test,27.0,24
+2025-12-15,Équipements sportifs,WEST,test,17.999999999999996,13
+2025-12-22,Équipements sportifs,WEST,test,22.0,14
+2025-12-29,Équipements sportifs,WEST,test,22.0,22
+2026-01-05,Équipements sportifs,WEST,test,7.999999999992238,13
