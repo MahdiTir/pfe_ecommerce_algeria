@@ -1,49 +1,49 @@
 destination wilaya,Total Orders,Returned Orders,Return Rate %
-Béchar,3405,553,16.24
-Djelfa,3483,542,15.56
-Tindouf,1347,205,15.22
-Mostaganem,5219,779,14.93
-Mascara,3855,567,14.71
-Tizi Ouzou,7102,1042,14.67
-Boumerdès,5201,760,14.61
-Relizane,3765,549,14.58
-Blida,8091,1165,14.4
-El Oued,3989,560,14.04
-Bouira,4297,602,14.01
-Adrar,3786,526,13.89
-Chlef,5453,753,13.81
-Ouargla,7131,982,13.77
-Oum El Bouaghi,4758,654,13.75
-Aïn Defla,3769,506,13.43
-Alger,31495,4171,13.24
-Béjaïa,8410,1111,13.21
-Bordj Bou Arreridj,3832,493,12.87
-Tipaza,4850,623,12.85
-M'Sila,4276,546,12.77
-Batna,8723,1112,12.75
-Tiaret,5294,673,12.71
-Biskra,5947,742,12.48
-Sidi Bel Abbès,5105,635,12.44
-Naâma,1761,215,12.21
-Aïn Témouchent,2933,355,12.1
-Khenchela,3735,450,12.05
-Illizi,732,86,11.75
-Sétif,9864,1159,11.75
-El Bayadh,2192,257,11.72
-Souk Ahras,3679,431,11.72
-Oran,14227,1664,11.7
-Médéa,3320,388,11.69
-Constantine,12959,1486,11.47
-Ghardaïa,3836,431,11.24
-Laghouat,4185,469,11.21
-Tlemcen,8582,953,11.1
-El Tarf,2912,323,11.09
-Tissemsilt,1938,214,11.04
-Mila,4042,446,11.03
-Tébessa,6035,663,10.99
-Saïda,3055,322,10.54
-Annaba,9113,926,10.16
-Jijel,4518,443,9.81
-Guelma,3677,354,9.63
-Skikda,7062,653,9.25
-Tamanrasset,3392,104,3.07
+Mascara,3156,558,17.68
+Tizi Ouzou,4933,865,17.53
+Bordj Bou Arreridj,3072,534,17.38
+Béchar,3005,514,17.1
+Tindouf,2120,360,16.98
+Ouargla,5072,859,16.94
+El Oued,3165,534,16.87
+Djelfa,2944,496,16.85
+Blida,5272,885,16.79
+Mostaganem,3749,626,16.7
+Adrar,3137,523,16.67
+Boumerdès,3568,593,16.62
+Chlef,4021,668,16.61
+M'Sila,3270,541,16.54
+Relizane,3069,507,16.52
+Bouira,3407,562,16.5
+Oum El Bouaghi,3589,591,16.47
+Illizi,1934,317,16.39
+Tipaza,3513,564,16.05
+Ghardaïa,3058,489,15.99
+El Bayadh,2434,385,15.82
+Aïn Defla,3138,496,15.81
+Tiaret,3701,584,15.78
+Khenchela,2861,447,15.62
+Aïn Témouchent,2691,419,15.57
+Batna,5876,912,15.52
+Béjaïa,6084,943,15.5
+Alger,22212,3431,15.45
+Sidi Bel Abbès,3760,581,15.45
+Médéa,2808,425,15.14
+Souk Ahras,2967,448,15.1
+Sétif,6585,970,14.73
+Naâma,2275,331,14.55
+Tissemsilt,2144,306,14.27
+Tébessa,4010,572,14.26
+Biskra,4200,597,14.21
+Jijel,3367,477,14.17
+El Tarf,2700,380,14.07
+Saïda,2721,382,14.04
+Guelma,2887,402,13.92
+Mila,3011,411,13.65
+Tlemcen,5756,783,13.6
+Laghouat,3300,448,13.58
+Constantine,8623,1165,13.51
+Skikda,4937,630,12.76
+Oran,9442,1179,12.49
+Annaba,6394,759,11.87
+Tamanrasset,3140,289,9.2
