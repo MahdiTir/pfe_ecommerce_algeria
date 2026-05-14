@@ -1,9 +1,5 @@
 from __future__ import annotations
 
-import itertools
-import json
-import re
-import unicodedata
 import warnings
 from pathlib import Path
 
@@ -17,219 +13,278 @@ from statsmodels.tsa.statespace.sarimax import SARIMAX
 warnings.filterwarnings("ignore")
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
-DATA_PATH = ROOT_DIR / "data" / "ecommerce_algerie_2024_2025_version10mai.csv"
+DATA_PATH = ROOT_DIR / "data" / "weekly_demand_categorie_region.csv"
 MODELS_DIR = ROOT_DIR / "SARIMA" / "models"
-REGIONS_PATH = ROOT_DIR / "wilayas_regions.txt"
+RESIDUALS_PATH = ROOT_DIR / "SARIMA" / "sarima_residuals_train.csv"
+FORECASTS_PATH = ROOT_DIR / "SARIMA" / "sarima_forecasts_all.csv"
+ORDERS_PATH = ROOT_DIR / "SARIMA" / "sarima_orders.csv"
 
 DATE_COL = "date"
-CATEGORY_COL = "category"
+CATEGORY_COL = "Categorie"
 REGION_COL = "region"
 DEMAND_COL = "demand"
-
-MIN_LENGTH = 24
-FORECAST_STEPS = 12
+SPLIT_COL = "split"
 
 AUTO_ARIMA_CONFIG = {
-    "seasonal": True,
-    "m": 12,
-    "stepwise": True,
-    "suppress_warnings": True,
-    "error_action": "ignore",
-    "information_criterion": "aic",
+	"start_p": 0,
+	"max_p": 3,
+	"start_q": 0,
+	"max_q": 3,
+	"d": None,
+	"seasonal": True,
+	"m": 52,
+	"start_P": 0,
+	"max_P": 2,
+	"start_Q": 0,
+	"max_Q": 2,
+	"D": 1,
+	"information_criterion": "aic",
+	"stepwise": True,
+	"suppress_warnings": True,
+	"error_action": "ignore",
 }
 
 
-def _slugify(value: str) -> str:
-    text = str(value).strip().lower()
-    text = unicodedata.normalize("NFKD", text)
-    text = "".join(ch for ch in text if not unicodedata.combining(ch))
-    text = re.sub(r"[^a-z0-9]+", "-", text)
-    return text.strip("-") or "unknown"
-
-
 def _normalize_text(value: str) -> str:
-    text = str(value).strip().lower()
-    text = unicodedata.normalize("NFKD", text)
-    text = "".join(ch for ch in text if not unicodedata.combining(ch))
-    text = re.sub(r"[^a-z0-9]+", " ", text)
-    return re.sub(r"\s+", " ", text).strip()
+	text = str(value).strip().lower()
+	text = " ".join(text.split())
+	return text
 
 
 def _find_column(columns: list[str], target_normalized: str) -> str:
-    for column in columns:
-        if _normalize_text(column) == target_normalized:
-            return column
-    raise KeyError(f"Missing required column: {target_normalized}")
+	for column in columns:
+		if _normalize_text(column) == target_normalized:
+			return column
+	raise KeyError(f"Missing required column: {target_normalized}")
 
 
-def _load_regions_map() -> dict[str, str]:
-    raw_text = REGIONS_PATH.read_text(encoding="utf-8")
-    cleaned_text = re.sub(r",\s*([}\]])", r"\1", raw_text)
-    region_data = json.loads(cleaned_text)
+def _load_weekly_data() -> pd.DataFrame:
+	df = pd.read_csv(DATA_PATH)
+	columns = df.columns.tolist()
 
-    region_map: dict[str, str] = {}
-    for region, wilayas in region_data.items():
-        for wilaya in wilayas:
-            region_map[_normalize_text(wilaya)] = region
-    return region_map
+	date_col = _find_column(columns, "date expédition")
+	category_col = _find_column(columns, "categorie")
+	region_col = _find_column(columns, "region")
+	demand_col = _find_column(columns, "demand")
 
-
-def _prepare_aggregated(df: pd.DataFrame) -> pd.DataFrame:
-    columns = df.columns.tolist()
-    date_col = _find_column(columns, "date")
-    category_col = _find_column(columns, "category")
-    region_col = _find_column(columns, "region")
-    demand_col = _find_column(columns, "demand")
-
-    df = df.rename(
-        columns={
-            date_col: DATE_COL,
-            category_col: CATEGORY_COL,
-            region_col: REGION_COL,
-            demand_col: DEMAND_COL,
-        }
-    )
-    df[DATE_COL] = pd.to_datetime(df[DATE_COL], errors="coerce")
-    df[DEMAND_COL] = pd.to_numeric(df[DEMAND_COL], errors="coerce")
-    df = df.dropna(subset=[DATE_COL, CATEGORY_COL, REGION_COL, DEMAND_COL]).copy()
-    return df.sort_values(DATE_COL)
+	df = df.rename(
+		columns={
+			date_col: DATE_COL,
+			category_col: CATEGORY_COL,
+			region_col: REGION_COL,
+			demand_col: DEMAND_COL,
+		}
+	)
+	df[DATE_COL] = pd.to_datetime(df[DATE_COL], errors="coerce")
+	df[DEMAND_COL] = pd.to_numeric(df[DEMAND_COL], errors="coerce")
+	df = df.dropna(subset=[DATE_COL, CATEGORY_COL, REGION_COL, DEMAND_COL]).copy()
+	df = df.sort_values([CATEGORY_COL, REGION_COL, DATE_COL])
+	return df
 
 
-def _prepare_raw(df: pd.DataFrame) -> pd.DataFrame:
-    columns = df.columns.tolist()
-    category_col = _find_column(columns, "categorie")
-    date_col = _find_column(columns, "date expedition")
-    wilaya_col = _find_column(columns, "destination wilaya")
+def _complete_weekly_series(df: pd.DataFrame, category: str, region: str) -> pd.Series:
+	series = (
+		df[(df[CATEGORY_COL] == category) & (df[REGION_COL] == region)]
+		.groupby(DATE_COL, as_index=True)[DEMAND_COL]
+		.sum()
+		.sort_index()
+	)
+	if series.empty:
+		return series
 
-    region_map = _load_regions_map()
-
-    df[date_col] = pd.to_datetime(df[date_col], errors="coerce")
-    df = df.dropna(subset=[date_col, category_col, wilaya_col]).copy()
-
-    df[REGION_COL] = (
-        df[wilaya_col]
-        .map(_normalize_text)
-        .map(region_map)
-        .fillna("unknown")
-    )
-    df[CATEGORY_COL] = df[category_col]
-    df[DATE_COL] = df[date_col].dt.normalize()
-
-    daily = (
-        df.groupby([DATE_COL, CATEGORY_COL, REGION_COL], dropna=False)
-        .size()
-        .reset_index(name=DEMAND_COL)
-        .sort_values([DATE_COL, CATEGORY_COL, REGION_COL])
-    )
-    return daily
+	full_index = pd.date_range(series.index.min(), series.index.max(), freq="W-MON")
+	return series.reindex(full_index, fill_value=0).rename(series.name)
 
 
-def _load_data() -> pd.DataFrame:
-    df = pd.read_csv(DATA_PATH)
-    normalized_cols = {_normalize_text(col) for col in df.columns}
-    has_aggregated = {"date", "category", "region", "demand"}.issubset(normalized_cols)
-
-    if has_aggregated:
-        return _prepare_aggregated(df)
-    return _prepare_raw(df)
+def split_series(series: pd.Series):
+	n = len(series)
+	train_end = int(n * 0.75)
+	val_end = int(n * 0.875)
+	return series.iloc[:train_end], series.iloc[train_end:val_end], series.iloc[val_end:]
 
 
-def _series_for(df: pd.DataFrame, category: str, region: str) -> pd.Series:
-    ts = (
-        df[(df[CATEGORY_COL] == category) & (df[REGION_COL] == region)]
-        .groupby(DATE_COL, as_index=True)[DEMAND_COL]
-        .sum()
-        .sort_index()
-    )
-    return ts
+def _forecast_series(model_fit, steps: int, index: pd.DatetimeIndex) -> pd.Series:
+	forecast = model_fit.forecast(steps=steps)
+	return pd.Series(np.asarray(forecast), index=index, name="sarima_forecast")
 
 
-def _fit_one(df: pd.DataFrame, category: str, region: str):
-    file_key = f"{_slugify(category)}_{_slugify(region)}"
-    display_key = f"{category} | {region}"
-    path = MODELS_DIR / f"sarima_{file_key}.pkl"
+def _fit_one_series(df: pd.DataFrame, category: str, region: str):
+	key = (category, region)
+	file_key = f"{category}__{region}".replace(" ", "_")
+	model_path = MODELS_DIR / f"sarima_{file_key}.pkl"
 
-    if path.exists():
-        print(f"  [CACHE]  {display_key}")
-        return (category, region), joblib.load(path), None, None
+	series = _complete_weekly_series(df, category, region)
+	if series.empty:
+		print(f"  [SKIP]   {category} | {region} - no data")
+		return key, None, pd.DataFrame(), pd.DataFrame(), None
 
-    ts = _series_for(df, category, region)
+	train, val, test = split_series(series)
 
-    if len(ts) < MIN_LENGTH:
-        print(f"  [SKIP]   {display_key} - only {len(ts)} points")
-        return (category, region), None, None, None
+	if len(train) < 8 or len(val) == 0 or len(test) == 0:
+		print(f"  [SKIP]   {category} | {region} - insufficient split sizes ({len(train)}, {len(val)}, {len(test)})")
+		return key, None, pd.DataFrame(), pd.DataFrame(), None
 
-    if np.isclose(ts.sum(), 0):
-        print(f"  [SKIP]   {display_key} - all zeros")
-        return (category, region), None, None, None
+	if np.isclose(train.sum(), 0) and np.isclose(val.sum(), 0) and np.isclose(test.sum(), 0):
+		print(f"  [SKIP]   {category} | {region} - all zero demand")
+		return key, None, pd.DataFrame(), pd.DataFrame(), None
 
-    try:
-        arima = auto_arima(ts, **AUTO_ARIMA_CONFIG)
-        order = arima.order
+	try:
+		order_model = auto_arima(train, **AUTO_ARIMA_CONFIG)
+		order = order_model.order
+		seasonal_order = order_model.seasonal_order
 
-        model = SARIMAX(
-            ts,
-            order=order,
-            seasonal_order=(0, 0, 0, 0),
-            enforce_stationarity=False,
-            enforce_invertibility=False,
-        )
-        fit = model.fit(disp=False)
-        forecast = fit.forecast(steps=FORECAST_STEPS)
+		train_fit = SARIMAX(
+			train,
+			order=order,
+			seasonal_order=seasonal_order,
+			enforce_stationarity=False,
+			enforce_invertibility=False,
+		)
+		train_fit_result = train_fit.fit(disp=False)
 
-        joblib.dump(fit, path)
-        print(f"  [OK]     {display_key} - order={order} AIC={fit.aic:.1f}")
-        return (category, region), fit, forecast, order
+		fitted_train = train_fit_result.get_prediction(start=0, end=len(train) - 1).predicted_mean
+		fitted_train = pd.Series(fitted_train, index=train.index, name="fitted_train")
+		residuals_train = (train - fitted_train).rename("residual")
 
-    except Exception as exc:
-        print(f"  [ERROR]  {display_key} - {exc}")
-        return (category, region), None, None, None
+		train_val = pd.concat([train, val])
+		refit_model = SARIMAX(
+			train_val,
+			order=order,
+			seasonal_order=seasonal_order,
+			enforce_stationarity=False,
+			enforce_invertibility=False,
+		)
+		refit_result = refit_model.fit(disp=False)
+		joblib.dump(refit_result, model_path)
+
+		forecast_val = _forecast_series(train_fit_result, len(val), val.index)
+		forecast_test = _forecast_series(refit_result, len(test), test.index)
+
+		residuals_df = pd.DataFrame(
+			{
+				"date": residuals_train.index,
+				"Categorie": category,
+				"region": region,
+				"residual": residuals_train.values,
+				"demand": train.values,
+			}
+		)
+
+		forecast_df = pd.concat(
+			[
+				pd.DataFrame(
+					{
+						"date": val.index,
+						"Categorie": category,
+						"region": region,
+						SPLIT_COL: "validation",
+						"sarima_forecast": forecast_val.values,
+						"actual_demand": val.values,
+					}
+				),
+				pd.DataFrame(
+					{
+						"date": test.index,
+						"Categorie": category,
+						"region": region,
+						SPLIT_COL: "test",
+						"sarima_forecast": forecast_test.values,
+						"actual_demand": test.values,
+					}
+				),
+			],
+			ignore_index=True,
+		)
+
+		result = {
+			"model": refit_result,
+			"order": (order, seasonal_order),
+			"fitted_train": fitted_train,
+			"residuals_train": residuals_train,
+			"forecast_val": forecast_val,
+			"forecast_test": forecast_test,
+			"actual_train": train,
+			"actual_val": val,
+			"actual_test": test,
+		}
+
+		print(
+			f"  [OK]     {category} | {region} - order={order}, seasonal={seasonal_order}, train={len(train)}, val={len(val)}, test={len(test)}"
+		)
+		return key, result, residuals_df, forecast_df, {
+			"Categorie": category,
+			"region": region,
+			"order": str(order),
+			"seasonal_order": str(seasonal_order),
+			"aic": float(refit_result.aic),
+		}
+
+	except Exception as exc:
+		print(f"  [ERROR]  {category} | {region} - {exc}")
+		return key, None, pd.DataFrame(), pd.DataFrame(), None
 
 
 def main() -> None:
-    MODELS_DIR.mkdir(parents=True, exist_ok=True)
+	MODELS_DIR.mkdir(parents=True, exist_ok=True)
 
-    df = _load_data()
-    categories = sorted(df[CATEGORY_COL].unique())
-    regions = sorted(df[REGION_COL].unique())
-    combos = list(itertools.product(categories, regions))
+	df = _load_weekly_data()
+	print(f"Loaded weekly demand data: {df.shape}")
 
-    print(
-        f"Fitting {len(combos)} models ({len(categories)} categories x {len(regions)} regions)...\n"
-    )
+	combos = (
+		df[[CATEGORY_COL, REGION_COL]]
+		.drop_duplicates()
+		.sort_values([CATEGORY_COL, REGION_COL])
+		.itertuples(index=False, name=None)
+	)
+	combos = list(combos)
+	print(f"Fitting {len(combos)} SARIMA series ({df[CATEGORY_COL].nunique()} categories x {df[REGION_COL].nunique()} regions)...\n")
 
-    results = joblib.Parallel(n_jobs=-1)(
-        joblib.delayed(_fit_one)(df, category, region)
-        for category, region in combos
-    )
+	results = joblib.Parallel(n_jobs=-1)(
+		joblib.delayed(_fit_one_series)(df, category, region)
+		for category, region in combos
+	)
 
-    models = {}
-    forecasts = {}
-    orders = []
+	sarima_results: dict[tuple[str, str], dict] = {}
+	residual_frames: list[pd.DataFrame] = []
+	forecast_frames: list[pd.DataFrame] = []
+	orders: list[dict] = []
 
-    for key, fit, forecast, order in results:
-        if fit is None:
-            continue
-        models[key] = fit
-        if forecast is not None:
-            forecasts[key] = forecast
-        if order is not None:
-            orders.append(
-                {
-                    "category": key[0],
-                    "region": key[1],
-                    "order": str(order),
-                    "aic": float(fit.aic),
-                }
-            )
+	for key, result, residuals_df, forecast_df, order_info in results:
+		if result is not None:
+			sarima_results[key] = result
+		if not residuals_df.empty:
+			residual_frames.append(residuals_df)
+		if not forecast_df.empty:
+			forecast_frames.append(forecast_df)
+		if order_info is not None:
+			orders.append(order_info)
 
-    if orders:
-        orders_path = MODELS_DIR / "sarima_orders.csv"
-        pd.DataFrame(orders).to_csv(orders_path, index=False)
-        print(f"\nSaved order summary to {orders_path}")
+	if residual_frames:
+		residuals_all = pd.concat(residual_frames, ignore_index=True)
+		residuals_all["date"] = pd.to_datetime(residuals_all["date"]).dt.strftime("%Y-%m-%d")
+		residuals_all.to_csv(RESIDUALS_PATH, index=False)
+		print(f"\nSaved training residuals to {RESIDUALS_PATH} ({residuals_all.shape})")
+	else:
+		print("\nWarning: no residuals were collected")
 
-    print(f"\nDone - {len(models)} models fitted.")
+	if forecast_frames:
+		forecasts_all = pd.concat(forecast_frames, ignore_index=True)
+		forecasts_all["date"] = pd.to_datetime(forecasts_all["date"]).dt.strftime("%Y-%m-%d")
+		forecasts_all.to_csv(FORECASTS_PATH, index=False)
+		print(f"Saved SARIMA forecasts to {FORECASTS_PATH} ({forecasts_all.shape})")
+	else:
+		print("Warning: no forecasts were collected")
+
+	if orders:
+		pd.DataFrame(orders).to_csv(ORDERS_PATH, index=False)
+		print(f"Saved SARIMA orders to {ORDERS_PATH}")
+
+	print("\nPhase 2 summary:")
+	print(f"✓ All series split into train/val/test: {len(sarima_results)} fitted series")
+	print("✓ SARIMA fitted on all (Categorie × region) tuples")
+	print("✓ Residuals extracted and saved")
+	print("✓ Ready for XGBoost in Phase 3")
 
 
 if __name__ == "__main__":
-    main()
+	main()

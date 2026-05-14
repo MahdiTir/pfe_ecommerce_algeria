@@ -1,0 +1,89 @@
+Categorie,region,order,seasonal_order,aic
+Animaux et articles pour animaux de compagnie,EAST,"(0, 0, 0)","(0, 1, 0, 52)",325.8470716707438
+Animaux et articles pour animaux de compagnie,NORTH,"(0, 0, 1)","(0, 1, 0, 52)",304.45218534609404
+Animaux et articles pour animaux de compagnie,SOUTH,"(0, 0, 0)","(0, 1, 0, 52)",271.3948817195875
+Animaux et articles pour animaux de compagnie,WEST,"(0, 0, 1)","(0, 1, 0, 52)",288.40100225961885
+"Appareils photo, caméras et instruments d'optique",EAST,"(0, 0, 0)","(0, 1, 0, 52)",240.08759727165378
+"Appareils photo, caméras et instruments d'optique",NORTH,"(0, 0, 0)","(0, 1, 0, 52)",218.717076199147
+"Appareils photo, caméras et instruments d'optique",SOUTH,"(0, 0, 0)","(0, 1, 0, 52)",210.62024623717923
+"Appareils photo, caméras et instruments d'optique",WEST,"(0, 0, 0)","(0, 1, 0, 52)",217.68650032639928
+Appareils électroniques,EAST,"(0, 0, 0)","(0, 1, 0, 52)",344.0930797237244
+Appareils électroniques,NORTH,"(0, 0, 0)","(0, 1, 0, 52)",324.2282248627216
+Appareils électroniques,SOUTH,"(0, 0, 0)","(0, 1, 0, 52)",296.7075891204334
+Appareils électroniques,WEST,"(0, 0, 0)","(0, 1, 0, 52)",315.48483186371266
+Arts et loisirs,EAST,"(0, 0, 0)","(0, 1, 0, 52)",328.77863992665544
+Arts et loisirs,NORTH,"(0, 0, 0)","(0, 1, 0, 52)",316.162826236151
+Arts et loisirs,SOUTH,"(1, 0, 0)","(0, 1, 0, 52)",255.1566060406954
+Arts et loisirs,WEST,"(0, 0, 0)","(0, 1, 0, 52)",288.41346429832606
+Bagages et maroquinerie,EAST,"(2, 0, 0)","(0, 1, 0, 52)",289.3633485163075
+Bagages et maroquinerie,NORTH,"(0, 0, 0)","(0, 1, 0, 52)",328.4556730229498
+Bagages et maroquinerie,SOUTH,"(0, 0, 0)","(0, 1, 0, 52)",269.10838378905225
+Bagages et maroquinerie,WEST,"(0, 0, 0)","(0, 1, 0, 52)",279.7301844027051
+Bébés et tout-petits,EAST,"(0, 0, 1)","(0, 1, 0, 52)",307.43088962724477
+Bébés et tout-petits,NORTH,"(0, 0, 0)","(0, 1, 0, 52)",299.97660744364845
+Bébés et tout-petits,SOUTH,"(0, 0, 1)","(0, 1, 0, 52)",285.6791303928953
+Bébés et tout-petits,WEST,"(0, 0, 0)","(0, 1, 0, 52)",295.81369769228263
+Entreprise et industrie,EAST,"(0, 0, 0)","(0, 1, 0, 52)",268.3215873511739
+Entreprise et industrie,NORTH,"(0, 0, 1)","(0, 1, 0, 52)",250.19111526690352
+Entreprise et industrie,SOUTH,"(0, 0, 0)","(0, 1, 0, 52)",246.8599210480538
+Entreprise et industrie,WEST,"(0, 0, 1)","(0, 1, 0, 52)",228.03144974521453
+Fournitures de bureau,EAST,"(0, 0, 0)","(0, 1, 0, 52)",311.4131365852113
+Fournitures de bureau,NORTH,"(0, 0, 0)","(0, 1, 0, 52)",318.6662740278855
+Fournitures de bureau,SOUTH,"(0, 0, 0)","(0, 1, 0, 52)",279.7715490258818
+Fournitures de bureau,WEST,"(0, 0, 0)","(0, 1, 0, 52)",288.776155533599
+Jeux et jouets,EAST,"(0, 0, 0)","(0, 1, 0, 52)",275.16939660986054
+Jeux et jouets,NORTH,"(0, 0, 1)","(0, 1, 0, 52)",262.14436559303533
+Jeux et jouets,SOUTH,"(0, 0, 0)","(0, 1, 0, 52)",236.87050710259277
+Jeux et jouets,WEST,"(0, 0, 0)","(0, 1, 0, 52)",254.38485060074117
+Logiciels,EAST,"(0, 0, 0)","(0, 1, 0, 52)",163.26120889731453
+Logiciels,NORTH,"(0, 0, 0)","(0, 1, 0, 52)",182.77052079872186
+Logiciels,SOUTH,"(0, 0, 0)","(0, 1, 0, 52)",165.8665904251689
+Logiciels,WEST,"(0, 0, 0)","(0, 1, 0, 52)",174.61975602902268
+Lots,EAST,"(0, 0, 0)","(0, 1, 0, 52)",216.78891489612124
+Lots,NORTH,"(0, 0, 0)","(0, 1, 0, 52)",230.88622167341538
+Lots,SOUTH,"(0, 0, 0)","(0, 1, 0, 52)",202.47802421698546
+Lots,WEST,"(0, 0, 0)","(0, 1, 0, 52)",200.94841648870994
+Maison et jardin,EAST,"(0, 0, 1)","(0, 1, 0, 52)",376.28233781404435
+Maison et jardin,NORTH,"(0, 0, 0)","(0, 1, 0, 52)",403.2512383562698
+Maison et jardin,SOUTH,"(0, 0, 0)","(0, 1, 0, 52)",360.9678348031026
+Maison et jardin,WEST,"(2, 0, 0)","(0, 1, 0, 52)",345.4344898196748
+Meubles,EAST,"(0, 0, 1)","(0, 1, 0, 52)",321.875653159169
+Meubles,NORTH,"(2, 0, 0)","(0, 1, 0, 52)",308.0397413899507
+Meubles,SOUTH,"(0, 0, 0)","(0, 1, 0, 52)",295.74971001144536
+Meubles,WEST,"(0, 0, 0)","(0, 1, 0, 52)",315.468281895291
+Modules complémentaires du produit,EAST,"(0, 0, 0)","(0, 1, 0, 52)",191.0440131850742
+Modules complémentaires du produit,NORTH,"(0, 0, 0)","(0, 1, 0, 52)",171.98503767969234
+Modules complémentaires du produit,SOUTH,"(0, 0, 0)","(0, 1, 0, 52)",155.52308484941645
+Modules complémentaires du produit,WEST,"(0, 0, 1)","(0, 1, 0, 52)",169.78785741548293
+Médias,EAST,"(0, 0, 0)","(0, 1, 0, 52)",288.7433229732644
+Médias,NORTH,"(2, 0, 1)","(0, 1, 0, 52)",264.96748921819665
+Médias,SOUTH,"(0, 0, 1)","(0, 1, 0, 52)",231.29851229309318
+Médias,WEST,"(0, 0, 0)","(0, 1, 0, 52)",254.62193343003185
+Non classé,EAST,"(0, 0, 0)","(0, 1, 0, 52)",174.25436859846386
+Non classé,NORTH,"(0, 0, 0)","(0, 1, 0, 52)",165.17356210721047
+Non classé,SOUTH,"(1, 0, 0)","(0, 1, 0, 52)",138.17892138457273
+Non classé,WEST,"(0, 0, 0)","(0, 1, 0, 52)",147.7307560074912
+Offices religieux et cérémonies,EAST,"(0, 0, 0)","(0, 1, 0, 52)",245.65021041339804
+Offices religieux et cérémonies,NORTH,"(0, 0, 1)","(0, 1, 0, 52)",254.88522078849658
+Offices religieux et cérémonies,SOUTH,"(0, 0, 0)","(0, 1, 0, 52)",214.5675031349354
+Offices religieux et cérémonies,WEST,"(0, 0, 0)","(0, 1, 0, 52)",217.32455401798833
+Quincaillerie,EAST,"(2, 0, 0)","(0, 1, 0, 52)",308.82676879299754
+Quincaillerie,NORTH,"(2, 0, 1)","(0, 1, 0, 52)",309.223400183368
+Quincaillerie,SOUTH,"(0, 0, 0)","(0, 1, 0, 52)",264.64143952952975
+Quincaillerie,WEST,"(0, 0, 0)","(0, 1, 0, 52)",287.2364818675235
+Santé et beauté,EAST,"(0, 0, 1)","(0, 1, 0, 52)",317.05791526858826
+Santé et beauté,NORTH,"(0, 0, 0)","(0, 1, 0, 52)",332.2837109110888
+Santé et beauté,SOUTH,"(0, 0, 1)","(0, 1, 0, 52)",251.12403480844517
+Santé et beauté,WEST,"(0, 0, 0)","(0, 1, 0, 52)",317.5315729291324
+Véhicules et accessoires,EAST,"(0, 0, 0)","(0, 1, 0, 52)",294.59847158195964
+Véhicules et accessoires,NORTH,"(0, 0, 1)","(0, 1, 0, 52)",309.56322798062797
+Véhicules et accessoires,SOUTH,"(0, 0, 0)","(0, 1, 0, 52)",286.68637005604916
+Véhicules et accessoires,WEST,"(0, 0, 0)","(0, 1, 0, 52)",283.3757297656117
+Vêtements et accessoires,EAST,"(0, 0, 1)","(0, 1, 0, 52)",346.49124404171346
+Vêtements et accessoires,NORTH,"(0, 0, 1)","(0, 1, 0, 52)",353.1176356649406
+Vêtements et accessoires,SOUTH,"(0, 0, 0)","(0, 1, 0, 52)",308.74645968160945
+Vêtements et accessoires,WEST,"(0, 0, 1)","(0, 1, 0, 52)",324.42409572310714
+Équipements sportifs,EAST,"(0, 0, 1)","(0, 1, 0, 52)",308.0270094588675
+Équipements sportifs,NORTH,"(0, 0, 0)","(0, 1, 0, 52)",319.10101546321044
+Équipements sportifs,SOUTH,"(0, 0, 1)","(0, 1, 0, 52)",283.64504373705296
+Équipements sportifs,WEST,"(0, 0, 0)","(0, 1, 0, 52)",282.2670127654586
