@@ -16,7 +16,6 @@ data/*
 *.h5
 *.hdf5
 *.feather
-*.pkl
 *.pickle
 *.joblib
 *.db
@@ -47,4 +46,3 @@ Thumbs.db
 .venv/
 venv/
 ENV/
-models/
