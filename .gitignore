@@ -7,7 +7,7 @@ __pycache__/
 .ipynb_checkpoints/
 
 # Data files
-data/*
+data/ecommerce_algerie_2024_2025_version10mai.csv
 
 *.xlsx
 *.xls
@@ -16,7 +16,6 @@ data/*
 *.h5
 *.hdf5
 *.feather
-*.pkl
 *.pickle
 *.joblib
 *.db
@@ -47,4 +46,3 @@ Thumbs.db
 .venv/
 venv/
 ENV/
-models/
