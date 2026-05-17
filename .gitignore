@@ -7,8 +7,9 @@ __pycache__/
 .ipynb_checkpoints/
 
 # Data files
-data/ecommerce_algerie_2024_2025_version10mai.csv
-
+data/*.csv
+*.pkl
+SARIMA/sarimax_x/models/
 *.xlsx
 *.xls
 *.tsv

@@ -23,3 +23,15 @@ This repository contains data analysis and visualizations for Algerian e-commerc
 - Python 3.x
 - pandas, numpy, matplotlib, seaborn
 
+## Hybrid SARIMAX + XGBoost pipeline
+This repo includes a weekly forecasting pipeline with SARIMAX exogenous regressors
+and XGBoost residual correction.
+
+Run:
+1. Activate the virtual environment
+2. Execute the pipeline script:
+
+python SARIMA/sarimax_x/pipeline.py --input data/ecommerce_algerie_2024_2025_version16mai.csv
+
+Outputs are written to SARIMA/sarimax_x/outputs and SARIMA/sarimax_x/plots.
+

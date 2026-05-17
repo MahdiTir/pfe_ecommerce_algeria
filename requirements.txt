@@ -3,3 +3,6 @@ numpy
 matplotlib
 seaborn
 xgboost
+pmdarima
+statsmodels
+scikit-learn

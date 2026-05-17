@@ -1,0 +1,21 @@
+region,cat_group,order,seasonal_order,m,model_key
+EAST,electronics,"(0, 0, 0)","(0, 0, 0, 0)",1,b887e0138625
+EAST,fashion,"(1, 0, 1)","(0, 0, 0, 0)",1,8cd417c4f13b
+EAST,home,"(0, 0, 0)","(0, 0, 0, 0)",1,da50d74e9a5e
+EAST,other,"(1, 0, 0)","(0, 0, 0, 0)",1,afbe4ea3a75f
+EAST,sports_leisure,"(0, 0, 0)","(0, 0, 0, 0)",1,33005d223aa0
+NORTH,electronics,"(1, 0, 2)","(0, 0, 0, 0)",1,31285a60f71a
+NORTH,fashion,"(1, 0, 0)","(0, 0, 0, 0)",1,90ca0a1332dd
+NORTH,home,"(1, 0, 1)","(0, 0, 0, 0)",1,67f9d9b08306
+NORTH,other,"(0, 0, 0)","(0, 0, 0, 0)",1,0d8073c30a6f
+NORTH,sports_leisure,"(0, 0, 0)","(0, 0, 0, 0)",1,007eef3caf81
+SOUTH,electronics,"(0, 0, 0)","(0, 0, 0, 0)",1,01ffb85b5203
+SOUTH,fashion,"(0, 0, 0)","(0, 0, 0, 0)",1,34516a3c0948
+SOUTH,home,"(0, 0, 1)","(0, 0, 0, 0)",1,b8d93bf22844
+SOUTH,other,"(0, 0, 0)","(0, 0, 0, 0)",1,1103bb1eb158
+SOUTH,sports_leisure,"(0, 0, 0)","(0, 0, 0, 0)",1,99f4888e80c4
+WEST,electronics,"(0, 0, 0)","(0, 0, 0, 0)",1,accd4114ceac
+WEST,fashion,"(0, 0, 0)","(0, 0, 0, 0)",1,18262f8484f5
+WEST,home,"(0, 0, 0)","(0, 0, 0, 0)",1,3c3d4463fdfe
+WEST,other,"(0, 0, 0)","(0, 0, 0, 0)",1,c037dd004c74
+WEST,sports_leisure,"(1, 0, 0)","(0, 0, 0, 0)",1,808e140db86c
