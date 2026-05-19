@@ -1,0 +1,177 @@
+{
+  "categories": [
+    {
+      "name": "Animals & Pet Supplies",
+      "children": [
+        "Live Animals",
+        "Pet Supplies"
+      ]
+    },
+    {
+      "name": "Apparel & Accessories",
+      "children": [
+        "Clothing",
+        "Clothing Accessories",
+        "Costumes & Accessories",
+        "Handbag & Wallet Accessories",
+        "Handbags, Wallets & Cases",
+        "Jewelry",
+        "Shoe Accessories",
+        "Shoes"
+      ]
+    },
+    {
+      "name": "Arts & Entertainment",
+      "children": [
+        "Event Tickets",
+        "Hobbies & Creative Arts",
+        "Party & Celebration",
+        "Performing Arts",
+        "Toys & Games"
+      ]
+    },
+    {
+      "name": "Baby & Toddler",
+      "children": [
+        "Baby Bathing",
+        "Baby Health",
+        "Baby Safety",
+        "Baby Toys & Activity Equipment",
+        "Diapering",
+        "Nursing & Feeding",
+        "Potty Training",
+        "Strollers & Accessories"
+      ]
+    },
+    {
+      "name": "Business & Industrial",
+      "children": [
+        "Agriculture",
+        "Construction",
+        "Electrical Equipment",
+        "Food Service",
+        "Industrial Storage",
+        "Manufacturing",
+        "Retail",
+        "Work Safety Protective Gear"
+      ]
+    },
+    {
+      "name": "Cameras & Optics",
+      "children": [
+        "Camera & Optic Accessories",
+        "Cameras",
+        "Optics"
+      ]
+    },
+    {
+      "name": "Electronics",
+      "children": [
+        "Audio",
+        "Communications",
+        "Components",
+        "Computers",
+        "Electronics Accessories",
+        "Networking",
+        "Video"
+      ]
+    },
+    {
+      "name": "Food, Beverages & Tobacco",
+      "children": [
+        "Beverages",
+        "Food Items",
+        "Tobacco Products"
+      ]
+    },
+    {
+      "name": "Furniture",
+      "children": [
+        "Baby & Toddler Furniture",
+        "Beds & Accessories",
+        "Furniture Accessories",
+        "Kitchen & Dining Room Furniture",
+        "Living Room Furniture",
+        "Office Furniture",
+        "Outdoor Furniture"
+      ]
+    },
+    {
+      "name": "Hardware",
+      "children": [
+        "Building Materials",
+        "Fasteners",
+        "Fittings",
+        "Hardware Accessories",
+        "Tools"
+      ]
+    },
+    {
+      "name": "Health & Beauty",
+      "children": [
+        "Health Care",
+        "Personal Care",
+        "Cosmetics"
+      ]
+    },
+    {
+      "name": "Home & Garden",
+      "children": [
+        "Bathroom Accessories",
+        "Household Appliances",
+        "Household Supplies",
+        "Kitchen & Dining",
+        "Lawn & Garden",
+        "Lighting",
+        "Linens & Bedding"
+      ]
+    },
+    {
+      "name": "Luggage & Bags",
+      "children": [
+        "Backpacks",
+        "Briefcases",
+        "Luggage Accessories",
+        "Suitcases"
+      ]
+    },
+    {
+      "name": "Media",
+      "children": [
+        "Books",
+        "DVDs & Videos",
+        "Music"
+      ]
+    },
+    {
+      "name": "Office Supplies",
+      "children": [
+        "General Office Supplies",
+        "Office Equipment",
+        "Presentation Supplies"
+      ]
+    },
+    {
+      "name": "Software",
+      "children": [
+        "Business & Productivity",
+        "Security & Utilities"
+      ]
+    },
+    {
+      "name": "Sporting Goods",
+      "children": [
+        "Exercise & Fitness",
+        "Outdoor Recreation",
+        "Sports Equipment"
+      ]
+    },
+    {
+      "name": "Vehicles & Parts",
+      "children": [
+        "Vehicle Parts & Accessories",
+        "Vehicles"
+      ]
+    }
+  ]
+}
