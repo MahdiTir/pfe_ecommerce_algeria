@@ -1,0 +1,92 @@
+{
+  "warehouses": [
+    {
+      "id": "W1",
+      "capacity": 30000,
+      "stockLevel": 14050,
+      "region": "centre",
+      "transportCost": 220.0,
+      "holdingCost": 8.0
+    },
+    {
+      "id": "W2",
+      "capacity": 20000,
+      "stockLevel": 8450,
+      "region": "centre",
+      "transportCost": 180.0,
+      "holdingCost": 9.0
+    },
+    {
+      "id": "W5",
+      "capacity": 36000,
+      "stockLevel": 18050,
+      "region": "est",
+      "transportCost": 320.0,
+      "holdingCost": 7.0
+    },
+    {
+      "id": "W6",
+      "capacity": 18000,
+      "stockLevel": 6050,
+      "region": "est",
+      "transportCost": 300.0,
+      "holdingCost": 12.0
+    },
+    {
+      "id": "W7",
+      "capacity": 14000,
+      "stockLevel": 4050,
+      "region": "sud",
+      "transportCost": 450.0,
+      "holdingCost": 15.0
+    },
+    {
+      "id": "W8",
+      "capacity": 16000,
+      "stockLevel": 3050,
+      "region": "sud",
+      "transportCost": 400.0,
+      "holdingCost": 14.0
+    },
+    {
+      "id": "W9",
+      "capacity": 20000,
+      "stockLevel": 8450,
+      "region": "centre",
+      "transportCost": 260.0,
+      "holdingCost": 9.0
+    },
+    {
+      "id": "W11",
+      "capacity": 22000,
+      "stockLevel": 10050,
+      "region": "centre",
+      "transportCost": 280.0,
+      "holdingCost": 8.0
+    },
+    {
+      "id": "W12",
+      "capacity": 19000,
+      "stockLevel": 7050,
+      "region": "est",
+      "transportCost": 290.0,
+      "holdingCost": 7.0
+    },
+    {
+      "id": "W13",
+      "capacity": 17000,
+      "stockLevel": 5650,
+      "region": "centre",
+      "transportCost": 230.0,
+      "holdingCost": 10.0
+    },
+    {
+      "id": "W14",
+      "capacity": 18000,
+      "stockLevel": 6650,
+      "region": "sud",
+      "transportCost": 360.0,
+      "holdingCost": 12.0
+    }
+  ]
+}

@@ -1,0 +1,399 @@
+{
+  "regions": [
+    {
+      "id": "centre",
+      "name": "Centre",
+      "wilayas": [
+        "Alger",
+        "Blida",
+        "Boumerdes",
+        "Tipaza",
+        "Medea",
+        "Ain Defla",
+        "Bouira",
+        "Tizi Ouzou",
+        "Bejaia",
+        "Chlef",
+        "M'Sila"
+      ]
+    },
+    {
+      "id": "est",
+      "name": "Est",
+      "wilayas": [
+        "Constantine",
+        "Annaba",
+        "Skikda",
+        "Jijel",
+        "Setif",
+        "Batna",
+        "Khenchela",
+        "Oum El Bouaghi",
+        "Tebessa",
+        "Guelma",
+        "Souk Ahras",
+        "Mila",
+        "Bordj Bou Arreridj",
+        "El Tarf"
+      ]
+    },
+    {
+      "id": "ouest",
+      "name": "Ouest",
+      "wilayas": [
+        "Oran",
+        "Tlemcen",
+        "Sidi Bel Abbes",
+        "Mostaganem",
+        "Mascara",
+        "Relizane",
+        "Saida",
+        "Tiaret",
+        "Tissemsilt",
+        "Ain Temouchent",
+        "Naama"
+      ]
+    },
+    {
+      "id": "sud",
+      "name": "Sud",
+      "wilayas": [
+        "Adrar",
+        "Tamanrasset",
+        "Illizi",
+        "Tindouf",
+        "Bechar",
+        "El Oued",
+        "Ouargla",
+        "Ghardaia",
+        "Laghouat",
+        "Biskra",
+        "El Bayadh",
+        "Djelfa",
+        "Timimoun",
+        "Bordj Badji Mokhtar",
+        "Ouled Djellal",
+        "Beni Abbes",
+        "In Salah",
+        "In Guezzam",
+        "Touggourt",
+        "Djanet",
+        "El Mghair",
+        "El Meniaa"
+      ]
+    }
+  ],
+  "categories": [
+    {
+      "name": "Animals & Pet Supplies",
+      "children": [
+        "Live Animals",
+        "Pet Supplies"
+      ]
+    },
+    {
+      "name": "Apparel & Accessories",
+      "children": [
+        "Clothing",
+        "Clothing Accessories",
+        "Costumes & Accessories",
+        "Handbag & Wallet Accessories",
+        "Handbags, Wallets & Cases",
+        "Jewelry",
+        "Shoe Accessories",
+        "Shoes"
+      ]
+    },
+    {
+      "name": "Arts & Entertainment",
+      "children": [
+        "Event Tickets",
+        "Hobbies & Creative Arts",
+        "Party & Celebration",
+        "Performing Arts",
+        "Toys & Games"
+      ]
+    },
+    {
+      "name": "Baby & Toddler",
+      "children": [
+        "Baby Bathing",
+        "Baby Health",
+        "Baby Safety",
+        "Baby Toys & Activity Equipment",
+        "Diapering",
+        "Nursing & Feeding",
+        "Potty Training",
+        "Strollers & Accessories"
+      ]
+    },
+    {
+      "name": "Business & Industrial",
+      "children": [
+        "Agriculture",
+        "Construction",
+        "Electrical Equipment",
+        "Food Service",
+        "Industrial Storage",
+        "Manufacturing",
+        "Retail",
+        "Work Safety Protective Gear"
+      ]
+    },
+    {
+      "name": "Cameras & Optics",
+      "children": [
+        "Camera & Optic Accessories",
+        "Cameras",
+        "Optics"
+      ]
+    },
+    {
+      "name": "Electronics",
+      "children": [
+        "Audio",
+        "Communications",
+        "Components",
+        "Computers",
+        "Electronics Accessories",
+        "Networking",
+        "Video"
+      ]
+    },
+    {
+      "name": "Food, Beverages & Tobacco",
+      "children": [
+        "Beverages",
+        "Food Items",
+        "Tobacco Products"
+      ]
+    },
+    {
+      "name": "Furniture",
+      "children": [
+        "Baby & Toddler Furniture",
+        "Beds & Accessories",
+        "Furniture Accessories",
+        "Kitchen & Dining Room Furniture",
+        "Living Room Furniture",
+        "Office Furniture",
+        "Outdoor Furniture"
+      ]
+    },
+    {
+      "name": "Hardware",
+      "children": [
+        "Building Materials",
+        "Fasteners",
+        "Fittings",
+        "Hardware Accessories",
+        "Tools"
+      ]
+    },
+    {
+      "name": "Health & Beauty",
+      "children": [
+        "Health Care",
+        "Personal Care",
+        "Cosmetics"
+      ]
+    },
+    {
+      "name": "Home & Garden",
+      "children": [
+        "Bathroom Accessories",
+        "Household Appliances",
+        "Household Supplies",
+        "Kitchen & Dining",
+        "Lawn & Garden",
+        "Lighting",
+        "Linens & Bedding"
+      ]
+    },
+    {
+      "name": "Luggage & Bags",
+      "children": [
+        "Backpacks",
+        "Briefcases",
+        "Luggage Accessories",
+        "Suitcases"
+      ]
+    },
+    {
+      "name": "Media",
+      "children": [
+        "Books",
+        "DVDs & Videos",
+        "Music"
+      ]
+    },
+    {
+      "name": "Office Supplies",
+      "children": [
+        "General Office Supplies",
+        "Office Equipment",
+        "Presentation Supplies"
+      ]
+    },
+    {
+      "name": "Software",
+      "children": [
+        "Business & Productivity",
+        "Security & Utilities"
+      ]
+    },
+    {
+      "name": "Sporting Goods",
+      "children": [
+        "Exercise & Fitness",
+        "Outdoor Recreation",
+        "Sports Equipment"
+      ]
+    },
+    {
+      "name": "Vehicles & Parts",
+      "children": [
+        "Vehicle Parts & Accessories",
+        "Vehicles"
+      ]
+    }
+  ],
+  "warehouses": [
+    {
+      "id": "W1",
+      "name": "W1 - Algiers Central",
+      "region": "centre",
+      "capacity": 400,
+      "stockLevel": 120,
+      "transportCost": 2.8,
+      "holdingCost": 1.05
+    },
+    {
+      "id": "W2",
+      "name": "W2 - Blida Hub",
+      "region": "centre",
+      "capacity": 300,
+      "stockLevel": 40,
+      "transportCost": 2.4,
+      "holdingCost": 1.25
+    },
+    {
+      "id": "W3",
+      "name": "W3 - Oran North",
+      "region": "ouest",
+      "capacity": 350,
+      "stockLevel": 10,
+      "transportCost": 3.1,
+      "holdingCost": 1.2
+    },
+    {
+      "id": "W4",
+      "name": "W4 - Mostaganem Depot",
+      "region": "ouest",
+      "capacity": 220,
+      "stockLevel": 0,
+      "transportCost": 2.6,
+      "holdingCost": 1.4
+    },
+    {
+      "id": "W5",
+      "name": "W5 - Constantine East",
+      "region": "est",
+      "capacity": 500,
+      "stockLevel": 200,
+      "transportCost": 3.6,
+      "holdingCost": 0.95
+    },
+    {
+      "id": "W6",
+      "name": "W6 - Annaba Forward",
+      "region": "est",
+      "capacity": 260,
+      "stockLevel": 30,
+      "transportCost": 3.9,
+      "holdingCost": 1.6
+    },
+    {
+      "id": "W7",
+      "name": "W7 - Tamanrasset South",
+      "region": "sud",
+      "capacity": 180,
+      "stockLevel": 35,
+      "transportCost": 5.2,
+      "holdingCost": 1.9
+    },
+    {
+      "id": "W8",
+      "name": "W8 - Ouargla Remote",
+      "region": "sud",
+      "capacity": 240,
+      "stockLevel": 5,
+      "transportCost": 4.8,
+      "holdingCost": 1.7
+    },
+    {
+      "id": "W9",
+      "name": "W9 - Tizi Ouzou",
+      "region": "centre",
+      "capacity": 260,
+      "stockLevel": 60,
+      "transportCost": 3.0,
+      "holdingCost": 1.15
+    },
+    {
+      "id": "W10",
+      "name": "W10 - Relizane",
+      "region": "ouest",
+      "capacity": 200,
+      "stockLevel": 20,
+      "transportCost": 2.2,
+      "holdingCost": 1.3
+    }
+    ,
+    {
+      "id": "W11",
+      "name": "W11 - Bejaia Coastal",
+      "region": "centre",
+      "capacity": 320,
+      "stockLevel": 80,
+      "transportCost": 3.4,
+      "holdingCost": 1.1
+    },
+    {
+      "id": "W12",
+      "name": "W12 - Setif Inland",
+      "region": "est",
+      "capacity": 280,
+      "stockLevel": 25,
+      "transportCost": 3.0,
+      "holdingCost": 1.0
+    },
+    {
+      "id": "W13",
+      "name": "W13 - Tiaret Regional",
+      "region": "ouest",
+      "capacity": 240,
+      "stockLevel": 15,
+      "transportCost": 2.7,
+      "holdingCost": 1.35
+    },
+    {
+      "id": "W14",
+      "name": "W14 - Biskra Gateway",
+      "region": "sud",
+      "capacity": 260,
+      "stockLevel": 50,
+      "transportCost": 4.2,
+      "holdingCost": 1.6
+    },
+    {
+      "id": "W15",
+      "name": "W15 - Ghardaia Hub",
+      "region": "sud",
+      "capacity": 200,
+      "stockLevel": 0,
+      "transportCost": 4.5,
+      "holdingCost": 1.45
+    }
+  ]
+}

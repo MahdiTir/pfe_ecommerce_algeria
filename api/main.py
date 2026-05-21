@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 import re
 import unicodedata
+from datetime import date
+import time
 from functools import lru_cache
 from pathlib import Path
 from typing import Dict, List
@@ -10,14 +12,15 @@ from typing import Dict, List
 import numpy as np
 import pandas as pd
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from statsmodels.tsa.statespace.sarimax import SARIMAXResults
 
-from optimization.Genitic import run_genetic_optimization
+from optimization.Genitic import run_genetic_optimization, run_optimization_comparison
 
 
 ROOT = Path(__file__).resolve().parents[1]
-CATEGORIES_PATH = ROOT / "categories.json"
+CONFIG_PATH = ROOT / "app_config.json"
 ORDERS_PATH = ROOT / "SARIMA" / "sarimax_x" / "outputs" / "sarimax_orders.csv"
 WEEKLY_SERIES_PATH = ROOT / "SARIMA" / "sarimax_x" / "outputs" / "weekly_series.csv"
 MODELS_DIR = ROOT / "SARIMA" / "sarimax_x" / "models"
@@ -62,6 +65,7 @@ class ForecastRequest(BaseModel):
     transport_cost: Dict[str, float]
     category: str
     holding_cost: Dict[str, float]
+    forecast_date: date
     period: int = Field(..., ge=1)
 
 
@@ -69,6 +73,14 @@ class ForecastItem(BaseModel):
     week_start: str
     region: str
     sarimax_forecast: float
+
+
+class OptimizationMethodResult(BaseModel):
+    method: str
+    total_cost: float
+    service_level: float
+    runtime_seconds: float
+    mt: float
 
 
 class ForecastResponse(BaseModel):
@@ -81,9 +93,18 @@ class ForecastResponse(BaseModel):
     allocation_by_warehouse: Dict[str, int]
     final_stock_by_warehouse: Dict[str, int]
     genetic: Dict[str, object]
+    optimization_methods: List[OptimizationMethodResult]
 
 
 app = FastAPI(title="SARIMAX Forecast API")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 def _normalize_text(value: str) -> str:
@@ -96,9 +117,9 @@ def _normalize_text(value: str) -> str:
 
 @lru_cache
 def _child_to_parent() -> Dict[str, str]:
-    if not CATEGORIES_PATH.exists():
-        raise FileNotFoundError(f"Missing categories.json at {CATEGORIES_PATH}")
-    raw = json.loads(CATEGORIES_PATH.read_text(encoding="utf-8"))
+    if not CONFIG_PATH.exists():
+        raise FileNotFoundError(f"Missing app_config.json at {CONFIG_PATH}")
+    raw = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
     mapping: Dict[str, str] = {}
     for item in raw.get("categories", []):
         parent = item.get("name", "").strip()
@@ -193,13 +214,13 @@ def _resolve_parent_and_group(child_category: str) -> tuple[str, str]:
     mapping = _child_to_parent()
     parent = mapping.get(_normalize_text(child_category))
     if parent is None:
-        raise HTTPException(status_code=400, detail="Category not found in categories.json")
+        raise HTTPException(status_code=400, detail="Category not found in app_config.json")
     parent_norm = _normalize_text(parent)
     cat_group = PARENT_TO_CAT_GROUP.get(parent_norm, "other")
     return parent, cat_group
 
 
-def _forecast_sarimax(cat_group: str, periods: int) -> pd.DataFrame:
+def _forecast_sarimax(cat_group: str, periods: int, anchor_date: pd.Timestamp) -> pd.DataFrame:
     orders = _orders_index()
     weekly = _weekly_series()
 
@@ -215,8 +236,12 @@ def _forecast_sarimax(cat_group: str, periods: int) -> pd.DataFrame:
     last_week = history["week_start"].max()
     if pd.isna(last_week):
         raise HTTPException(status_code=500, detail="Invalid week_start in weekly_series.csv")
+    last_week = pd.Timestamp(last_week).normalize()
+    anchor_date = pd.Timestamp(anchor_date).normalize()
+    anchor_week_start = anchor_date - pd.Timedelta(days=anchor_date.dayofweek)
+    base_week_start = max(last_week, anchor_week_start)
 
-    future_weeks = pd.date_range(last_week + pd.Timedelta(weeks=1), periods=periods, freq="W-MON")
+    future_weeks = pd.date_range(base_week_start + pd.Timedelta(weeks=1), periods=periods, freq="W-MON")
     base = pd.DataFrame({"week_start": future_weeks, "cat_group": cat_group})
 
     frames = []
@@ -396,7 +421,7 @@ def health_check() -> Dict[str, str]:
 def forecast_and_optimize(request: ForecastRequest) -> ForecastResponse:
     parent_category, cat_group = _resolve_parent_and_group(request.category)
 
-    forecast_df = _forecast_sarimax(cat_group, request.period)
+    forecast_df = _forecast_sarimax(cat_group, request.period, pd.Timestamp(request.forecast_date))
     if forecast_df.empty:
         raise HTTPException(status_code=500, detail="Forecast generation failed")
 
@@ -404,6 +429,7 @@ def forecast_and_optimize(request: ForecastRequest) -> ForecastResponse:
     _validate_inputs(request.warehouses, request.transport_cost, request.holding_cost, regions)
 
     region_totals = forecast_df.groupby("region")["sarimax_forecast"].sum()
+    demand_by_region = {region: float(value) for region, value in region_totals.items()}
     region_shares = _region_shares(region_totals)
     region_percentages = {region: share * 100.0 for region, share in region_shares.items()}
     allocation_by_region = _allocate_by_shares(request.countity, region_shares)
@@ -423,6 +449,7 @@ def forecast_and_optimize(request: ForecastRequest) -> ForecastResponse:
         "total_quantity": total_quantity,
     }
 
+    genetic_start = time.perf_counter()
     genetic_result = run_genetic_optimization(
         product=product,
         warehouses={
@@ -434,10 +461,29 @@ def forecast_and_optimize(request: ForecastRequest) -> ForecastResponse:
             for k, v in request.warehouses.items()
         },
         transport_cost=request.transport_cost,
+        demand_by_region=demand_by_region,
     )
+    genetic_runtime = time.perf_counter() - genetic_start
 
     add_by_warehouse = genetic_result.get("add_by_warehouse", {})
     final_stock_by_warehouse = genetic_result.get("final_stock_by_warehouse", {})
+
+    optimization_methods = run_optimization_comparison(
+        product=product,
+        warehouses={
+            k: {
+                "capacity": v.capacity,
+                "stock_level": v.stock_level,
+                "region": v.region,
+            }
+            for k, v in request.warehouses.items()
+        },
+        transport_cost=request.transport_cost,
+        holding_cost=request.holding_cost,
+        demand_by_region=demand_by_region,
+        genetic_result=genetic_result,
+        genetic_runtime_seconds=genetic_runtime,
+    )
 
     return ForecastResponse(
         parent_category=parent_category,
@@ -449,4 +495,5 @@ def forecast_and_optimize(request: ForecastRequest) -> ForecastResponse:
         allocation_by_warehouse=add_by_warehouse,
         final_stock_by_warehouse=final_stock_by_warehouse,
         genetic=genetic_result,
+        optimization_methods=optimization_methods,
     )
