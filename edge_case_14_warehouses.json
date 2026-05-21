@@ -1,0 +1,117 @@
+{
+  "description": "14-warehouse edge-case network: north-heavy cluster, thin ouest coverage, expensive sud, demand often exceeds regional capacity.",
+  "warehouses": [
+    {
+      "id": "W_N1_HUB",
+      "capacity": 8000,
+      "stockLevel": 4000,
+      "region": "north",
+      "transportCost": 200.0,
+      "holdingCost": 650.0
+    },
+    {
+      "id": "W_N2",
+      "capacity": 5500,
+      "stockLevel": 2750,
+      "region": "north",
+      "transportCost": 230.0,
+      "holdingCost": 720.0
+    },
+    {
+      "id": "W_N3",
+      "capacity": 4500,
+      "stockLevel": 2200,
+      "region": "north",
+      "transportCost": 250.0,
+      "holdingCost": 780.0
+    },
+    {
+      "id": "W_N4",
+      "capacity": 6000,
+      "stockLevel": 3000,
+      "region": "north",
+      "transportCost": 210.0,
+      "holdingCost": 680.0
+    },
+    {
+      "id": "W_N5",
+      "capacity": 3500,
+      "stockLevel": 1750,
+      "region": "north",
+      "transportCost": 270.0,
+      "holdingCost": 800.0
+    },
+    {
+      "id": "W_N6_DEPOT",
+      "capacity": 5000,
+      "stockLevel": 2500,
+      "region": "north",
+      "transportCost": 240.0,
+      "holdingCost": 700.0
+    },
+    {
+      "id": "W_E1",
+      "capacity": 5000,
+      "stockLevel": 2500,
+      "region": "est",
+      "transportCost": 310.0,
+      "holdingCost": 580.0
+    },
+    {
+      "id": "W_E2",
+      "capacity": 4000,
+      "stockLevel": 2000,
+      "region": "est",
+      "transportCost": 330.0,
+      "holdingCost": 620.0
+    },
+    {
+      "id": "W_E3",
+      "capacity": 3500,
+      "stockLevel": 1750,
+      "region": "est",
+      "transportCost": 290.0,
+      "holdingCost": 550.0
+    },
+    {
+      "id": "W_O1",
+      "capacity": 2800,
+      "stockLevel": 1400,
+      "region": "ouest",
+      "transportCost": 420.0,
+      "holdingCost": 920.0
+    },
+    {
+      "id": "W_O2",
+      "capacity": 2200,
+      "stockLevel": 1100,
+      "region": "ouest",
+      "transportCost": 450.0,
+      "holdingCost": 980.0
+    },
+    {
+      "id": "W_S1",
+      "capacity": 1800,
+      "stockLevel": 900,
+      "region": "sud",
+      "transportCost": 480.0,
+      "holdingCost": 1100.0
+    },
+    {
+      "id": "W_S2",
+      "capacity": 2500,
+      "stockLevel": 1250,
+      "region": "sud",
+      "transportCost": 460.0,
+      "holdingCost": 1050.0
+    },
+    {
+      "id": "W_S3",
+      "capacity": 1500,
+      "stockLevel": 750,
+      "region": "sud",
+      "transportCost": 520.0,
+      "holdingCost": 1250.0
+    }
+  ]
+}

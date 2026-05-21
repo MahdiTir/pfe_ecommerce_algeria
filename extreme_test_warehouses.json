@@ -1,0 +1,52 @@
+{
+  "warehouses": [
+    {
+      "id": "W_NORTH_MAIN",
+      "capacity": 8000,
+      "stockLevel": 4000,
+      "region": "north",
+      "transportCost": 250.0,
+      "holdingCost": 700.0
+    },
+    {
+      "id": "W_NORTH_SEC",
+      "capacity": 6000,
+      "stockLevel": 3000,
+      "region": "north",
+      "transportCost": 280.0,
+      "holdingCost": 750.0
+    },
+    {
+      "id": "W_NORTH_SMALL",
+      "capacity": 4000,
+      "stockLevel": 2000,
+      "region": "north",
+      "transportCost": 220.0,
+      "holdingCost": 800.0
+    },
+    {
+      "id": "W_NORTH_DEPOT",
+      "capacity": 5000,
+      "stockLevel": 2500,
+      "region": "north",
+      "transportCost": 300.0,
+      "holdingCost": 650.0
+    },
+    {
+      "id": "W_EST_ONLY",
+      "capacity": 7000,
+      "stockLevel": 3500,
+      "region": "est",
+      "transportCost": 320.0,
+      "holdingCost": 600.0
+    },
+    {
+      "id": "W_SUD_SMALL",
+      "capacity": 2000,
+      "stockLevel": 1000,
+      "region": "sud",
+      "transportCost": 450.0,
+      "holdingCost": 1100.0
+    }
+  ]
+}

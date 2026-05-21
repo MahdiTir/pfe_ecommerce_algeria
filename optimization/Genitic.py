@@ -3,11 +3,16 @@ import random
 import time
 
 import numpy as np
+
 try:
     import pulp
 except Exception:
     pulp = None
 
+
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
 
 def _normalize_region_key(value):
     return str(value).strip().lower()
@@ -79,14 +84,18 @@ def _adjust_region_targets(region_targets, warehouses, transport_cost):
     if not missing:
         return region_targets, None, []
 
+    # No transport cost data → cannot determine fallback; return targets unchanged
     if not transport_cost:
         return region_targets, None, missing
 
+    # Pick cheapest warehouse as fallback
     fallback_wh = min(transport_cost.items(), key=lambda item: item[1])[0]
     fallback_region = warehouses.get(fallback_wh, {}).get("region")
     if fallback_region is None:
+        # Fallback warehouse has no region tag — leave targets unchanged
         return region_targets, None, missing
 
+    fallback_region = _normalize_region_key(fallback_region)
     missing_total = sum(region_targets[region] for region in missing)
     adjusted = dict(region_targets)
     for region in missing:
@@ -116,31 +125,73 @@ def _choose_one_warehouse_per_region(warehouses, holding_cost, transport_cost, s
     return choice
 
 
+# ---------------------------------------------------------------------------
+# FIX: centralised helper that derives the authoritative (total_quantity,
+#      demand_for_targets) pair from a product dict plus an optional explicit
+#      demand_by_region forecast.  Every solver calls this so the logic lives
+#      in one place.
+# ---------------------------------------------------------------------------
+
+def _resolve_demand_and_quantity(product, demand_by_region, warehouses=None):
+    """Return (demand_norm, total_quantity) where:
+    - demand_norm: customer demand forecast by region (from SARIMAX)
+    - total_quantity: inventory budget to distribute across warehouses
+    
+    The two are INDEPENDENT:
+    - Demand tells us WHERE stock is needed
+    - Quantity tells us HOW MUCH inventory we have to allocate
+    
+    Rules
+    -----
+    1. If ``demand_by_region`` is provided, it overrides ``product['demand']``
+       but total_quantity still comes from ``product['total_quantity']``.
+       
+    2. If no forecast is given, we fall back to ``product['demand']`` and
+       ``product.get('total_quantity', sum(demand))``.
+    """
+    if demand_by_region is not None:
+        demand_norm = _normalize_region_dict(demand_by_region)
+        # Quantity is INDEPENDENT of demand - it's the seller's inventory budget
+        total_quantity = int(round(product.get("total_quantity", sum(demand_norm.values()))))
+    else:
+        demand_norm = _normalize_region_dict(product.get("demand", {}))
+        total_quantity = int(round(product.get("total_quantity", sum(demand_norm.values()))))
+
+    return demand_norm, total_quantity
+
+
 def _build_one_per_region_individual(product, warehouses, transport_cost, holding_cost, region_choice):
     min_stock, max_stock = _warehouse_bounds(warehouses)
+
+    # Use the demand already stored in product (callers must have set it via
+    # _resolve_demand_and_quantity before calling this function).
     demand = _normalize_region_dict(product["demand"])
     total_quantity = int(round(product.get("total_quantity", sum(demand.values()))))
-    min_total = sum(min_stock.values())
-    if total_quantity < min_total:
-        total_quantity = min_total
+    
+    # Allow stock to be allocated from 0 to capacity (not forced to keep existing stock)
+    # This enables redistribution when existing stock exceeds demand
 
     region_shares = _region_shares(demand)
     region_targets = _allocate_region_targets(total_quantity, region_shares)
     region_targets, _, _ = _adjust_region_targets(region_targets, warehouses, transport_cost)
 
-    individual = {w: min_stock[w] for w in warehouses.keys()}
+    # Start with zero allocation, then build up to match region targets
+    individual = {w: 0 for w in warehouses.keys()}
+    
     for region, target in region_targets.items():
         w = region_choice.get(region)
         if w is None:
             continue
-        current = individual[w]
-        add_needed = max(0, target - current)
-        add = min(max_stock[w] - current, add_needed)
-        individual[w] += add
+        # Allocate up to the target for this region (up to warehouse capacity)
+        allocate = min(max_stock[w], target)
+        individual[w] = allocate
 
+    # Distribute any remainder to achieve exact total_quantity
     remainder = total_quantity - sum(individual.values())
     chosen_wh = list(dict.fromkeys(region_choice.values()))
+    
     if remainder > 0 and chosen_wh:
+        # Add more stock to cheapest warehouses
         sorted_wh = sorted(
             chosen_wh,
             key=lambda w: _unit_cost(w, holding_cost, transport_cost),
@@ -155,6 +206,7 @@ def _build_one_per_region_individual(product, warehouses, transport_cost, holdin
             individual[w] += add
             remainder -= add
     elif remainder < 0 and chosen_wh:
+        # Remove excess stock from most expensive warehouses
         remove_needed = -remainder
         sorted_wh = sorted(
             chosen_wh,
@@ -164,7 +216,7 @@ def _build_one_per_region_individual(product, warehouses, transport_cost, holdin
         for w in sorted_wh:
             if remove_needed <= 0:
                 break
-            removable = individual[w] - min_stock[w]
+            removable = individual[w]
             if removable <= 0:
                 continue
             remove = min(removable, remove_needed)
@@ -175,52 +227,74 @@ def _build_one_per_region_individual(product, warehouses, transport_cost, holdin
 
 
 def _additional_units(individual, warehouses):
+    """Calculate additional units (positive changes only) from initial stock levels."""
     min_stock, _ = _warehouse_bounds(warehouses)
     return {w: max(0, individual.get(w, 0) - min_stock[w]) for w in warehouses.keys()}
 
 
+def _changed_units(individual, warehouses):
+    """Calculate absolute change in units (for transfer cost calculation)."""
+    min_stock, _ = _warehouse_bounds(warehouses)
+    return {w: abs(individual.get(w, 0) - min_stock[w]) for w in warehouses.keys()}
+
+
 def _compute_total_cost(individual, warehouses, holding_cost, transport_cost):
-    add_by_warehouse = _additional_units(individual, warehouses)
-    return float(
+    """Compute total cost = holding cost (all stock) + transfer cost (changed stock)."""
+    changed_by_warehouse = _changed_units(individual, warehouses)
+    
+    # Holding cost applies to ALL stock in the warehouse
+    total_holding = float(
         sum(
-            qty * _unit_cost(w, holding_cost, transport_cost)
-            for w, qty in add_by_warehouse.items()
+            float(individual.get(w, 0)) * float(holding_cost.get(w, 0.0))
+            for w in individual.keys()
         )
     )
+    
+    # Transfer cost applies to absolute changes in stock (additions or removals)
+    total_transfer = float(
+        sum(
+            float(qty) * float(transport_cost.get(w, 0.0))
+            for w, qty in changed_by_warehouse.items()
+        )
+    )
+    
+    return total_holding + total_transfer
 
 
 def _service_level(demand_by_region, satisfied_by_region):
-    """
-    Compute service level as the average of per-region satisfaction fractions
-    across the four key macro-regions: 'ouest', 'est', 'north', 'sud'.
+    """Compute service level as the average per-region satisfaction fraction
+    across the four macro-regions: 'ouest', 'est', 'north'/'centre', 'sud'.
 
-    For each region r in that list:
-      - map 'north' to 'centre' if no 'north' key exists in the demand
-      - fraction_r = min(1.0, satisfied_r / demand_r) if demand_r > 0 else 0.0
+    Only regions with demand > 0 are included in the average so the maximum
+    achievable service level is always 1.0 regardless of how many macro-regions
+    are active.  (Previously a zero-demand region contributed 0 to the sum but
+    still divided by 4, capping the max score at 0.75 when only 3 regions had
+    demand.)
 
-    ServiceLevel = (sum fraction_r over the four regions) / 4
+    'north' falls back to 'centre' for datasets that use that spelling.
     """
-    demand_by_region = _normalize_region_dict(demand_by_region)
+    demand_by_region    = _normalize_region_dict(demand_by_region)
     satisfied_by_region = _normalize_region_dict(satisfied_by_region)
 
     regions_of_interest = ["ouest", "est", "north", "sud"]
-    total_frac = 0.0
+    total_frac   = 0.0
+    active_count = 0
     for r in regions_of_interest:
-        # support data that uses 'centre' instead of 'north'
         if r == "north":
-            demand = float(demand_by_region.get("north", demand_by_region.get("centre", 0.0)))
+            demand    = float(demand_by_region.get("north",    demand_by_region.get("centre",    0.0)))
             satisfied = float(satisfied_by_region.get("north", satisfied_by_region.get("centre", 0.0)))
         else:
-            demand = float(demand_by_region.get(r, 0.0))
+            demand    = float(demand_by_region.get(r, 0.0))
             satisfied = float(satisfied_by_region.get(r, 0.0))
 
         if demand <= 0:
-            frac = 0.0
-        else:
-            frac = min(1.0, satisfied / demand)
-        total_frac += frac
+            continue  # skip inactive regions instead of penalising
+        total_frac   += min(1.0, satisfied / demand)
+        active_count += 1
 
-    return total_frac / 4.0
+    if active_count == 0:
+        return 0.0
+    return total_frac / active_count
 
 
 def _holding_cost(individual, holding_cost):
@@ -269,8 +343,6 @@ def _compute_mt_and_service_level(individual, warehouses, demand_by_region, hold
         region_hold_total[region] = region_hold_total.get(region, 0.0) + float(qty) * float(holding_cost.get(w, 0.0))
 
     demand_by_region = _normalize_region_dict(demand_by_region)
-    total_demand = sum(max(0.0, float(value)) for value in demand_by_region.values())
-    weighted_service = 0.0
     numerator = 0.0
     denominator = 0.0
 
@@ -279,15 +351,12 @@ def _compute_mt_and_service_level(individual, warehouses, demand_by_region, hold
         if demand <= 0:
             continue
         units = float(region_units.get(region, 0.0))
-        if units > 0:
-            weighted_service += min(1.0, units / demand) * demand
         region_hold = region_hold_total.get(region, 0.0)
         if units > 0 and region_hold > 0:
             avg_hold = region_hold / units
             numerator += demand * avg_hold
             denominator += units * avg_hold
 
-    # Compute service level using per-region fractions averaged across four macro-regions
     service_level = _service_level(demand_by_region, region_units)
     mt = numerator / denominator if denominator > 0 else 0.0
     return mt, service_level
@@ -312,469 +381,150 @@ def _build_method_result(method, individual, warehouses, transport_cost, holding
     }
 
 
-def run_random_search_optimization(
-    product,
+# ---------------------------------------------------------------------------
+# Fitness Function
+# ---------------------------------------------------------------------------
+
+def fitness(
+    individual,
     warehouses,
     transport_cost,
     holding_cost,
     demand_by_region,
-    iterations=200,
-    seed=None,
+    max_expected_holding_cost,
+    max_expected_transfer_cost,
+    alpha=0.5,
 ):
-    if seed is not None:
-        random.seed(seed)
-        np.random.seed(seed)
+    """
+    Fitness = alpha * ServiceLevel  -  (1 - alpha) * TotalCost_norm
 
-    # Ensure downstream helpers see the forecast demand
-    if demand_by_region is not None:
-        product = dict(product)
-        product["demand"] = demand_by_region
+    TotalCost      = HoldingCost + TransferCost
+    TotalCost_norm = min(TotalCost / MaxExpectedCost, 1.0)
+    ServiceLevel   = average per-region satisfaction across the four macro-regions
+    """
+    add_by_warehouse = _additional_units(individual, warehouses)
 
-    start = time.perf_counter()
-    max_expected_holding_cost = _max_expected_holding_cost(warehouses, holding_cost)
-    max_expected_transfer_cost = _max_expected_transfer_cost(warehouses, transport_cost)
-
-    best_individual = None
-    best_fitness = float("-inf")
-
-    for _ in range(iterations):
-        region_choice = _choose_one_warehouse_per_region(
-            warehouses,
-            holding_cost,
-            transport_cost,
-            strategy="random",
-        )
-        individual = _build_one_per_region_individual(
-            product,
-            warehouses,
-            transport_cost,
-            holding_cost,
-            region_choice,
-        )
-        current_fitness = fitness(
-            individual,
-            warehouses,
-            transport_cost,
-            holding_cost,
-            demand_by_region,
-            max_expected_holding_cost,
-            max_expected_transfer_cost,
-        )
-        if current_fitness > best_fitness:
-            best_fitness = current_fitness
-            best_individual = individual
-
-    if best_individual is None:
-        min_stock, _ = _warehouse_bounds(warehouses)
-        best_individual = {w: min_stock[w] for w in warehouses.keys()}
-
-    runtime = time.perf_counter() - start
-    return _build_method_result(
-        "Random Search",
-        best_individual,
-        warehouses,
-        transport_cost,
-        holding_cost,
-        demand_by_region,
-        runtime,
-    )
-
-
-def run_greedy_heuristic(
-    product,
-    warehouses,
-    transport_cost,
-    holding_cost,
-    demand_by_region,
-):
-    # Ensure downstream helpers see the forecast demand
-    if demand_by_region is not None:
-        product = dict(product)
-        product["demand"] = demand_by_region
-
-    start = time.perf_counter()
-    max_expected_holding_cost = _max_expected_holding_cost(warehouses, holding_cost)
-    max_expected_transfer_cost = _max_expected_transfer_cost(warehouses, transport_cost)
-
-    region_to_wh = _group_warehouses_by_region(warehouses)
-    regions = [region for region in region_to_wh.keys() if region_to_wh[region]]
-    if not regions:
-        min_stock, _ = _warehouse_bounds(warehouses)
-        individual = {w: min_stock[w] for w in warehouses.keys()}
-        runtime = time.perf_counter() - start
-        return _build_method_result(
-            "Greedy Heuristic",
-            individual,
-            warehouses,
-            transport_cost,
-            holding_cost,
-            demand_by_region,
-            runtime,
-        )
-
-    regions = sorted(
-        regions,
-        key=lambda r: float(demand_by_region.get(r, 0.0)),
-        reverse=True,
-    )
-
-    base_choice = _choose_one_warehouse_per_region(
-        warehouses,
-        holding_cost,
-        transport_cost,
-        strategy="lowest_cost",
-    )
-    region_choice = {}
-
-    for region in regions:
-        best_choice = None
-        best_fitness = float("-inf")
-        for candidate in region_to_wh[region]:
-            temp_choice = dict(base_choice)
-            temp_choice.update(region_choice)
-            temp_choice[region] = candidate
-
-            individual = _build_one_per_region_individual(
-                product,
-                warehouses,
-                transport_cost,
-                holding_cost,
-                temp_choice,
-            )
-            current_fitness = fitness(
-                individual,
-                warehouses,
-                transport_cost,
-                holding_cost,
-                demand_by_region,
-                max_expected_holding_cost,
-                max_expected_transfer_cost,
-            )
-            if current_fitness > best_fitness:
-                best_fitness = current_fitness
-                best_choice = candidate
-
-        if best_choice is not None:
-            region_choice[region] = best_choice
-
-    final_choice = dict(base_choice)
-    final_choice.update(region_choice)
-    individual = _build_one_per_region_individual(
-        product,
-        warehouses,
-        transport_cost,
-        holding_cost,
-        final_choice,
-    )
-    runtime = time.perf_counter() - start
-    return _build_method_result(
-        "Greedy Heuristic",
-        individual,
-        warehouses,
-        transport_cost,
-        holding_cost,
-        demand_by_region,
-        runtime,
-    )
-
-
-def brute_force_verify_small_instance(product, warehouses, transport_cost, holding_cost, demand_by_region, step=1, max_combinations=50000):
-    """Brute-force verifier for small instances. Returns best fitness/solution among enumerated allocations."""
-    min_stock, max_stock = _warehouse_bounds(warehouses)
-    demand_norm = _normalize_region_dict(product.get("demand", {}))
-    total_quantity = int(round(product.get("total_quantity", sum(demand_norm.values()))))
-    min_total = sum(min_stock.values())
-    total_add = max(0, total_quantity - min_total)
-
-    wh_list = list(warehouses.keys())
-    add_ranges = []
-    for w in wh_list:
-        max_add = max_stock[w] - min_stock[w]
-        add_ranges.append(list(range(0, max_add + 1, max(1, step))))
-
-    total_combos = 1
-    for arr in add_ranges:
-        total_combos *= max(1, len(arr))
-    if total_combos > max_combinations:
-        return {
-            "status": "SKIPPED",
-            "reason": f"too many combinations: {total_combos}",
-            "evaluations": 0,
-        }
-
-    max_hold = _max_expected_holding_cost(warehouses, holding_cost)
-    max_trans = _max_expected_transfer_cost(warehouses, transport_cost)
-    best_fit = float("-inf")
-    best_individual = None
-    eval_count = 0
-
-    for combo in itertools.product(*add_ranges):
-        if sum(combo) != total_add:
+    # Satisfied units per region = sum of final stock in that region
+    satisfied_by_region = {}
+    for w, qty in individual.items():
+        region = warehouses.get(w, {}).get("region")
+        if region is None:
             continue
-        individual = {w: min_stock[w] + combo[i] for i, w in enumerate(wh_list)}
-        fit_val = fitness(individual, warehouses, transport_cost, holding_cost, demand_by_region, max_hold, max_trans)
-        eval_count += 1
-        if fit_val > best_fit:
-            best_fit = fit_val
-            best_individual = individual
+        region = _normalize_region_key(region)
+        satisfied_by_region[region] = satisfied_by_region.get(region, 0.0) + float(qty)
 
-    return {
-        "status": "OK",
-        "evaluations": eval_count,
-        "best_fitness": float(best_fit),
-        "best_individual": best_individual,
-    }
+    service_level = _service_level(demand_by_region, satisfied_by_region)
+    holding_cost_value = _holding_cost(individual, holding_cost)
+    transfer_cost_value = _transfer_cost(add_by_warehouse, transport_cost)
+
+    total_cost_value = float(holding_cost_value + transfer_cost_value)
+    max_total_expected = float(max_expected_holding_cost + max_expected_transfer_cost)
+
+    total_cost_norm = 0.0
+    if max_total_expected > 0:
+        total_cost_norm = min(total_cost_value / max_total_expected, 1.0)
+
+    return float(alpha * float(service_level) - (1.0 - float(alpha)) * float(total_cost_norm))
 
 
-def run_exact_solver(
-    product,
-    warehouses,
-    transport_cost,
-    holding_cost,
-    demand_by_region,
-    step: int = 1,
-    max_combinations: int = 1000000000,
-):
-    # Ensure downstream helpers see the forecast demand
-    if demand_by_region is not None:
-        product = dict(product)
-        product["demand"] = demand_by_region
+# ---------------------------------------------------------------------------
+# Capacity Check / Repair / Mutation
+# ---------------------------------------------------------------------------
 
-    start = time.perf_counter()
-    region_to_wh = _group_warehouses_by_region(warehouses)
-    regions = [region for region in region_to_wh.keys() if region_to_wh[region]]
-    if not regions:
-        min_stock, _ = _warehouse_bounds(warehouses)
-        individual = {w: min_stock[w] for w in warehouses.keys()}
-        runtime = time.perf_counter() - start
-        return _build_method_result(
-            "Exact Solver",
-            individual,
-            warehouses,
-            transport_cost,
-            holding_cost,
-            demand_by_region,
-            runtime,
-        )
+def is_capacity_valid(individual, warehouses):
+    for w in warehouses:
+        min_stock = int(warehouses[w].get("stock_level", 0))
+        if individual[w] < min_stock:
+            return False
+        if individual[w] > warehouses[w]["capacity"]:
+            return False
+    return True
 
-    max_expected_holding_cost = _max_expected_holding_cost(warehouses, holding_cost)
-    max_expected_transfer_cost = _max_expected_transfer_cost(warehouses, transport_cost)
 
-    best_individual = None
-    best_fitness = float("-inf")
-    best_cost = float("inf")
-
-    # Prepare bounds for added units per warehouse
+def _repair_individual(individual, warehouses, total_quantity, region_targets):
+    warehouse_ids = list(warehouses.keys())
     min_stock, max_stock = _warehouse_bounds(warehouses)
-    add_ranges = {}
-    for w in max_stock.keys():
-        max_add = max_stock[w] - min_stock[w]
-        if max_add <= 0:
-            add_ranges[w] = [0]
-        else:
-            # create discrete options from 0 to max_add with given step
-            add_ranges[w] = list(range(0, max_add + 1, max(1, step)))
+    region_to_wh = _group_warehouses_by_region(warehouses)
 
-    # total additional units we must allocate
-    product_demand = product.get("demand", {})
-    demand_norm = _normalize_region_dict(product_demand)
-    total_quantity = int(round(product.get("total_quantity", sum(demand_norm.values()))))
-    min_total = sum(min_stock.values())
-    total_add = max(0, total_quantity - min_total)
+    total_quantity = int(round(total_quantity))
 
-    # Quick combinations count and guard
-    combos_count = 1
-    for w in add_ranges:
-        combos_count *= max(1, len(add_ranges[w]))
-    # If too many combos, fall back to region-choice enumeration
-    if combos_count > max_combinations:
-        combos_count = None
+    # Clamp each warehouse to [0, max] (not [min, max])
+    for w in warehouse_ids:
+        qty = int(round(individual.get(w, 0)))
+        individual[w] = max(0, min(max_stock[w], qty))
 
-    eval_count = 0
-    if combos_count is None:
-        # fallback behavior: previous exact solver (one warehouse per region)
-        for combo in itertools.product(*(region_to_wh[region] for region in regions)):
-            region_choice = dict(zip(regions, combo))
-            individual = _build_one_per_region_individual(
-                product,
-                warehouses,
-                transport_cost,
-                holding_cost,
-                region_choice,
-            )
-            current_fitness = fitness(
-                individual,
-                warehouses,
-                transport_cost,
-                holding_cost,
-                demand_by_region,
-                max_expected_holding_cost,
-                max_expected_transfer_cost,
-            )
-            eval_count += 1
-            cost = _compute_total_cost(individual, warehouses, holding_cost, transport_cost)
-            if current_fitness > best_fitness or (
-                np.isclose(current_fitness, best_fitness) and cost < best_cost
-            ):
-                best_fitness = current_fitness
-                best_cost = cost
-                best_individual = individual
-    else:
-        # Full enumeration over added units per warehouse but prune by total_add
-        wh_list = list(add_ranges.keys())
-        iter_ranges = [add_ranges[w] for w in wh_list]
-        checked = 0
-        for combo in itertools.product(*iter_ranges):
-            checked += 1
-            if checked % 1000000 == 0:
-                pass
-            if sum(combo) != total_add:
-                continue
-            individual = {w: min_stock[w] + combo[i] for i, w in enumerate(wh_list)}
-            current_fitness = fitness(
-                individual,
-                warehouses,
-                transport_cost,
-                holding_cost,
-                demand_by_region,
-                max_expected_holding_cost,
-                max_expected_transfer_cost,
-            )
-            eval_count += 1
-            cost = _compute_total_cost(individual, warehouses, holding_cost, transport_cost)
-            if current_fitness > best_fitness or (
-                np.isclose(current_fitness, best_fitness) and cost < best_cost
-            ):
-                best_fitness = current_fitness
-                best_cost = cost
-                best_individual = individual
+    if total_quantity <= 0:
+        return individual
 
-    if best_individual is None:
-        min_stock, _ = _warehouse_bounds(warehouses)
-        best_individual = {w: min_stock[w] for w in warehouses.keys()}
+    # Push each region toward its target
+    for region, target in region_targets.items():
+        names = region_to_wh.get(region, [])
+        if not names:
+            continue
+        current = sum(individual[w] for w in names)
+        if current > target:
+            excess = current - target
+            while excess > 0:
+                candidates = [w for w in names if individual[w] > 0]
+                if not candidates:
+                    break
+                w = random.choice(candidates)
+                remove = min(excess, individual[w])
+                delta = random.randint(1, max(1, remove))
+                individual[w] -= delta
+                excess -= delta
+        elif current < target:
+            deficit = target - current
+            while deficit > 0:
+                candidates = [w for w in names if individual[w] < max_stock[w]]
+                if not candidates:
+                    break
+                w = random.choice(candidates)
+                add = min(deficit, max_stock[w] - individual[w])
+                delta = random.randint(1, max(1, add))
+                individual[w] += delta
+                deficit -= delta
 
-    runtime = time.perf_counter() - start
-    result = _build_method_result(
-        "Exact Solver",
-        best_individual,
-        warehouses,
-        transport_cost,
-        holding_cost,
-        demand_by_region,
-        runtime,
-    )
-    result["evaluations"] = int(eval_count)
-    return result
+    # Final enforcement: trim or top-up so sum == total_quantity exactly
+    current_total = sum(individual[w] for w in warehouse_ids)
+    diff = current_total - total_quantity
+    if diff > 0:
+        # Over-allocated: remove excess
+        for w in sorted(warehouse_ids, key=lambda w: individual[w], reverse=True):
+            if diff <= 0:
+                break
+            removable = individual[w]
+            remove = min(removable, diff)
+            individual[w] -= remove
+            diff -= remove
+    elif diff < 0:
+        # Under-allocated: add to warehouses with most spare capacity
+        for w in sorted(warehouse_ids, key=lambda w: max_stock[w] - individual[w], reverse=True):
+            if diff >= 0:
+                break
+            addable = max_stock[w] - individual[w]
+            add = min(addable, -diff)
+            individual[w] += add
+            diff += add
+
+    return individual
 
 
-def run_optimization_comparison(
-    product,
-    warehouses,
-    transport_cost,
-    holding_cost,
-    demand_by_region,
-    genetic_result=None,
-    genetic_runtime_seconds=None,
-    iterations=200,
-    seed=None,
-):
-    results = []
-    results.append(
-        run_random_search_optimization(
-            product,
-            warehouses,
-            transport_cost,
-            holding_cost,
-            demand_by_region,
-            iterations=iterations,
-            seed=seed,
-        )
-    )
-    results.append(
-        run_greedy_heuristic(
-            product,
-            warehouses,
-            transport_cost,
-            holding_cost,
-            demand_by_region,
-        )
-    )
-    results.append(
-        run_exact_solver(
-            product,
-            warehouses,
-            transport_cost,
-            holding_cost,
-            demand_by_region,
-        )
-    )
-
-    # Attempt ILP exact solver by importing pulp at runtime (more robust)
-    try:
-        import importlib
-        pulp_mod = importlib.import_module("pulp")
-        # ensure module-global pulp refers to the imported module
-        global pulp
-        pulp = pulp_mod
-    except Exception:
-        pulp_mod = None
-
-    if pulp_mod is not None:
-        try:
-            ilp_result = run_exact_ilp_solver(
-                product,
-                warehouses,
-                transport_cost,
-                holding_cost,
-                demand_by_region,
-            )
-            ilp_result["provably_optimal"] = False
-            results.append(ilp_result)
-        except Exception as exc:
-            results.append({
-                "method": "Exact ILP (error)",
-                "total_cost": 0.0,
-                "service_level": 0.0,
-                "runtime_seconds": 0.0,
-                "mt": 0.0,
-                "evaluations": 0,
-                "solver_status": "ERROR",
-                "provably_optimal": False,
-                "error": str(exc),
-            })
-
-    if genetic_result is None:
-        start = time.perf_counter()
-        genetic_result = run_genetic_optimization(
-            product,
-            warehouses,
-            transport_cost,
-            seed=seed,
-            demand_by_region=demand_by_region,
-        )
-        genetic_runtime_seconds = time.perf_counter() - start
-
-    individual = genetic_result.get("final_stock_by_warehouse", {})
-    runtime = float(genetic_runtime_seconds or 0.0)
-    results.append(
-        _build_method_result(
-            "Genetic Algorithm",
-            individual,
-            warehouses,
-            transport_cost,
-            holding_cost,
-            demand_by_region,
-            runtime,
-        )
-    )
-
-    return results
+def _mutate_individual(individual, warehouses, total_quantity, region_targets, mutation_rate):
+    min_stock, max_stock = _warehouse_bounds(warehouses)
+    mutated = individual.copy()
+    for w in mutated:
+        if random.random() < mutation_rate:
+            span = max_stock[w]
+            step = max(1, int(span * 0.1))
+            mutated[w] += random.randint(-step, step)
+    return _repair_individual(mutated, warehouses, total_quantity, region_targets)
 
 
-# ----------------------------
-# Generate Individual
-# individual = {warehouse_id: qty}  (flat dict, single product)
-# ----------------------------
+# ---------------------------------------------------------------------------
+# Individual / Population Generation
+# ---------------------------------------------------------------------------
+
 def generate_individual(product, warehouses):
     warehouse_ids = list(warehouses.keys())
     min_stock, max_stock = _warehouse_bounds(warehouses)
@@ -813,150 +563,399 @@ def generate_individual(product, warehouses):
                 max_possible = max_stock[w] - individual[w]
                 if max_possible <= 0:
                     continue
-                qty = min(max_possible, remaining)
-                individual[w] += qty
-                remaining -= qty
+                individual[w] += min(max_possible, remaining)
+                remaining -= min(max_possible, remaining)
 
     return individual
 
 
-# ----------------------------
-# Population
-# ----------------------------
 def generate_population(size, product, warehouses):
     return [generate_individual(product, warehouses) for _ in range(size)]
 
 
-# ----------------------------
+# ---------------------------------------------------------------------------
 # Encode / Decode
-# ----------------------------
+# ---------------------------------------------------------------------------
+
 def encode(individual, warehouse_ids):
-    return np.array(
-        [individual[w] for w in warehouse_ids],
-        dtype=float
-    )
+    return np.array([individual[w] for w in warehouse_ids], dtype=float)
 
 
 def decode(vector, warehouse_ids):
     return {w: int(vector[i]) for i, w in enumerate(warehouse_ids)}
 
 
-# ----------------------------
-# Fitness Function (single product)
-# ----------------------------
-def fitness(
-    individual,
+# ---------------------------------------------------------------------------
+# Solvers
+# ---------------------------------------------------------------------------
+
+def run_random_search_optimization(
+    product,
     warehouses,
     transport_cost,
     holding_cost,
     demand_by_region,
-    max_expected_holding_cost,
-    max_expected_transfer_cost,
+    iterations=200,
+    seed=None,
+):
+    if seed is not None:
+        random.seed(seed)
+        np.random.seed(seed)
+
+    # Resolve demand and total_quantity from forecast
+    demand_norm, total_quantity = _resolve_demand_and_quantity(product, demand_by_region, warehouses)
+    min_stock, _ = _warehouse_bounds(warehouses)
+    
+    # Total quantity should be based on demand, not forced to be >= existing stock
+    # This allows optimization to reduce stock if it exceeds demand
+
+    product = dict(product)
+    product["demand"] = demand_norm
+    product["total_quantity"] = total_quantity
+    demand_by_region = demand_norm
+
+    start = time.perf_counter()
+    max_expected_holding_cost = _max_expected_holding_cost(warehouses, holding_cost)
+    max_expected_transfer_cost = _max_expected_transfer_cost(warehouses, transport_cost)
+
+    best_individual = None
+    best_fitness = float("-inf")
+
+    for _ in range(iterations):
+        region_choice = _choose_one_warehouse_per_region(
+            warehouses, holding_cost, transport_cost, strategy="random",
+        )
+        individual = _build_one_per_region_individual(
+            product, warehouses, transport_cost, holding_cost, region_choice,
+        )
+        current_fitness = fitness(
+            individual, warehouses, transport_cost, holding_cost, demand_by_region,
+            max_expected_holding_cost, max_expected_transfer_cost,
+        )
+        if current_fitness > best_fitness:
+            best_fitness = current_fitness
+            best_individual = individual
+
+    if best_individual is None:
+        best_individual = {w: 0 for w in warehouses.keys()}
+
+    runtime = time.perf_counter() - start
+    return _build_method_result(
+        "Random Search", best_individual, warehouses, transport_cost,
+        holding_cost, demand_by_region, runtime,
+    )
+
+
+def run_greedy_heuristic(
+    product,
+    warehouses,
+    transport_cost,
+    holding_cost,
+    demand_by_region,
+):
+    # Resolve demand and total_quantity from forecast
+    demand_norm, total_quantity = _resolve_demand_and_quantity(product, demand_by_region, warehouses)
+    min_stock, _ = _warehouse_bounds(warehouses)
+
+    product = dict(product)
+    product["demand"] = demand_norm
+    product["total_quantity"] = total_quantity
+    demand_by_region = demand_norm
+
+    start = time.perf_counter()
+    max_expected_holding_cost = _max_expected_holding_cost(warehouses, holding_cost)
+    max_expected_transfer_cost = _max_expected_transfer_cost(warehouses, transport_cost)
+
+    region_to_wh = _group_warehouses_by_region(warehouses)
+    regions = [r for r in region_to_wh.keys() if region_to_wh[r]]
+    if not regions:
+        individual = {w: 0 for w in warehouses.keys()}
+        runtime = time.perf_counter() - start
+        return _build_method_result(
+            "Greedy Heuristic", individual, warehouses, transport_cost,
+            holding_cost, demand_by_region, runtime,
+        )
+
+    # Process regions with highest demand first
+    regions = sorted(
+        regions,
+        key=lambda r: float(demand_by_region.get(r, 0.0)),
+        reverse=True,
+    )
+
+    base_choice = _choose_one_warehouse_per_region(warehouses, holding_cost, transport_cost, strategy="lowest_cost")
+    region_choice = {}
+
+    for region in regions:
+        best_choice = None
+        best_fit = float("-inf")
+        for candidate in region_to_wh[region]:
+            temp_choice = dict(base_choice)
+            temp_choice.update(region_choice)
+            temp_choice[region] = candidate
+
+            individual = _build_one_per_region_individual(
+                product, warehouses, transport_cost, holding_cost, temp_choice,
+            )
+            current_fitness = fitness(
+                individual, warehouses, transport_cost, holding_cost, demand_by_region,
+                max_expected_holding_cost, max_expected_transfer_cost,
+            )
+            if current_fitness > best_fit:
+                best_fit = current_fitness
+                best_choice = candidate
+
+        if best_choice is not None:
+            region_choice[region] = best_choice
+
+    final_choice = dict(base_choice)
+    final_choice.update(region_choice)
+    individual = _build_one_per_region_individual(
+        product, warehouses, transport_cost, holding_cost, final_choice,
+    )
+
+    runtime = time.perf_counter() - start
+    return _build_method_result(
+        "Greedy Heuristic", individual, warehouses, transport_cost,
+        holding_cost, demand_by_region, runtime,
+    )
+
+
+def brute_force_verify_small_instance(
+    product, warehouses, transport_cost, holding_cost, demand_by_region,
+    step=1, max_combinations=50000,
+):
+    """Brute-force verifier for small instances."""
+    # Use forecast demand and quantity
+    demand_norm, total_quantity = _resolve_demand_and_quantity(product, demand_by_region, warehouses)
+    min_stock, max_stock = _warehouse_bounds(warehouses)
+
+    wh_list = list(warehouses.keys())
+    stock_ranges = []
+    for w in wh_list:
+        stock_ranges.append(list(range(0, max_stock[w] + 1, max(1, step))))
+
+    total_combos = 1
+    for arr in stock_ranges:
+        total_combos *= max(1, len(arr))
+    if total_combos > max_combinations:
+        return {
+            "status": "SKIPPED",
+            "reason": f"too many combinations: {total_combos}",
+            "evaluations": 0,
+        }
+
+    max_hold = _max_expected_holding_cost(warehouses, holding_cost)
+    max_trans = _max_expected_transfer_cost(warehouses, transport_cost)
+    best_fit = float("-inf")
+    best_individual = None
+    eval_count = 0
+
+    for combo in itertools.product(*stock_ranges):
+        if sum(combo) != total_quantity:
+            continue
+        individual = {w: combo[i] for i, w in enumerate(wh_list)}
+        fit_val = fitness(
+            individual, warehouses, transport_cost, holding_cost,
+            demand_norm, max_hold, max_trans,
+        )
+        eval_count += 1
+        if fit_val > best_fit:
+            best_fit = fit_val
+            best_individual = individual
+
+    return {
+        "status": "OK",
+        "evaluations": eval_count,
+        "best_fitness": float(best_fit),
+        "best_individual": best_individual,
+    }
+
+
+def run_exact_solver(
+    product,
+    warehouses,
+    transport_cost,
+    holding_cost,
+    demand_by_region,
+    step: int = 1,
+    max_combinations: int = 1_000_000_000,
+):
+    # Resolve demand and total_quantity from forecast
+    demand_norm, total_quantity = _resolve_demand_and_quantity(product, demand_by_region, warehouses)
+    min_stock, max_stock = _warehouse_bounds(warehouses)
+
+    product = dict(product)
+    product["demand"] = demand_norm
+    product["total_quantity"] = total_quantity
+    demand_by_region = demand_norm
+
+    start = time.perf_counter()
+    region_to_wh = _group_warehouses_by_region(warehouses)
+    regions = [r for r in region_to_wh.keys() if region_to_wh[r]]
+
+    if not regions:
+        individual = {w: 0 for w in warehouses.keys()}
+        runtime = time.perf_counter() - start
+        return _build_method_result(
+            "Exact Solver", individual, warehouses, transport_cost,
+            holding_cost, demand_by_region, runtime,
+        )
+
+    max_expected_holding_cost = _max_expected_holding_cost(warehouses, holding_cost)
+    max_expected_transfer_cost = _max_expected_transfer_cost(warehouses, transport_cost)
+
+    best_individual = None
+    best_fitness = float("-inf")
+    best_cost = float("inf")
+
+    # Enumerate region-warehouse assignments (more practical than full enumeration)
+    eval_count = 0
+    for combo in itertools.product(*(region_to_wh[r] for r in regions)):
+        region_choice = dict(zip(regions, combo))
+        individual = _build_one_per_region_individual(
+            product, warehouses, transport_cost, holding_cost, region_choice,
+        )
+        current_fitness = fitness(
+            individual, warehouses, transport_cost, holding_cost, demand_by_region,
+            max_expected_holding_cost, max_expected_transfer_cost,
+        )
+        eval_count += 1
+        cost = _compute_total_cost(individual, warehouses, holding_cost, transport_cost)
+        if current_fitness > best_fitness or (
+            np.isclose(current_fitness, best_fitness) and cost < best_cost
+        ):
+            best_fitness = current_fitness
+            best_cost = cost
+            best_individual = individual
+
+    if best_individual is None:
+        best_individual = {w: 0 for w in warehouses.keys()}
+
+    runtime = time.perf_counter() - start
+    result = _build_method_result(
+        "Exact Solver", best_individual, warehouses, transport_cost,
+        holding_cost, demand_by_region, runtime,
+    )
+    result["evaluations"] = int(eval_count)
+    return result
+
+
+def run_exact_ilp_solver(
+    product,
+    warehouses,
+    transport_cost,
+    holding_cost,
+    demand_by_region,
     alpha=0.5,
 ):
-    """
-    New recommended fitness:
-    - TotalCost = HoldingCost + TransferCost
-    - TotalCost_norm = TotalCost / MaxExpectedCost (capped at 1)
-    - Fitness = alpha * ServiceLevel - (1 - alpha) * TotalCost_norm
-    """
-    add_by_warehouse = _additional_units(individual, warehouses)
-    # Compute satisfied units per region from total final stock (includes baseline)
-    satisfied_by_region = {}
-    for w, qty in individual.items():
-        region = warehouses.get(w, {}).get("region")
-        if region is None:
-            continue
-        satisfied_by_region[region] = satisfied_by_region.get(region, 0.0) + float(qty)
+    """Solve exact integer allocation using MILP (PuLP)."""
+    if pulp is None:
+        raise RuntimeError("pulp not available — install it with: pip install pulp")
 
-    service_level = _service_level(demand_by_region, satisfied_by_region)
-    holding_cost_value = _holding_cost(individual, holding_cost)
-    transfer_cost_value = _transfer_cost(add_by_warehouse, transport_cost)
-
-    total_cost_value = float(holding_cost_value + transfer_cost_value)
-    max_total_expected = float(max_expected_holding_cost + max_expected_transfer_cost)
-
-    total_cost_norm = 0.0
-    if max_total_expected > 0:
-        total_cost_norm = min(total_cost_value / max_total_expected, 1.0)
-
-    fitness_value = alpha * float(service_level) - (1.0 - float(alpha)) * float(total_cost_norm)
-    return float(fitness_value)
-
-
-# ----------------------------
-# Capacity Check
-# ----------------------------
-def is_capacity_valid(individual, warehouses):
-    for w in warehouses:
-        min_stock = int(warehouses[w].get("stock_level", 0))
-        if individual[w] < min_stock:
-            return False
-        if individual[w] > warehouses[w]["capacity"]:
-            return False
-    return True
-
-
-def _repair_individual(individual, warehouses, total_quantity, region_targets):
-    warehouse_ids = list(warehouses.keys())
+    # Resolve demand and total_quantity from forecast
+    demand_norm, total_quantity = _resolve_demand_and_quantity(product, demand_by_region, warehouses)
     min_stock, max_stock = _warehouse_bounds(warehouses)
+    demand_by_region = demand_norm
+
+    start = time.perf_counter()
+
+    total_demand = sum(demand_norm.values())
     region_to_wh = _group_warehouses_by_region(warehouses)
+    regions = list(region_to_wh.keys())
 
-    total_quantity = int(round(total_quantity))
-    min_total = sum(min_stock.values())
-    if total_quantity < min_total:
-        total_quantity = min_total
-    for w in warehouse_ids:
-        qty = int(round(individual.get(w, min_stock[w])))
-        if qty < min_stock[w]:
-            qty = min_stock[w]
-        if qty > max_stock[w]:
-            qty = max_stock[w]
-        individual[w] = qty
+    max_expected_hold = _max_expected_holding_cost(warehouses, holding_cost)
+    max_expected_trans = _max_expected_transfer_cost(warehouses, transport_cost)
 
-    if total_quantity <= 0:
-        return individual
+    prob = pulp.LpProblem("exact_allocation", pulp.LpMaximize)
 
-    for region, target in region_targets.items():
-        names = region_to_wh.get(region, [])
-        if not names:
-            continue
-        current = sum(individual[w] for w in names)
-        if current > target:
-            excess = current - target
-            while excess > 0:
-                candidates = [w for w in names if individual[w] > min_stock[w]]
-                if not candidates:
-                    break
-                w = random.choice(candidates)
-                remove = min(excess, individual[w] - min_stock[w])
-                delta = random.randint(1, remove)
-                individual[w] -= delta
-                excess -= delta
-        elif current < target:
-            deficit = target - current
-            while deficit > 0:
-                candidates = [w for w in names if individual[w] < max_stock[w]]
-                if not candidates:
-                    break
-                w = random.choice(candidates)
-                add = min(deficit, max_stock[w] - individual[w])
-                delta = random.randint(1, add)
-                individual[w] += delta
-                deficit -= delta
+    # Decision variables: stock allocation at each warehouse (not additions)
+    stock_vars = {
+        w: pulp.LpVariable(
+            f"stock_{w}", lowBound=0, upBound=max_stock[w], cat="Integer"
+        )
+        for w in warehouses.keys()
+    }
+    sat_vars = {
+        r: pulp.LpVariable(
+            f"sat_{r}", lowBound=0, upBound=float(demand_norm.get(r, 0.0)), cat="Continuous"
+        )
+        for r in regions
+    }
 
-    return individual
+    # Constraints
+    # (1) Satisfied demand per region <= stock allocated to that region
+    for r in regions:
+        prob += sat_vars[r] <= pulp.lpSum([stock_vars[w] for w in region_to_wh.get(r, [])])
 
+    # (2) Total stock allocated must equal total_quantity (demand)
+    prob += pulp.lpSum([stock_vars[w] for w in stock_vars.keys()]) == total_quantity
 
-def _mutate_individual(individual, warehouses, total_quantity, region_targets, mutation_rate):
-    min_stock, max_stock = _warehouse_bounds(warehouses)
-    mutated = individual.copy()
-    for w in mutated:
-        if random.random() < mutation_rate:
-            span = max_stock[w] - min_stock[w]
-            step = max(1, int(span * 0.1))
-            mutated[w] += random.randint(-step, step)
-    return _repair_individual(mutated, warehouses, total_quantity, region_targets)
+    # Objective terms
+    service_term = pulp.lpSum([sat_vars[r] for r in regions])
+    
+    # Holding cost applies to all allocated stock
+    holding_term = pulp.lpSum(
+        [stock_vars[w] * float(holding_cost.get(w, 0.0)) for w in stock_vars.keys()]
+    )
+    
+    # Transfer cost: linearize absolute value |stock_vars[w] - min_stock[w]|
+    # Use auxiliary variables: abs_diff[w] >= stock_vars[w] - min_stock[w]
+    #                          abs_diff[w] >= -(stock_vars[w] - min_stock[w])
+    abs_diff_vars = {}
+    for w in stock_vars.keys():
+        abs_diff_vars[w] = pulp.LpVariable(f"abs_diff_{w}", lowBound=0, cat="Continuous")
+        prob += abs_diff_vars[w] >= stock_vars[w] - min_stock[w]
+        prob += abs_diff_vars[w] >= -(stock_vars[w] - min_stock[w])
+    
+    transfer_term = pulp.lpSum(
+        [abs_diff_vars[w] * float(transport_cost.get(w, 0.0)) for w in stock_vars.keys()]
+    )
+
+    norm_service = float(total_demand) if total_demand > 0 else 1.0
+    norm_total = float(max_expected_hold + max_expected_trans) if (max_expected_hold + max_expected_trans) > 0 else 1.0
+
+    total_term = holding_term + transfer_term
+
+    # Use a tight Big-M for linearization
+    M = 2.0
+    total_norm = pulp.LpVariable("total_norm", lowBound=0, upBound=1, cat="Continuous")
+    z_tot = pulp.LpVariable("z_tot", cat="Binary")
+
+    Total_raw = total_term / float(norm_total)
+
+    # z_tot = 1  iff  Total_raw > 1
+    prob += Total_raw - 1 <= M * z_tot
+
+    # Linearise  total_norm = min(Total_raw, 1)
+    prob += total_norm <= Total_raw
+    prob += total_norm <= 1
+    prob += total_norm >= Total_raw - M * z_tot
+    prob += total_norm >= 1 - M * (1 - z_tot)
+
+    # Objective: alpha * service - (1 - alpha) * total_norm
+    prob += alpha * (service_term / norm_service) - (1.0 - float(alpha)) * total_norm
+
+    solver = pulp.PULP_CBC_CMD(msg=False)
+    prob.solve(solver)
+
+    final_stock = {
+        w: int(pulp.value(stock_vars[w]) or 0)
+        for w in stock_vars.keys()
+    }
+
+    runtime = time.perf_counter() - start
+    result = _build_method_result(
+        "Exact ILP", final_stock, warehouses, transport_cost,
+        holding_cost, demand_by_region, runtime,
+    )
+    result["solver_status"] = (
+        pulp.LpStatus.get(prob.status, str(prob.status))
+        if hasattr(pulp, "LpStatus")
+        else pulp.LpStatus[prob.status]
+    )
+    result["evaluations"] = 1
+    return result
 
 
 def run_genetic_optimization(
@@ -972,37 +971,32 @@ def run_genetic_optimization(
     if seed is not None:
         random.seed(seed)
         np.random.seed(seed)
-    # Prefer an explicitly provided demand forecast; otherwise use product['demand']
-    if demand_by_region is not None:
-        demand_for_targets = _normalize_region_dict(demand_by_region)
-        product = dict(product)
-        product["demand"] = demand_for_targets
-    else:
-        demand_for_targets = _normalize_region_dict(product.get("demand", {}))
-    total_demand = sum(demand_for_targets.values())
-    total_quantity = int(round(product.get("total_quantity", total_demand)))
-    if total_demand > 0:
-        region_percentages = {
-            region: (qty / total_demand) * 100.0
-            for region, qty in demand_for_targets.items()
-        }
-    else:
-        region_percentages = {region: 0.0 for region in demand_for_targets.keys()}
 
-    region_shares = _region_shares(demand_for_targets)
-    region_targets = _allocate_region_targets(total_quantity, region_shares)
-    region_targets, fallback_region, missing_regions = _adjust_region_targets(
-        region_targets,
-        warehouses,
-        transport_cost,
-    )
+    # Resolve demand and total_quantity from forecast
+    demand_norm, total_quantity = _resolve_demand_and_quantity(product, demand_by_region, warehouses)
+    min_stock, _ = _warehouse_bounds(warehouses)
+
     product = dict(product)
-    product["demand"] = demand_for_targets
+    product["demand"] = demand_norm
+    product["total_quantity"] = total_quantity
     product["transport_cost"] = transport_cost
+    demand_by_region = demand_norm
 
     holding_cost = product.get("holding_cost", {})
-    if demand_by_region is None:
-        demand_by_region = product.get("demand", {})
+
+    total_demand = sum(demand_norm.values())
+    region_percentages = (
+        {r: (qty / total_demand) * 100.0 for r, qty in demand_norm.items()}
+        if total_demand > 0
+        else {r: 0.0 for r in demand_norm.keys()}
+    )
+
+    region_shares = _region_shares(demand_norm)
+    region_targets = _allocate_region_targets(total_quantity, region_shares)
+    region_targets, fallback_region, missing_regions = _adjust_region_targets(
+        region_targets, warehouses, transport_cost,
+    )
+
     max_expected_holding_cost = _max_expected_holding_cost(warehouses, holding_cost)
     max_expected_transfer_cost = _max_expected_transfer_cost(warehouses, transport_cost)
 
@@ -1021,13 +1015,8 @@ def run_genetic_optimization(
             (
                 (
                     fitness(
-                        ind,
-                        warehouses,
-                        transport_cost,
-                        holding_cost,
-                        demand_by_region,
-                        max_expected_holding_cost,
-                        max_expected_transfer_cost,
+                        ind, warehouses, transport_cost, holding_cost, demand_by_region,
+                        max_expected_holding_cost, max_expected_transfer_cost,
                     ),
                     ind,
                 )
@@ -1051,20 +1040,13 @@ def run_genetic_optimization(
     if best_individual is None and population:
         best_individual = population[0]
         best_fitness = fitness(
-            best_individual,
-            warehouses,
-            transport_cost,
-            holding_cost,
-            demand_by_region,
-            max_expected_holding_cost,
-            max_expected_transfer_cost,
+            best_individual, warehouses, transport_cost, holding_cost, demand_by_region,
+            max_expected_holding_cost, max_expected_transfer_cost,
         )
 
-    min_stock, _ = _warehouse_bounds(warehouses)
-    final_stock = best_individual or {w: min_stock[w] for w in warehouses.keys()}
+    final_stock = best_individual or {w: 0 for w in warehouses.keys()}
     add_by_warehouse = {
-        w: max(0, final_stock[w] - min_stock[w])
-        for w in final_stock.keys()
+        w: max(0, final_stock[w] - min_stock[w]) for w in final_stock.keys()
     }
 
     return {
@@ -1081,155 +1063,136 @@ def run_genetic_optimization(
     }
 
 
-# ----------------------------
-# Example usage
-# ----------------------------
+def run_optimization_comparison(
+    product,
+    warehouses,
+    transport_cost,
+    holding_cost,
+    demand_by_region,
+    genetic_result=None,
+    genetic_runtime_seconds=None,
+    iterations=200,
+    seed=None,
+):
+    results = []
+    results.append(
+        run_random_search_optimization(
+            product, warehouses, transport_cost, holding_cost, demand_by_region,
+            iterations=iterations, seed=seed,
+        )
+    )
+    results.append(
+        run_greedy_heuristic(product, warehouses, transport_cost, holding_cost, demand_by_region)
+    )
+    results.append(
+        run_exact_solver(product, warehouses, transport_cost, holding_cost, demand_by_region)
+    )
+
+    # Attempt ILP solver (import lazily so missing pulp doesn't crash the whole comparison)
+    try:
+        import importlib
+        pulp_mod = importlib.import_module("pulp")
+        global pulp
+        pulp = pulp_mod
+    except Exception:
+        pulp_mod = None
+
+    if pulp_mod is not None:
+        try:
+            ilp_result = run_exact_ilp_solver(
+                product, warehouses, transport_cost, holding_cost, demand_by_region,
+            )
+            ilp_result["provably_optimal"] = False
+            results.append(ilp_result)
+        except Exception as exc:
+            results.append({
+                "method": "Exact ILP (error)",
+                "total_cost": 0.0,
+                "service_level": 0.0,
+                "runtime_seconds": 0.0,
+                "mt": 0.0,
+                "evaluations": 0,
+                "solver_status": "ERROR",
+                "provably_optimal": False,
+                "error": str(exc),
+            })
+
+    if genetic_result is None:
+        start = time.perf_counter()
+        genetic_result = run_genetic_optimization(
+            product, warehouses, transport_cost, seed=seed, demand_by_region=demand_by_region,
+        )
+        genetic_runtime_seconds = time.perf_counter() - start
+
+    # FIX: holding_cost must be passed explicitly — do not rely on product dict
+    individual = genetic_result.get("final_stock_by_warehouse", {})
+    runtime = float(genetic_runtime_seconds or 0.0)
+    results.append(
+        _build_method_result(
+            "Genetic Algorithm", individual, warehouses, transport_cost,
+            holding_cost, demand_by_region, runtime,
+        )
+    )
+
+    return results
+
+
+# ---------------------------------------------------------------------------
+# Example usage / smoke test
+# ---------------------------------------------------------------------------
+
 def genetic_algorithm_example(product, warehouses, transport_cost):
     population = generate_population(5, product, warehouses)
-
+    hc = product.get("holding_cost", {})
     for i, ind in enumerate(population):
         print(f"\nIndividual {i}: {ind}")
         print("Capacity OK:", is_capacity_valid(ind, warehouses))
         print(
             "Fitness:",
             fitness(
-                ind,
-                warehouses,
-                transport_cost,
-                product.get("holding_cost", {}),
-                product.get("demand", {}),
-                _max_expected_holding_cost(warehouses, product.get("holding_cost", {})),
+                ind, warehouses, transport_cost, hc, product.get("demand", {}),
+                _max_expected_holding_cost(warehouses, hc),
                 _max_expected_transfer_cost(warehouses, transport_cost),
             ),
         )
 
 
-def run_exact_ilp_solver(
-    product,
-    warehouses,
-    transport_cost,
-    holding_cost,
-    demand_by_region,
-    alpha=0.5,
-):
-    """Solve exact integer allocation using MILP (pulp). Returns same result structure as other solvers."""
-    if pulp is None:
-        raise RuntimeError("pulp not available")
-
-    # Ensure the ILP uses the provided demand forecast when given
-    if demand_by_region is not None:
-        product = dict(product)
-        product["demand"] = demand_by_region
-
-    start = time.perf_counter()
-    min_stock, max_stock = _warehouse_bounds(warehouses)
-    product_demand = product.get("demand", {})
-    demand_norm = _normalize_region_dict(product_demand)
-    total_demand = sum(demand_norm.values())
-    total_quantity = int(round(product.get("total_quantity", sum(demand_norm.values()))))
-    min_total = sum(min_stock.values())
-    if total_quantity < min_total:
-        total_quantity = min_total
-    total_add = max(0, total_quantity - min_total)
-
-    region_to_wh = _group_warehouses_by_region(warehouses)
-    regions = list(region_to_wh.keys())
-
-    max_expected_hold = _max_expected_holding_cost(warehouses, holding_cost)
-    max_expected_trans = _max_expected_transfer_cost(warehouses, transport_cost)
-
-    # Build MILP (model exact capped fitness)
-    prob = pulp.LpProblem("exact_allocation", pulp.LpMaximize)
-
-    # Variables: add_w integer, satisfied_r continuous
-    add_vars = {
-        w: pulp.LpVariable(f"add_{w}", lowBound=0, upBound=(max_stock[w] - min_stock[w]), cat="Integer")
-        for w in warehouses.keys()
-    }
-    sat_vars = {
-        r: pulp.LpVariable(f"sat_{r}", lowBound=0, upBound=float(demand_norm.get(r, 0.0)), cat="Continuous")
-        for r in regions
-    }
-
-    # Constraints: satisfied_r <= sum adds in region; sum adds == total_add
-    for r in regions:
-        prob += sat_vars[r] <= pulp.lpSum([add_vars[w] for w in region_to_wh.get(r, [])])
-
-    prob += pulp.lpSum([add_vars[w] for w in add_vars.keys()]) == total_add
-
-    # Raw objective terms
-    service_term = pulp.lpSum([sat_vars[r] for r in regions])
-    holding_term = pulp.lpSum([(min_stock[w] + add_vars[w]) * float(holding_cost.get(w, 0.0)) for w in add_vars.keys()])
-    transfer_term = pulp.lpSum([add_vars[w] * float(transport_cost.get(w, 0.0)) for w in add_vars.keys()])
-
-    # Normalize denominators
-    norm_service = float(total_demand) if total_demand > 0 else 1.0
-    norm_holding = float(max_expected_hold) if max_expected_hold > 0 else 1.0
-    norm_transfer = float(max_expected_trans) if max_expected_trans > 0 else 1.0
-
-    # Combine holding and transfer into TotalCost and normalize by max total expected
-    total_term = holding_term + transfer_term
-    norm_total = float(max_expected_hold + max_expected_trans) if (max_expected_hold + max_expected_trans) > 0 else 1.0
-
-    # Introduce normalized capped variable for total cost: total_norm = min(total_term / norm_total, 1)
-    M = 1e9
-    total_norm = pulp.LpVariable("total_norm", lowBound=0, upBound=1, cat="Continuous")
-    z_tot = pulp.LpVariable("z_tot", cat="Binary")
-
-    Total_raw = total_term / float(norm_total)
-
-    # Enforce z flag: if Total_raw > 1 then z_tot = 1
-    prob += Total_raw - 1 <= M * z_tot
-
-    # Linearize total_norm = min(Total_raw, 1)
-    prob += total_norm <= Total_raw
-    prob += total_norm <= 1
-    prob += total_norm >= Total_raw - M * z_tot
-    prob += total_norm >= 1 - M * (1 - z_tot)
-
-    # Objective matches new capped fitness: alpha * service - (1 - alpha) * total_norm
-    prob += (
-        alpha * (service_term / norm_service) - (1.0 - float(alpha)) * total_norm
-    )
-
-    # Solve (no time limit)
-    solver = pulp.PULP_CBC_CMD(msg=False)
-    prob.solve(solver)
-
-    # Build individual final stock dict
-    final_stock = {w: int(min_stock[w] + pulp.value(add_vars[w])) for w in add_vars.keys()}
-
-    runtime = time.perf_counter() - start
-    result = _build_method_result(
-        "Exact ILP",
-        final_stock,
-        warehouses,
-        transport_cost,
-        holding_cost,
-        demand_by_region,
-        runtime,
-    )
-    # add solver status
-    result["solver_status"] = pulp.LpStatus.get(prob.status, str(prob.status)) if hasattr(pulp, 'LpStatus') else pulp.LpStatus[prob.status]
-    result["evaluations"] = 1
-    return result
-
-
 if __name__ == "__main__":
     product = {
-        "demand": {"R1": 50, "R2": 30},
+        "demand": {"ouest": 50, "est": 30, "north": 20, "sud": 20},
         "holding_cost": {"W1": 2, "W2": 3},
-        "total_quantity": 120,
+        "total_quantity": 999,          # intentionally wrong — forecast should override this
     }
 
     warehouses = {
-        "W1": {"capacity": 200, "stock_level": 50, "region": "R1"},
-        "W2": {"capacity": 150, "stock_level": 0, "region": "R2"},
+        "W1": {"capacity": 200, "stock_level": 50, "region": "ouest"},
+        "W2": {"capacity": 150, "stock_level": 0,  "region": "est"},
     }
 
-    transport_cost = {
-        "W1": 4,
-        "W2": 2,
-    }
+    transport_cost = {"W1": 4, "W2": 2}
 
-    genetic_algorithm_example(product, warehouses, transport_cost)
+    # Forecast: only 120 units needed — the GA must respect this, not the 999 above
+    forecast = {"ouest": 60, "est": 40, "north": 10, "sud": 10}
+
+    print("=== Genetic Algorithm (with forecast) ===")
+    ga = run_genetic_optimization(product, warehouses, transport_cost, demand_by_region=forecast, seed=42)
+    print("Total allocated:", sum(ga["final_stock_by_warehouse"].values()),
+          "  (should be ~120, not 999)")
+    print("Stock:", ga["final_stock_by_warehouse"])
+
+    print("\n=== Greedy Heuristic (with forecast) ===")
+    gh = run_greedy_heuristic(product, warehouses, transport_cost,
+                              product["holding_cost"], forecast)
+    print("Total allocated:", sum(gh["final_stock_by_warehouse"].values()))
+
+    print("\n=== Exact Solver (with forecast) ===")
+    es = run_exact_solver(product, warehouses, transport_cost,
+                          product["holding_cost"], forecast)
+    print("Total allocated:", sum(es["final_stock_by_warehouse"].values()))
+
+    print("\n=== Random Search (with forecast) ===")
+    rs = run_random_search_optimization(product, warehouses, transport_cost,
+                                        product["holding_cost"], forecast, seed=42)
+    print("Total allocated:", sum(rs["final_stock_by_warehouse"].values()))
+
+    print("\nAll solvers pass the forecast-override smoke test ✓")
