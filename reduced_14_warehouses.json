@@ -4,7 +4,7 @@
       "id": "W_NORTH_1",
       "capacity": 5000,
       "stockLevel": 2500,
-      "region": "north",
+      "region": "NORTH",
       "transportCost": 250.0,
       "holdingCost": 800.0
     },
@@ -12,7 +12,7 @@
       "id": "W_NORTH_2",
       "capacity": 3500,
       "stockLevel": 1800,
-      "region": "north",
+      "region": "NORTH",
       "transportCost": 280.0,
       "holdingCost": 750.0
     },
@@ -20,7 +20,7 @@
       "id": "W_NORTH_3",
       "capacity": 4000,
       "stockLevel": 2200,
-      "region": "north",
+      "region": "NORTH",
       "transportCost": 220.0,
       "holdingCost": 850.0
     },
@@ -28,7 +28,7 @@
       "id": "W_NORTH_4",
       "capacity": 6000,
       "stockLevel": 3000,
-      "region": "north",
+      "region": "NORTH",
       "transportCost": 300.0,
       "holdingCost": 700.0
     },
@@ -36,7 +36,7 @@
       "id": "W_EST_1",
       "capacity": 4500,
       "stockLevel": 2000,
-      "region": "est",
+      "region": "EAST",
       "transportCost": 320.0,
       "holdingCost": 600.0
     },
@@ -44,7 +44,7 @@
       "id": "W_EST_2",
       "capacity": 3000,
       "stockLevel": 1500,
-      "region": "est",
+      "region": "EAST",
       "transportCost": 300.0,
       "holdingCost": 650.0
     },
@@ -52,7 +52,7 @@
       "id": "W_EST_3",
       "capacity": 5500,
       "stockLevel": 2800,
-      "region": "est",
+      "region": "EAST",
       "transportCost": 350.0,
       "holdingCost": 550.0
     },
@@ -60,7 +60,7 @@
       "id": "W_OUEST_1",
       "capacity": 3800,
       "stockLevel": 1900,
-      "region": "ouest",
+      "region": "WEST",
       "transportCost": 400.0,
       "holdingCost": 900.0
     },
@@ -68,7 +68,7 @@
       "id": "W_OUEST_2",
       "capacity": 4200,
       "stockLevel": 2100,
-      "region": "ouest",
+      "region": "WEST",
       "transportCost": 380.0,
       "holdingCost": 850.0
     },
@@ -76,7 +76,7 @@
       "id": "W_OUEST_3",
       "capacity": 2500,
       "stockLevel": 1200,
-      "region": "ouest",
+      "region": "WEST",
       "transportCost": 420.0,
       "holdingCost": 950.0
     },
@@ -84,7 +84,7 @@
       "id": "W_SUD_1",
       "capacity": 2000,
       "stockLevel": 1000,
-      "region": "sud",
+      "region": "SOUTH",
       "transportCost": 450.0,
       "holdingCost": 1000.0
     },
@@ -92,7 +92,7 @@
       "id": "W_SUD_2",
       "capacity": 2800,
       "stockLevel": 1400,
-      "region": "sud",
+      "region": "SOUTH",
       "transportCost": 480.0,
       "holdingCost": 1100.0
     },
@@ -100,7 +100,7 @@
       "id": "W_SUD_3",
       "capacity": 3200,
       "stockLevel": 1600,
-      "region": "sud",
+      "region": "SOUTH",
       "transportCost": 430.0,
       "holdingCost": 950.0
     },
@@ -108,7 +108,7 @@
       "id": "W_SUD_4",
       "capacity": 1500,
       "stockLevel": 750,
-      "region": "sud",
+      "region": "SOUTH",
       "transportCost": 500.0,
       "holdingCost": 1200.0
     }

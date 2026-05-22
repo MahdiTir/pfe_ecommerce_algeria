@@ -118,9 +118,14 @@ def _load_regions_map() -> dict[str, str]:
     region_data = json.loads(cleaned)
     region_name_map = {
         "centre": "NORTH",
+        "center": "NORTH",
+        "north": "NORTH",
         "est": "EAST",
+        "east": "EAST",
         "ouest": "WEST",
+        "west": "WEST",
         "sud": "SOUTH",
+        "south": "SOUTH",
     }
     region_map: dict[str, str] = {}
     for region, wilayas in region_data.items():

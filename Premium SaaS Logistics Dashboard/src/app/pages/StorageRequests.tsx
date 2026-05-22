@@ -1,16 +1,16 @@
 import { Plus, Clock, CheckCircle, XCircle, Eye } from "lucide-react";
 import { useNavigate } from "react-router";
-
-const requests = [
-  { id: "SR-2024-158", date: "2024-05-15", product: "Wireless Headphones", sku: "SKU-12345", quantity: 150, warehouse: "W2 - Oran North", status: "approved", category: "Arts & Entertainment" },
-  { id: "SR-2024-157", date: "2024-05-14", product: "Cotton T-Shirt", sku: "SKU-23456", quantity: 200, warehouse: "W1 - Algiers East", status: "pending", category: "Fashion" },
-  { id: "SR-2024-156", date: "2024-05-13", product: "Coffee Beans 1kg", sku: "SKU-34567", quantity: 100, warehouse: "W2 - Oran North", status: "pending", category: "Food & Beverages" },
-  { id: "SR-2024-155", date: "2024-05-12", product: "Yoga Mat", sku: "SKU-45678", quantity: 85, warehouse: "W3 - Tamanrasset South", status: "processing", category: "Sports" },
-  { id: "SR-2024-154", date: "2024-05-10", product: "Art Supplies Set", sku: "SKU-56789", quantity: 50, warehouse: "W1 - Algiers East", status: "rejected", category: "Arts & Entertainment" },
-];
+import { useSellerData } from "../data/useSellerData";
 
 export function StorageRequests() {
   const navigate = useNavigate();
+  const { mock } = useSellerData();
+  const reqs = mock.storageRequests;
+
+  const total      = reqs.length;
+  const pending    = reqs.filter((r) => r.status === "pending").length;
+  const approved   = reqs.filter((r) => r.status === "approved").length;
+  const processing = reqs.filter((r) => r.status === "processing").length;
 
   return (
     <div className="p-8">
@@ -32,19 +32,19 @@ export function StorageRequests() {
       <div className="grid grid-cols-4 gap-6 mb-8">
         <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
           <p className="text-sm text-gray-600 mb-1">Total Requests</p>
-          <p className="text-3xl font-bold text-gray-900">24</p>
+          <p className="text-3xl font-bold text-gray-900">{total}</p>
         </div>
         <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
           <p className="text-sm text-gray-600 mb-1">Pending</p>
-          <p className="text-3xl font-bold text-orange-600">12</p>
+          <p className="text-3xl font-bold text-orange-600">{pending}</p>
         </div>
         <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
           <p className="text-sm text-gray-600 mb-1">Approved</p>
-          <p className="text-3xl font-bold text-emerald-600">9</p>
+          <p className="text-3xl font-bold text-emerald-600">{approved}</p>
         </div>
         <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
           <p className="text-sm text-gray-600 mb-1">Processing</p>
-          <p className="text-3xl font-bold text-indigo-600">3</p>
+          <p className="text-3xl font-bold text-indigo-600">{processing}</p>
         </div>
       </div>
 
@@ -64,30 +64,30 @@ export function StorageRequests() {
             </tr>
           </thead>
           <tbody>
-            {requests.map((request) => (
+            {reqs.map((request) => (
               <tr key={request.id} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
                 <td className="py-4 px-6 font-semibold text-indigo-600">{request.id}</td>
                 <td className="py-4 px-6 text-gray-600">{request.date}</td>
                 <td className="py-4 px-6">
                   <div>
                     <p className="font-medium text-gray-900">{request.product}</p>
-                    <p className="text-xs text-gray-500">{request.sku}</p>
+                    <p className="text-xs text-gray-500 font-mono">{request.sku}</p>
                   </div>
                 </td>
-                <td className="py-4 px-6 text-gray-600">{request.category}</td>
+                <td className="py-4 px-6 text-gray-600 text-sm">{request.category}</td>
                 <td className="py-4 px-6 text-right font-semibold text-gray-900">{request.quantity}</td>
-                <td className="py-4 px-6 text-gray-900">{request.warehouse}</td>
+                <td className="py-4 px-6 text-gray-900 text-sm">{request.warehouse}</td>
                 <td className="py-4 px-6">
                   <div className="flex items-center gap-2">
-                    {request.status === "approved" && <CheckCircle className="w-4 h-4 text-emerald-500" />}
-                    {request.status === "pending" && <Clock className="w-4 h-4 text-orange-500" />}
-                    {request.status === "processing" && <Clock className="w-4 h-4 text-indigo-500" />}
-                    {request.status === "rejected" && <XCircle className="w-4 h-4 text-red-500" />}
+                    {request.status === "approved"   && <CheckCircle className="w-4 h-4 text-emerald-500" />}
+                    {request.status === "pending"    && <Clock        className="w-4 h-4 text-orange-500" />}
+                    {request.status === "processing" && <Clock        className="w-4 h-4 text-indigo-500" />}
+                    {request.status === "rejected"   && <XCircle      className="w-4 h-4 text-red-500"    />}
                     <span className={`px-3 py-1 text-xs font-medium rounded-full capitalize ${
-                      request.status === "approved" ? "bg-emerald-100 text-emerald-700" :
-                      request.status === "pending" ? "bg-orange-100 text-orange-700" :
-                      request.status === "processing" ? "bg-indigo-100 text-indigo-700" :
-                      "bg-red-100 text-red-700"
+                      request.status === "approved"   ? "bg-emerald-100 text-emerald-700" :
+                      request.status === "pending"    ? "bg-orange-100 text-orange-700"   :
+                      request.status === "processing" ? "bg-indigo-100 text-indigo-700"   :
+                                                        "bg-red-100 text-red-700"
                     }`}>
                       {request.status}
                     </span>

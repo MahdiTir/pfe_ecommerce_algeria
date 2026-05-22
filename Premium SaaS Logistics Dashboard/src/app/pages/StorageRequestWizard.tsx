@@ -2,7 +2,8 @@ import { useState, useEffect, useMemo } from "react";
 import { ChevronRight, ChevronLeft, Check, MapPin, TrendingUp, FileCheck, Sparkles } from "lucide-react";
 import { PieChart, Pie, Cell, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 import { useNavigate } from "react-router";
-import appConfigData from "../../../../app_config.json";
+import { useAuth } from "../auth/AuthContext";
+import { SELLER_DATA, type WarehouseInfo, type CategoryGroup, type RegionGroup } from "../data/sellerData";
 
 const steps = [
   { id: 1, name: "Request Details", icon: MapPin },
@@ -11,39 +12,10 @@ const steps = [
   { id: 4, name: "Review & Submit", icon: FileCheck },
 ];
 
-type CategoryGroup = {
-  name: string;
-  children: string[];
-};
-
-type RegionGroup = {
-  id: string;
-  name: string;
-  wilayas: string[];
-};
-
-type WarehouseInfo = {
-  id: string;
-  name: string;
-  region: string;
-  capacity: number;
-  stockLevel: number;
-  transportCost: number;
-  holdingCost: number;
-};
-
 type ForecastItem = {
   week_start: string;
   region: string;
   sarimax_forecast: number;
-};
-
-type OptimizationMethodResult = {
-  method: string;
-  total_cost: number;
-  service_level: number;
-  runtime_seconds: number;
-  mt: number;
 };
 
 type ForecastResponse = {
@@ -56,13 +28,6 @@ type ForecastResponse = {
   allocation_by_warehouse: Record<string, number>;
   final_stock_by_warehouse: Record<string, number>;
   genetic: Record<string, unknown>;
-  optimization_methods: OptimizationMethodResult[];
-};
-
-type AppConfig = {
-  regions: RegionGroup[];
-  categories: CategoryGroup[];
-  warehouses: WarehouseInfo[];
 };
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000";
@@ -73,11 +38,6 @@ const regionColors: Record<string, string> = {
   south: "#F59E0B",
   west: "#EF4444",
 };
-
-const appConfig = appConfigData as AppConfig;
-const regions = appConfig.regions;
-const categoryGroups = appConfig.categories;
-const warehouses = appConfig.warehouses;
 
 const formatRegionLabel = (value: string) =>
   value
@@ -91,6 +51,12 @@ const normalizeRegionKey = (value: string) => value.trim().toLowerCase();
 export function StorageRequestWizard() {
   const [currentStep, setCurrentStep] = useState(1);
   const navigate = useNavigate();
+  const { account } = useAuth();
+
+  const sellerConfig = SELLER_DATA[account?.id ?? ""] ?? Object.values(SELLER_DATA)[0];
+  const regions = sellerConfig.regions;
+  const categoryGroups = sellerConfig.categories;
+  const warehouses = sellerConfig.warehouses;
 
   const [formData, setFormData] = useState({
     departureWilaya: "",
@@ -105,8 +71,8 @@ export function StorageRequestWizard() {
   const [forecastError, setForecastError] = useState<string | null>(null);
   const [forecastLoading, setForecastLoading] = useState(false);
 
-  const selectedWarehouses = useMemo(() => warehouses, []);
-  const selectedWarehouseNames = "All available warehouses";
+  const selectedWarehouses = useMemo(() => warehouses, [warehouses]);
+  const selectedWarehouseNames = warehouses.map((w) => w.id).join(", ");
 
   const forecastView = useMemo(() => {
     if (!forecastResult) {
@@ -171,7 +137,6 @@ export function StorageRequestWizard() {
       recommendedCount: recommended.length,
       topWarehouse,
       periodWeeks: forecastResult.period_weeks,
-      optimizationMethods: forecastResult.optimization_methods ?? [],
     };
   }, [forecastResult, selectedWarehouses]);
 
@@ -183,7 +148,7 @@ export function StorageRequestWizard() {
     const quantityValue = Number(formData.quantity);
     if (!formData.subcategory || !Number.isFinite(quantityValue) || quantityValue <= 0) {
       setForecastResult(null);
-      setForecastError("Enter a valid quantity and select a sub-category to run the forecast.");
+      setForecastError("Enter a valid quantity and select a product to run the forecast.");
       return;
     }
 
@@ -231,7 +196,7 @@ export function StorageRequestWizard() {
     setForecastLoading(true);
     setForecastError(null);
 
-    fetch(`${API_BASE_URL}/forecast/genetic`, {
+    fetch(`${API_BASE_URL}/forecast/optimization`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -321,7 +286,7 @@ export function StorageRequestWizard() {
       {/* Content */}
       <div className="p-8">
         <div className="max-w-5xl mx-auto">
-          {currentStep === 1 && <Step1 formData={formData} setFormData={setFormData} />}
+          {currentStep === 1 && <Step1 formData={formData} setFormData={setFormData} regions={regions} categoryGroups={categoryGroups} />}
           {currentStep === 2 && <Step2 formData={formData} setFormData={setFormData} />}
           {currentStep === 3 && (
             <Step3
@@ -374,7 +339,12 @@ export function StorageRequestWizard() {
   );
 }
 
-function Step1({ formData, setFormData }: any) {
+function Step1({ formData, setFormData, regions, categoryGroups }: {
+  formData: any;
+  setFormData: any;
+  regions: RegionGroup[];
+  categoryGroups: CategoryGroup[];
+}) {
   return (
     <div className="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm mb-20">
       <div className="flex items-center gap-3 mb-6">
@@ -407,13 +377,13 @@ function Step1({ formData, setFormData }: any) {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Sub-category *</label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Product *</label>
           <select
             value={formData.subcategory}
             onChange={(e) => setFormData({ ...formData, subcategory: e.target.value })}
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
-            <option value="">Select sub-category</option>
+            <option value="">Select product</option>
             {categoryGroups.map((group) => (
               <optgroup key={group.name} label={group.name}>
                 {group.children.map((child) => (
@@ -495,11 +465,6 @@ function Step2({ formData, setFormData }: any) {
 }
 
 function Step3({ forecastView, forecastLoading, forecastError }: any) {
-  const optimizationMethods = forecastView?.optimizationMethods ?? [];
-  const formatCost = (value: number) => new Intl.NumberFormat("en-US").format(Math.round(value));
-  const formatPercent = (value: number) => `${Math.round(value * 100)}%`;
-  const formatRuntime = (value: number) => `${value < 1 ? value.toFixed(2) : value.toFixed(1)} s`;
-
   return (
     <div className="space-y-6 mb-20">
       {/* Header with Timeline */}
@@ -509,7 +474,7 @@ function Step3({ forecastView, forecastLoading, forecastError }: any) {
             <Sparkles className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-gray-900">AI Forecast & Genetic Optimization Results</h2>
+            <h2 className="text-xl font-bold text-gray-900">AI Forecast & ILP Optimization Results</h2>
             <p className="text-sm text-gray-600">Advanced analytics and stock allocation recommendations</p>
           </div>
         </div>
@@ -700,32 +665,6 @@ function Step3({ forecastView, forecastLoading, forecastError }: any) {
               </tbody>
             </table>
           </div>
-
-          {optimizationMethods.length > 0 && (
-            <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Optimization Method Comparison</h3>
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b border-gray-200">
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-900">Method</th>
-                    <th className="text-right py-3 px-4 text-sm font-semibold text-gray-900">Total Cost</th>
-                    <th className="text-right py-3 px-4 text-sm font-semibold text-gray-900">Service Level</th>
-                    <th className="text-right py-3 px-4 text-sm font-semibold text-gray-900">Runtime</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {optimizationMethods.map((row: OptimizationMethodResult) => (
-                    <tr key={row.method} className="border-b border-gray-100">
-                      <td className="py-4 px-4 font-medium text-gray-900">{row.method}</td>
-                      <td className="py-4 px-4 text-right font-semibold text-gray-900">{formatCost(row.total_cost)} DZD</td>
-                      <td className="py-4 px-4 text-right text-gray-900">{formatPercent(row.service_level)}</td>
-                      <td className="py-4 px-4 text-right text-gray-900">{formatRuntime(row.runtime_seconds)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
         </>
       )}
     </div>
@@ -763,7 +702,7 @@ function Step4({ formData, forecastView, selectedWarehouseNames }: any) {
                 <dd className="text-sm font-medium text-gray-900">{formData.departureWilaya || "Not set"}</dd>
               </div>
               <div className="flex justify-between">
-                <dt className="text-sm text-gray-600">Sub-category:</dt>
+                <dt className="text-sm text-gray-600">Product:</dt>
                 <dd className="text-sm font-medium text-gray-900">{formData.subcategory || "Not set"}</dd>
               </div>
               <div className="flex justify-between">

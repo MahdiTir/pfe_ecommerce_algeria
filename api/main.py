@@ -16,7 +16,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from statsmodels.tsa.statespace.sarimax import SARIMAXResults
 
-from optimization.Genitic import run_genetic_optimization, run_optimization_comparison
+from optimization.Genitic import run_genetic_optimization, run_optimization_comparison, run_exact_ilp_solver
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -40,6 +40,20 @@ EXOG_COLS = [
     "is_winter",
     "cat_season_multiplier",
 ]
+
+CANONICAL_REGIONS = frozenset({"EAST", "NORTH", "SOUTH", "WEST"})
+
+REGION_ALIASES = {
+    "centre": "NORTH",
+    "center": "NORTH",
+    "north": "NORTH",
+    "est": "EAST",
+    "east": "EAST",
+    "ouest": "WEST",
+    "west": "WEST",
+    "sud": "SOUTH",
+    "south": "SOUTH",
+}
 
 PARENT_TO_CAT_GROUP = {
     "apparel accessories": "fashion",
@@ -113,6 +127,29 @@ def _normalize_text(value: str) -> str:
     text = "".join(ch for ch in text if not unicodedata.combining(ch))
     text = re.sub(r"[^a-z0-9]+", " ", text)
     return re.sub(r"\s+", " ", text).strip()
+
+
+def _canonical_region(value: str) -> str:
+    raw = str(value).strip()
+    upper = raw.upper()
+    if upper in CANONICAL_REGIONS:
+        return upper
+    mapped = REGION_ALIASES.get(_normalize_text(raw))
+    if mapped:
+        return mapped
+    raise HTTPException(
+        status_code=400,
+        detail=f"Unknown region: {value}. Use one of: {', '.join(sorted(CANONICAL_REGIONS))}",
+    )
+
+
+def _normalize_warehouse_regions(
+    warehouses: Dict[str, WarehouseSpec],
+) -> Dict[str, WarehouseSpec]:
+    return {
+        name: spec.model_copy(update={"region": _canonical_region(spec.region)})
+        for name, spec in warehouses.items()
+    }
 
 
 @lru_cache
@@ -417,16 +454,18 @@ def health_check() -> Dict[str, str]:
     return {"status": "ok"}
 
 
-@app.post("/forecast/genetic", response_model=ForecastResponse)
+@app.post("/forecast/optimization", response_model=ForecastResponse)
 def forecast_and_optimize(request: ForecastRequest) -> ForecastResponse:
     parent_category, cat_group = _resolve_parent_and_group(request.category)
+    warehouses = _normalize_warehouse_regions(request.warehouses)
 
     forecast_df = _forecast_sarimax(cat_group, request.period, pd.Timestamp(request.forecast_date))
     if forecast_df.empty:
         raise HTTPException(status_code=500, detail="Forecast generation failed")
 
     regions = sorted(forecast_df["region"].unique().tolist())
-    _validate_inputs(request.warehouses, request.transport_cost, request.holding_cost, regions)
+    _validate_inputs(warehouses, request.transport_cost, request.holding_cost, regions)
+
 
     region_totals = forecast_df.groupby("region")["sarimax_forecast"].sum()
     demand_by_region = {region: float(value) for region, value in region_totals.items()}
@@ -434,8 +473,8 @@ def forecast_and_optimize(request: ForecastRequest) -> ForecastResponse:
     region_percentages = {region: share * 100.0 for region, share in region_shares.items()}
     allocation_by_region = _allocate_by_shares(request.countity, region_shares)
 
-    total_stock = sum(spec.stock_level for spec in request.warehouses.values())
-    total_capacity = sum(spec.capacity for spec in request.warehouses.values())
+    total_stock = sum(spec.stock_level for spec in warehouses.values())
+    total_capacity = sum(spec.capacity for spec in warehouses.values())
     total_quantity = total_stock + request.countity
     if total_quantity > total_capacity:
         raise HTTPException(
@@ -449,8 +488,8 @@ def forecast_and_optimize(request: ForecastRequest) -> ForecastResponse:
         "total_quantity": total_quantity,
     }
 
-    genetic_start = time.perf_counter()
-    genetic_result = run_genetic_optimization(
+    ilp_start = time.perf_counter()
+    ilp_result = run_exact_ilp_solver(
         product=product,
         warehouses={
             k: {
@@ -458,15 +497,16 @@ def forecast_and_optimize(request: ForecastRequest) -> ForecastResponse:
                 "stock_level": v.stock_level,
                 "region": v.region,
             }
-            for k, v in request.warehouses.items()
+            for k, v in warehouses.items()
         },
         transport_cost=request.transport_cost,
+        holding_cost=request.holding_cost,
         demand_by_region=demand_by_region,
     )
-    genetic_runtime = time.perf_counter() - genetic_start
+    ilp_runtime = time.perf_counter() - ilp_start
 
-    add_by_warehouse = genetic_result.get("add_by_warehouse", {})
-    final_stock_by_warehouse = genetic_result.get("final_stock_by_warehouse", {})
+    add_by_warehouse = ilp_result.get("add_by_warehouse", {})
+    final_stock_by_warehouse = ilp_result.get("final_stock_by_warehouse", {})
 
     optimization_methods = run_optimization_comparison(
         product=product,
@@ -476,13 +516,13 @@ def forecast_and_optimize(request: ForecastRequest) -> ForecastResponse:
                 "stock_level": v.stock_level,
                 "region": v.region,
             }
-            for k, v in request.warehouses.items()
+            for k, v in warehouses.items()
         },
         transport_cost=request.transport_cost,
         holding_cost=request.holding_cost,
         demand_by_region=demand_by_region,
-        genetic_result=genetic_result,
-        genetic_runtime_seconds=genetic_runtime,
+        genetic_result=None,
+        genetic_runtime_seconds=None,
     )
 
     return ForecastResponse(
@@ -494,6 +534,6 @@ def forecast_and_optimize(request: ForecastRequest) -> ForecastResponse:
         allocation_by_region=allocation_by_region,
         allocation_by_warehouse=add_by_warehouse,
         final_stock_by_warehouse=final_stock_by_warehouse,
-        genetic=genetic_result,
+        genetic=ilp_result,
         optimization_methods=optimization_methods,
     )

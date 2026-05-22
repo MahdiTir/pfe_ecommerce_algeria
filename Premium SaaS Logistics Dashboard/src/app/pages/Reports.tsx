@@ -1,19 +1,28 @@
 import { FileText, Download, Calendar } from "lucide-react";
-
-const reports = [
-  { name: "Monthly Inventory Report", type: "Inventory", date: "2024-05-01", size: "2.4 MB", format: "PDF" },
-  { name: "Sales Performance - May", type: "Sales", date: "2024-05-15", size: "1.8 MB", format: "Excel" },
-  { name: "Warehouse Utilization", type: "Operations", date: "2024-05-10", size: "950 KB", format: "PDF" },
-  { name: "Forecast Accuracy Report", type: "Analytics", date: "2024-05-08", size: "1.2 MB", format: "PDF" },
-  { name: "Order Fulfillment Analysis", type: "Operations", date: "2024-05-05", size: "3.1 MB", format: "Excel" },
-];
+import { useSellerData } from "../data/useSellerData";
 
 export function Reports() {
+  const { account } = useSellerData();
+  const name = account?.name ?? "Seller";
+  const cat  = account?.category ?? "Products";
+  const region = account?.region?.split("—")[0].trim() ?? "Region";
+
+  const reports = [
+    { name: `Monthly Inventory Report — ${cat}`,       type: "Inventory",  date: "2026-05-01", size: "2.4 MB", format: "PDF"   },
+    { name: `Sales Performance May 2026 — ${name}`,    type: "Sales",      date: "2026-05-15", size: "1.8 MB", format: "Excel" },
+    { name: `Warehouse Utilisation — ${region}`,        type: "Operations", date: "2026-05-10", size: "950 KB", format: "PDF"   },
+    { name: "SARIMAX Forecast Accuracy Report",         type: "Analytics",  date: "2026-05-08", size: "1.2 MB", format: "PDF"   },
+    { name: `Order Fulfillment Analysis — ${cat}`,     type: "Operations", date: "2026-05-05", size: "3.1 MB", format: "Excel" },
+    { name: `ILP Optimisation Comparison`,             type: "Analytics",  date: "2026-04-28", size: "870 KB", format: "PDF"   },
+  ];
+
   return (
     <div className="p-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900">Reports</h1>
-        <p className="text-gray-600 mt-1">Generate and download business reports</p>
+        <p className="text-gray-600 mt-1">
+          Generate and download reports for your <span className="font-medium">{cat}</span> business
+        </p>
       </div>
 
       {/* Generate New Report */}
@@ -26,7 +35,8 @@ export function Reports() {
               <option>Inventory Summary</option>
               <option>Sales Performance</option>
               <option>Warehouse Utilization</option>
-              <option>Forecast Accuracy</option>
+              <option>SARIMAX Forecast Accuracy</option>
+              <option>ILP Optimization Comparison</option>
               <option>Order Fulfillment</option>
             </select>
           </div>
@@ -83,9 +93,7 @@ export function Reports() {
                   </div>
                 </td>
                 <td className="py-4 px-6">
-                  <span className="px-3 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded-full">
-                    {report.type}
-                  </span>
+                  <span className="px-3 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded-full">{report.type}</span>
                 </td>
                 <td className="py-4 px-6 text-gray-600">{report.date}</td>
                 <td className="py-4 px-6 text-gray-600">{report.size}</td>

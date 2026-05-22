@@ -35,34 +35,43 @@ CONFIG_PATH = ROOT / "app_config.json"
 
 # ---------------------------------------------------------------------------
 # Default demand forecast — edit these values to change the baseline forecast.
-# Can be overridden at runtime with --demand  ouest:850,est:900,north:1400,sud:200
+# Can be overridden at runtime with --demand  WEST:850,EAST:900,NORTH:1400,SOUTH:200
 # ---------------------------------------------------------------------------
 DEFAULT_FORECAST = {
-    "ouest": 850.0,
-    "est":   900.0,
-    "north": 1400.0,
-    "sud":   200.0,
+    "WEST": 850.0,
+    "EAST": 900.0,
+    "NORTH": 1400.0,
+    "SOUTH": 200.0,
 }
 
-# FIX: define _normalize_region_local once at module level so it is consistent
-# everywhere (was duplicated — and shadowed — inside _format_table before).
-_DISPLAY_REGIONS = ["ouest", "est", "north", "sud"]
+_DISPLAY_REGIONS = ["WEST", "EAST", "NORTH", "SOUTH"]
 
 
 def _normalize_region_local(r):
-    """Map a raw region string to one of the four canonical display keys."""
+    """Map a raw region string to one of the four canonical keys (EAST, NORTH, SOUTH, WEST)."""
     if not r:
         return "unknown"
-    s = str(r).lower()
-    # Check more-specific tokens first to avoid substring collisions
-    if "ouest" in s or "west" in s:
-        return "ouest"
-    if "centre" in s or "center" in s or "north" in s:
-        return "north"
-    if "est" in s or "east" in s:
-        return "est"
-    if "sud" in s or "south" in s:
-        return "sud"
+    s = str(r).strip().upper()
+    aliases = {
+        "CENTRE": "NORTH",
+        "CENTER": "NORTH",
+        "EST": "EAST",
+        "OUEST": "WEST",
+        "SUD": "SOUTH",
+    }
+    if s in aliases:
+        return aliases[s]
+    if s in _DISPLAY_REGIONS:
+        return s
+    lowered = str(r).lower()
+    if "ouest" in lowered or "west" in lowered:
+        return "WEST"
+    if "centre" in lowered or "center" in lowered or "north" in lowered:
+        return "NORTH"
+    if "est" in lowered or "east" in lowered:
+        return "EAST"
+    if "sud" in lowered or "south" in lowered:
+        return "SOUTH"
     return s
 
 
@@ -294,8 +303,8 @@ if __name__ == "__main__":
     parser.add_argument(
         "--demand",
         "-d",
-        default="ouest:850,est:900,north:1400,sud:200",
-        help="Demand forecast by region (from SARIMAX), format: ouest:850,est:900,north:1400,sud:200",
+        default="WEST:850,EAST:900,NORTH:1400,SOUTH:200",
+        help="Demand forecast by region (from SARIMAX), format: WEST:850,EAST:900,NORTH:1400,SOUTH:200",
     )
     parser.add_argument(
         "--quantity",

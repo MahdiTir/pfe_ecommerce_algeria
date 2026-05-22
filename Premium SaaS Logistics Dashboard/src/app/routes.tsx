@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router";
-import { Layout } from "./components/Layout";
+import { ProtectedLayout } from "./components/ProtectedLayout";
+import { Login } from "./pages/Login";
 import { Dashboard } from "./pages/Dashboard";
 import { WarehousesMarketplace } from "./pages/WarehousesMarketplace";
 import { Products } from "./pages/Products";
@@ -15,8 +16,12 @@ import { NotFound } from "./pages/NotFound";
 
 export const router = createBrowserRouter([
   {
+    path: "/login",
+    Component: Login,
+  },
+  {
     path: "/",
-    Component: Layout,
+    Component: ProtectedLayout,
     children: [
       { index: true, Component: Dashboard },
       { path: "warehouses-marketplace", Component: WarehousesMarketplace },

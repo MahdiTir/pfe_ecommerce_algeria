@@ -29,7 +29,7 @@ export function ForecastOptimization() {
     <div className="p-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900">Forecast & Optimization</h1>
-        <p className="text-gray-600 mt-1">AI-powered demand forecasting and genetic algorithm optimization</p>
+        <p className="text-gray-600 mt-1">AI-powered demand forecasting and ILP optimization</p>
       </div>
 
       {/* KPIs */}
@@ -137,7 +137,7 @@ export function ForecastOptimization() {
       <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden mb-8">
         <div className="p-6 border-b border-gray-200">
           <h3 className="text-lg font-semibold text-gray-900">AI-Optimized Warehouse Allocation</h3>
-          <p className="text-sm text-gray-600 mt-1">Recommendations based on genetic algorithm optimization</p>
+          <p className="text-sm text-gray-600 mt-1">Recommendations based on ILP optimization</p>
         </div>
         <table className="w-full">
           <thead className="bg-gray-50 border-b border-gray-200">
