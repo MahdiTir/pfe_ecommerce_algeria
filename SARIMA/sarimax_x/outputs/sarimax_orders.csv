@@ -1,21 +1,69 @@
-region,cat_group,order,seasonal_order,m,model_key
-EAST,electronics,"(0, 0, 0)","(0, 0, 0, 0)",1,b887e0138625
-EAST,fashion,"(1, 0, 1)","(0, 0, 0, 0)",1,8cd417c4f13b
-EAST,home,"(0, 0, 0)","(0, 0, 0, 0)",1,da50d74e9a5e
-EAST,other,"(1, 0, 0)","(0, 0, 0, 0)",1,afbe4ea3a75f
-EAST,sports_leisure,"(0, 0, 0)","(0, 0, 0, 0)",1,33005d223aa0
-NORTH,electronics,"(1, 0, 2)","(0, 0, 0, 0)",1,31285a60f71a
-NORTH,fashion,"(1, 0, 0)","(0, 0, 0, 0)",1,90ca0a1332dd
-NORTH,home,"(1, 0, 1)","(0, 0, 0, 0)",1,67f9d9b08306
-NORTH,other,"(0, 0, 0)","(0, 0, 0, 0)",1,0d8073c30a6f
-NORTH,sports_leisure,"(0, 0, 0)","(0, 0, 0, 0)",1,007eef3caf81
-SOUTH,electronics,"(0, 0, 0)","(0, 0, 0, 0)",1,01ffb85b5203
-SOUTH,fashion,"(0, 0, 0)","(0, 0, 0, 0)",1,34516a3c0948
-SOUTH,home,"(0, 0, 1)","(0, 0, 0, 0)",1,b8d93bf22844
-SOUTH,other,"(0, 0, 0)","(0, 0, 0, 0)",1,1103bb1eb158
-SOUTH,sports_leisure,"(0, 0, 0)","(0, 0, 0, 0)",1,99f4888e80c4
-WEST,electronics,"(0, 0, 0)","(0, 0, 0, 0)",1,accd4114ceac
-WEST,fashion,"(0, 0, 0)","(0, 0, 0, 0)",1,18262f8484f5
-WEST,home,"(0, 0, 0)","(0, 0, 0, 0)",1,3c3d4463fdfe
-WEST,other,"(0, 0, 0)","(0, 0, 0, 0)",1,c037dd004c74
-WEST,sports_leisure,"(1, 0, 0)","(0, 0, 0, 0)",1,808e140db86c
+region,parent_category,order,seasonal_order,m,model_key
+EAST,Animals & Pet Supplies,"(0, 0, 0)","(0, 0, 0, 0)",1,7431a9650da6
+EAST,Apparel & Accessories,"(0, 0, 0)","(0, 0, 0, 0)",1,722375761704
+EAST,Arts & Entertainment,"(0, 0, 0)","(0, 0, 0, 0)",1,412b6925723f
+EAST,Baby & Toddler,"(0, 0, 0)","(0, 0, 0, 0)",1,2ccf28da5fe8
+EAST,Business & Industrial,"(0, 0, 0)","(0, 0, 0, 0)",1,09db9dcd8b3c
+EAST,Cameras & Optics,"(0, 0, 1)","(0, 0, 0, 0)",1,5ecb146eb98b
+EAST,Electronics,"(0, 0, 0)","(0, 0, 0, 0)",1,b887e0138625
+EAST,Furniture,"(1, 0, 0)","(0, 0, 0, 0)",1,880a5fe62ae7
+EAST,Hardware,"(0, 0, 0)","(0, 0, 0, 0)",1,95d765826f0e
+EAST,Health & Beauty,"(0, 0, 0)","(0, 0, 0, 0)",1,fba4948f29c9
+EAST,Home & Garden,"(0, 0, 0)","(0, 0, 0, 0)",1,fcd983c27968
+EAST,Luggage & Bags,"(0, 0, 0)","(0, 0, 0, 0)",1,416620b039f4
+EAST,Media,"(0, 0, 0)","(0, 0, 0, 0)",1,4b90a350b174
+EAST,Office Supplies,"(1, 0, 0)","(0, 0, 0, 0)",1,9d5a1fefdc77
+EAST,Software,"(0, 0, 0)","(0, 0, 0, 0)",1,288778b3a8cb
+EAST,Sporting Goods,"(0, 0, 0)","(0, 0, 0, 0)",1,c91cbbad8ef0
+EAST,Vehicles & Parts,"(0, 0, 0)","(0, 0, 0, 0)",1,bdf654ee6553
+NORTH,Animals & Pet Supplies,"(0, 0, 0)","(0, 0, 0, 0)",1,af18e1b5e75a
+NORTH,Apparel & Accessories,"(0, 0, 2)","(0, 0, 0, 0)",1,a27df9a71512
+NORTH,Arts & Entertainment,"(0, 0, 0)","(0, 0, 0, 0)",1,9e956036e970
+NORTH,Baby & Toddler,"(0, 0, 0)","(0, 0, 0, 0)",1,505983fbb8b2
+NORTH,Business & Industrial,"(0, 0, 0)","(0, 0, 0, 0)",1,a614a24fc3b9
+NORTH,Cameras & Optics,"(0, 0, 0)","(0, 0, 0, 0)",1,d8bc316ff0e6
+NORTH,Electronics,"(0, 0, 0)","(0, 0, 0, 0)",1,31285a60f71a
+NORTH,Furniture,"(0, 0, 0)","(0, 0, 0, 0)",1,8696f6584d4b
+NORTH,Hardware,"(0, 0, 0)","(0, 0, 0, 0)",1,e121a4f6a3f9
+NORTH,Health & Beauty,"(0, 0, 1)","(0, 0, 0, 0)",1,7ef7743bad7c
+NORTH,Home & Garden,"(0, 0, 1)","(0, 0, 0, 0)",1,2ca4df34e4a4
+NORTH,Luggage & Bags,"(0, 0, 0)","(0, 0, 0, 0)",1,d640d2f4e394
+NORTH,Media,"(0, 0, 0)","(0, 0, 0, 0)",1,1df41d396551
+NORTH,Office Supplies,"(0, 0, 0)","(0, 0, 0, 0)",1,9c075cf27b83
+NORTH,Software,"(0, 0, 0)","(0, 0, 0, 0)",1,67ad23d81947
+NORTH,Sporting Goods,"(0, 0, 0)","(0, 0, 0, 0)",1,e6087403085f
+NORTH,Vehicles & Parts,"(0, 0, 0)","(0, 0, 0, 0)",1,16a7c49d7c95
+SOUTH,Animals & Pet Supplies,"(0, 0, 0)","(0, 0, 0, 0)",1,ba28d9906d65
+SOUTH,Apparel & Accessories,"(1, 0, 0)","(0, 0, 0, 0)",1,100c63b1285d
+SOUTH,Arts & Entertainment,"(0, 0, 0)","(0, 0, 0, 0)",1,ab92688677e9
+SOUTH,Baby & Toddler,"(0, 0, 0)","(0, 0, 0, 0)",1,0d439d6a0bef
+SOUTH,Business & Industrial,"(2, 0, 0)","(0, 0, 0, 0)",1,4487c348f6c4
+SOUTH,Cameras & Optics,"(0, 0, 0)","(0, 0, 0, 0)",1,f2fd4ff799f0
+SOUTH,Electronics,"(0, 0, 0)","(0, 0, 0, 0)",1,01ffb85b5203
+SOUTH,Furniture,"(0, 0, 1)","(0, 0, 0, 0)",1,e1e10e8f4bc4
+SOUTH,Hardware,"(0, 0, 0)","(0, 0, 0, 0)",1,5257c0df620a
+SOUTH,Health & Beauty,"(0, 0, 0)","(0, 0, 0, 0)",1,9ed9f495fd92
+SOUTH,Home & Garden,"(0, 0, 0)","(0, 0, 0, 0)",1,4d8997c02920
+SOUTH,Luggage & Bags,"(0, 0, 0)","(0, 0, 0, 0)",1,58bea2645807
+SOUTH,Media,"(1, 0, 0)","(0, 0, 0, 0)",1,5e8d209d3938
+SOUTH,Office Supplies,"(0, 0, 0)","(0, 0, 0, 0)",1,2e14147b1d1f
+SOUTH,Software,"(1, 0, 0)","(0, 0, 0, 0)",1,dbd1e7a34f25
+SOUTH,Sporting Goods,"(0, 0, 0)","(0, 0, 0, 0)",1,1cf382d77fae
+SOUTH,Vehicles & Parts,"(0, 0, 0)","(0, 0, 0, 0)",1,532ab1fff3f9
+WEST,Animals & Pet Supplies,"(0, 0, 0)","(0, 0, 0, 0)",1,5dc306b659fa
+WEST,Apparel & Accessories,"(0, 0, 1)","(0, 0, 0, 0)",1,3b45f39b7988
+WEST,Arts & Entertainment,"(0, 0, 0)","(0, 0, 0, 0)",1,cfd5046c6252
+WEST,Baby & Toddler,"(0, 0, 1)","(0, 0, 0, 0)",1,05e34868ac98
+WEST,Business & Industrial,"(0, 0, 0)","(0, 0, 0, 0)",1,314272ed83da
+WEST,Cameras & Optics,"(0, 0, 0)","(0, 0, 0, 0)",1,934d31a9c0e8
+WEST,Electronics,"(0, 0, 0)","(0, 0, 0, 0)",1,accd4114ceac
+WEST,Furniture,"(1, 0, 0)","(0, 0, 0, 0)",1,fe995188c7a2
+WEST,Hardware,"(0, 0, 0)","(0, 0, 0, 0)",1,9054d4df2e67
+WEST,Health & Beauty,"(1, 0, 0)","(0, 0, 0, 0)",1,0aab4efff887
+WEST,Home & Garden,"(1, 0, 1)","(0, 0, 0, 0)",1,9ea268c82d3d
+WEST,Luggage & Bags,"(0, 0, 0)","(0, 0, 0, 0)",1,ab8146bda1c7
+WEST,Media,"(0, 0, 0)","(0, 0, 0, 0)",1,bd429a791cb0
+WEST,Office Supplies,"(2, 0, 1)","(0, 0, 0, 0)",1,60190300dbd5
+WEST,Software,"(0, 0, 0)","(0, 0, 0, 0)",1,a9d29178a6cc
+WEST,Sporting Goods,"(0, 0, 1)","(0, 0, 0, 0)",1,998a0dbf5893
+WEST,Vehicles & Parts,"(0, 0, 0)","(0, 0, 0, 0)",1,c861d0931852

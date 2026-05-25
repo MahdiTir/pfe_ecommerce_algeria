@@ -33,7 +33,7 @@ SERIES_PLOTS_DIR = PLOTS_DIR / "series"
 MODELS_DIR = BASE_DIR / "models"
 
 DEFAULT_INPUT = ROOT / "data" / "ecommerce_algerie_2024_2025_version16mai.csv"
-REGIONS_PATH = ROOT / "wilayas_regions.txt"
+APP_CONFIG_PATH = ROOT / "app_config.json"
 
 RAMADAN_RANGES = [
     ("2024-03-11", "2024-04-09"),
@@ -69,7 +69,7 @@ FEATURE_COLS = [
     "sarimax_forecast",
     "week_of_year",
     "region_enc",
-    "cat_group_enc",
+    "parent_cat_enc",
 ]
 
 AUTO_ARIMA_CONFIG = {
@@ -107,50 +107,53 @@ def _normalize_text(value: str) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
 
-def _series_key(region: str, cat_group: str) -> str:
-    key = f"{region}__{cat_group}".strip().lower()
+def _series_key(region: str, parent_category: str) -> str:
+    key = f"{region}__{parent_category}".strip().lower()
     return hashlib.sha1(key.encode("utf-8")).hexdigest()[:12]
 
 
 def _load_regions_map() -> dict[str, str]:
-    raw_text = REGIONS_PATH.read_text(encoding="utf-8")
-    cleaned = re.sub(r",\s*([}\]])", r"\1", raw_text)
-    region_data = json.loads(cleaned)
-    region_name_map = {
-        "centre": "NORTH",
-        "center": "NORTH",
-        "north": "NORTH",
-        "est": "EAST",
-        "east": "EAST",
-        "ouest": "WEST",
-        "west": "WEST",
-        "sud": "SOUTH",
-        "south": "SOUTH",
-    }
+    if not APP_CONFIG_PATH.exists():
+        raise FileNotFoundError(f"Missing app_config.json at {APP_CONFIG_PATH}")
+    config = json.loads(APP_CONFIG_PATH.read_text(encoding="utf-8"))
     region_map: dict[str, str] = {}
-    for region, wilayas in region_data.items():
-        mapped = region_name_map.get(region.strip().lower())
-        if mapped is None:
+    for entry in config.get("regions", []):
+        region_id = entry.get("id", "").strip().upper()
+        if not region_id:
             continue
-        for wilaya in wilayas:
-            region_map[_normalize_text(wilaya)] = mapped
+        for wilaya in entry.get("wilayas", []):
+            region_map[_normalize_text(wilaya)] = region_id
     return region_map
 
 
-def _map_category_group(category: str) -> str:
-    norm = _normalize_text(category)
-    mapping = {
-        "vetements et accessoires": "fashion",
-        "bagages et maroquinerie": "fashion",
-        "appareils electroniques": "electronics",
-        "appareils photo cameras et instruments d optique": "electronics",
-        "maison et jardin": "home",
-        "meubles": "home",
-        "equipements sportifs": "sports_leisure",
-        "arts et loisirs": "sports_leisure",
-        "jeux et jouets": "sports_leisure",
-    }
-    return mapping.get(norm, "other")
+FRENCH_TO_PARENT_CATEGORY: dict[str, str] = {
+    "sante et beaute": "Health & Beauty",
+    "maison et jardin": "Home & Garden",
+    "equipements sportifs": "Sporting Goods",
+    "fournitures de bureau": "Office Supplies",
+    "arts et loisirs": "Arts & Entertainment",
+    "bagages et maroquinerie": "Luggage & Bags",
+    "vehicules et accessoires": "Vehicles & Parts",
+    "bebes et tout petits": "Baby & Toddler",
+    "vetements et accessoires": "Apparel & Accessories",
+    "quincaillerie": "Hardware",
+    "appareils electroniques": "Electronics",
+    "animaux et articles pour animaux de compagnie": "Animals & Pet Supplies",
+    "appareils photo cameras et instruments d optique": "Cameras & Optics",
+    "meubles": "Furniture",
+    "logiciels": "Software",
+    "medias": "Media",
+    "jeux et jouets": "Arts & Entertainment",
+    "entreprise et industrie": "Business & Industrial",
+    "modules complementaires du produit": "Business & Industrial",
+    "offices religieux et ceremonies": "Arts & Entertainment",
+    "lots": "Business & Industrial",
+    "alimentation boissons et tabac": "Food, Beverages & Tobacco",
+}
+
+
+def _map_parent_category(category: str) -> str:
+    return FRENCH_TO_PARENT_CATEGORY.get(_normalize_text(category), "Business & Industrial")
 
 
 def _iso_week_start(iso_year: pd.Series, iso_week: pd.Series) -> pd.Series:
@@ -202,17 +205,21 @@ def _build_calendar_features(week_starts: pd.Series) -> pd.DataFrame:
 
 def _apply_cat_season_multiplier(df: pd.DataFrame) -> pd.Series:
     base = np.ones(len(df), dtype=float)
-    fashion = df["cat_group"] == "fashion"
-    electronics = df["cat_group"] == "electronics"
-    home = df["cat_group"] == "home"
-    sports = df["cat_group"] == "sports_leisure"
-    other = df["cat_group"] == "other"
+    pc = df["parent_category"]
 
-    base = np.where(fashion & (df["is_eid_week"] == 1), 1.5, base)
-    base = np.where(electronics & (df["is_ramadan"] == 1), 1.15, base)
-    base = np.where(home & (df["is_ramadan"] == 1), 1.25, base)
-    base = np.where(sports & (df["is_summer"] == 1), 1.4, base)
-    base = np.where(other & (df["is_rentree"] == 1), 1.5, base)
+    eid_fashion = pc.isin(["Apparel & Accessories", "Luggage & Bags"])
+    ram_electronics = pc.isin(["Electronics", "Cameras & Optics"])
+    ram_home = pc.isin(["Home & Garden", "Furniture"])
+    ram_health = pc == "Health & Beauty"
+    summer_sports = pc.isin(["Sporting Goods", "Arts & Entertainment"])
+    rentree_boost = pc.isin(["Office Supplies", "Baby & Toddler", "Media"])
+
+    base = np.where(eid_fashion & (df["is_eid_week"] == 1), 1.5, base)
+    base = np.where(ram_electronics & (df["is_ramadan"] == 1), 1.15, base)
+    base = np.where(ram_home & (df["is_ramadan"] == 1), 1.25, base)
+    base = np.where(ram_health & (df["is_ramadan"] == 1), 1.2, base)
+    base = np.where(summer_sports & (df["is_summer"] == 1), 1.4, base)
+    base = np.where(rentree_boost & (df["is_rentree"] == 1), 1.5, base)
     return base
 
 
@@ -253,23 +260,23 @@ def build_master_frame(input_path: Path) -> pd.DataFrame:
 
     region_map = _load_regions_map()
     raw["region"] = raw[wilaya_col].map(_normalize_text).map(region_map).fillna("UNKNOWN")
-    raw["cat_group"] = raw[cat_col].apply(_map_category_group)
+    raw["parent_category"] = raw[cat_col].apply(_map_parent_category)
 
     weekly = (
-        raw.groupby(["iso_year", "iso_week", "region", "cat_group"], dropna=False)
+        raw.groupby(["iso_year", "iso_week", "region", "parent_category"], dropna=False)
         .size()
         .reset_index(name="y")
     )
     weekly["week_start"] = _iso_week_start(weekly["iso_year"], weekly["iso_week"])
 
     frames = []
-    for (region, cat_group), group in weekly.groupby(["region", "cat_group"], sort=False):
+    for (region, parent_category), group in weekly.groupby(["region", "parent_category"], sort=False):
         min_week = group["week_start"].min()
         max_week = group["week_start"].max()
         full_weeks = pd.date_range(min_week, max_week, freq="W-MON")
         full = pd.DataFrame({"week_start": full_weeks})
         full["region"] = region
-        full["cat_group"] = cat_group
+        full["parent_category"] = parent_category
         merged = full.merge(group[["week_start", "y"]], on="week_start", how="left")
         merged["y"] = merged["y"].fillna(0).astype(float)
         iso_full = merged["week_start"].dt.isocalendar()
@@ -281,7 +288,7 @@ def build_master_frame(input_path: Path) -> pd.DataFrame:
     calendar = _build_calendar_features(master["week_start"])
     master = master.merge(calendar, on="week_start", how="left")
     master["cat_season_multiplier"] = _apply_cat_season_multiplier(master)
-    master = master.sort_values(["region", "cat_group", "week_start"]).reset_index(drop=True)
+    master = master.sort_values(["region", "parent_category", "week_start"]).reset_index(drop=True)
     return master
 
 
@@ -318,11 +325,11 @@ def run_sarimax(master: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     orders = []
     rows = []
 
-    for (region, cat_group), group in master.groupby(["region", "cat_group"], sort=False):
+    for (region, parent_category), group in master.groupby(["region", "parent_category"], sort=False):
         group = group.sort_values("week_start").reset_index(drop=True)
         splits = _split_frames(group)
 
-        print(f"[SARIMAX] {region} | {cat_group} | rows={len(group)}")
+        print(f"[SARIMAX] {region} | {parent_category} | rows={len(group)}")
 
         if splits.train.empty or splits.val.empty or splits.test.empty:
             print("  [SKIP] insufficient split sizes")
@@ -379,13 +386,13 @@ def run_sarimax(master: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
         forecast_val = forecast_all[: len(y_val)]
         forecast_test = forecast_all[len(y_val) :]
 
-        key = _series_key(region, cat_group)
+        key = _series_key(region, parent_category)
         model_path = MODELS_DIR / f"sarimax_{key}.pkl"
         model_fit.save(model_path)
 
         orders.append({
             "region": region,
-            "cat_group": cat_group,
+            "parent_category": parent_category,
             "order": str(order),
             "seasonal_order": str(seasonal_order),
             "m": used_m,
@@ -396,7 +403,7 @@ def run_sarimax(master: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
             rows.append({
                 "week_start": row["week_start"],
                 "region": region,
-                "cat_group": cat_group,
+                "parent_category": parent_category,
                 "split": "train",
                 "y": row["y"],
                 "sarimax_pred": fitted[splits.train.index.get_loc(idx)],
@@ -406,7 +413,7 @@ def run_sarimax(master: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
             rows.append({
                 "week_start": row["week_start"],
                 "region": region,
-                "cat_group": cat_group,
+                "parent_category": parent_category,
                 "split": "validation",
                 "y": row["y"],
                 "sarimax_pred": forecast_val[i],
@@ -416,7 +423,7 @@ def run_sarimax(master: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
             rows.append({
                 "week_start": row["week_start"],
                 "region": region,
-                "cat_group": cat_group,
+                "parent_category": parent_category,
                 "split": "test",
                 "y": row["y"],
                 "sarimax_pred": forecast_test[i],
@@ -430,19 +437,18 @@ def run_sarimax(master: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
 
 def build_feature_matrix(master: pd.DataFrame, preds_df: pd.DataFrame) -> pd.DataFrame:
     df = master.merge(
-        preds_df[["week_start", "region", "cat_group", "sarimax_pred", "residual"]],
-        on=["week_start", "region", "cat_group"],
+        preds_df[["week_start", "region", "parent_category", "sarimax_pred", "residual"]],
+        on=["week_start", "region", "parent_category"],
         how="left",
     )
-    df = df.sort_values(["region", "cat_group", "week_start"]).reset_index(drop=True)
+    df = df.sort_values(["region", "parent_category", "week_start"]).reset_index(drop=True)
     if "residual" not in df.columns:
         df["residual"] = df["y"] - df["sarimax_pred"]
     else:
         df["residual"] = df["residual"].fillna(df["y"] - df["sarimax_pred"])
 
-    # lags and rolling features
     features = []
-    for (region, cat_group), group in df.groupby(["region", "cat_group"], sort=False):
+    for (region, parent_category), group in df.groupby(["region", "parent_category"], sort=False):
         group = group.copy()
         y = group["y"]
         group["lag_1"] = y.shift(1)
@@ -459,12 +465,11 @@ def build_feature_matrix(master: pd.DataFrame, preds_df: pd.DataFrame) -> pd.Dat
     df["week_of_year"] = df["iso_week"].astype(int)
 
     region_order = sorted(df["region"].unique())
-    cat_order = sorted(df["cat_group"].unique())
+    cat_order = sorted(df["parent_category"].unique())
     df["region_enc"] = pd.Categorical(df["region"], categories=region_order).codes
-    df["cat_group_enc"] = pd.Categorical(df["cat_group"], categories=cat_order).codes
+    df["parent_cat_enc"] = pd.Categorical(df["parent_category"], categories=cat_order).codes
 
-    # leakage check: lag_1 should equal previous week y within series
-    for (region, cat_group), group in df.groupby(["region", "cat_group"], sort=False):
+    for (region, parent_category), group in df.groupby(["region", "parent_category"], sort=False):
         group = group.sort_values("week_start").reset_index(drop=True)
         if len(group) < 2:
             continue
@@ -532,7 +537,7 @@ def evaluate(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, set[tuple[st
     metrics_rows = []
     fallback = set()
 
-    for (region, cat_group), group in df.groupby(["region", "cat_group"], sort=False):
+    for (region, parent_category), group in df.groupby(["region", "parent_category"], sort=False):
         train_series = group[group["split"] == "train"]["y"]
         val = group[group["split"] == "validation"]
         test = group[group["split"] == "test"]
@@ -544,16 +549,16 @@ def evaluate(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, set[tuple[st
         hybrid_val = _series_metrics(val["y"], val["hybrid_pred"], train_series)
 
         if hybrid_val["MAE"] > sarima_val["MAE"]:
-            print(f"[WARN] fallback to SARIMAX for {region} | {cat_group} (validation MAE worse)")
-            fallback.add((region, cat_group))
+            print(f"[WARN] fallback to SARIMAX for {region} | {parent_category} (validation MAE worse)")
+            fallback.add((region, parent_category))
 
         sarima_test = _series_metrics(test["y"], test["sarimax_pred"], train_series)
         hybrid_test = _series_metrics(test["y"], test["hybrid_pred"], train_series)
 
-        metrics_rows.append({"region": region, "cat_group": cat_group, "split": "validation", "model": "SARIMAX", **sarima_val})
-        metrics_rows.append({"region": region, "cat_group": cat_group, "split": "validation", "model": "Hybrid", **hybrid_val})
-        metrics_rows.append({"region": region, "cat_group": cat_group, "split": "test", "model": "SARIMAX", **sarima_test})
-        metrics_rows.append({"region": region, "cat_group": cat_group, "split": "test", "model": "Hybrid", **hybrid_test})
+        metrics_rows.append({"region": region, "parent_category": parent_category, "split": "validation", "model": "SARIMAX", **sarima_val})
+        metrics_rows.append({"region": region, "parent_category": parent_category, "split": "validation", "model": "Hybrid", **hybrid_val})
+        metrics_rows.append({"region": region, "parent_category": parent_category, "split": "test", "model": "SARIMAX", **sarima_test})
+        metrics_rows.append({"region": region, "parent_category": parent_category, "split": "test", "model": "Hybrid", **hybrid_test})
 
     metrics_df = pd.DataFrame(metrics_rows)
     summary = (
@@ -565,14 +570,14 @@ def evaluate(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, set[tuple[st
 
 
 def plot_series(df: pd.DataFrame) -> None:
-    for (region, cat_group), group in df.groupby(["region", "cat_group"], sort=False):
+    for (region, parent_category), group in df.groupby(["region", "parent_category"], sort=False):
         group = group.sort_values("week_start")
-        key = _series_key(region, cat_group)
+        key = _series_key(region, parent_category)
         fig, ax = plt.subplots(figsize=(10, 4))
         ax.plot(group["week_start"], group["y"], label="Actual", color="black")
         ax.plot(group["week_start"], group["sarimax_pred"], label="SARIMAX", linestyle="--")
         ax.plot(group["week_start"], group["hybrid_pred"], label="Hybrid", linestyle=":")
-        ax.set_title(f"{region} | {cat_group}")
+        ax.set_title(f"{region} | {parent_category}")
         ax.legend()
         fig.tight_layout()
         fig.savefig(SERIES_PLOTS_DIR / f"series_{key}.png", dpi=150)
@@ -615,7 +620,7 @@ def plot_feature_importance(booster: xgb.Booster) -> None:
 def plot_r2_heatmaps(metrics_df: pd.DataFrame) -> None:
     for model in ["SARIMAX", "Hybrid"]:
         test_df = metrics_df[(metrics_df["split"] == "test") & (metrics_df["model"] == model)]
-        pivot = test_df.pivot(index="cat_group", columns="region", values="R2")
+        pivot = test_df.pivot(index="parent_category", columns="region", values="R2")
         plt.figure(figsize=(6, 4))
         sns.heatmap(pivot, annot=True, fmt=".2f", cmap="coolwarm", center=0)
         plt.title(f"R2 heatmap ({model})")
@@ -680,7 +685,7 @@ def main() -> None:
     metrics_df, summary_df, fallback = evaluate(full_df)
 
     if fallback:
-        mask = full_df[["region", "cat_group"]].apply(tuple, axis=1).isin(fallback)
+        mask = full_df[["region", "parent_category"]].apply(tuple, axis=1).isin(fallback)
         full_df.loc[mask & (full_df["split"] == "test"), "hybrid_pred"] = full_df.loc[
             mask & (full_df["split"] == "test"), "sarimax_pred"
         ]
@@ -698,7 +703,7 @@ def main() -> None:
     plot_r2_heatmaps(metrics_df)
 
     hybrid_out = full_df[full_df["split"].isin(["validation", "test"])][
-        ["week_start", "region", "cat_group", "split", "y", "sarimax_pred", "xgb_correction", "hybrid_pred"]
+        ["week_start", "region", "parent_category", "split", "y", "sarimax_pred", "xgb_correction", "hybrid_pred"]
     ].copy()
     hybrid_out.to_csv(OUTPUT_DIR / "hybrid_forecasts.csv", index=False)
 

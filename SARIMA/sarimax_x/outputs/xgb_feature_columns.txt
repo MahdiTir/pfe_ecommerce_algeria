@@ -15,4 +15,4 @@ cat_season_multiplier
 sarimax_forecast
 week_of_year
 region_enc
-cat_group_enc
+parent_cat_enc

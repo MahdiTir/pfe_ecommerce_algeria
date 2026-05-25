@@ -1,0 +1,380 @@
+
+===== PDF PAGE 81 =====
+Chapitre 4 : Conception 
+ 
+activité bénéficieront de fenêtres plus courtes pour une détection réactive, tandis que les 
+stations rurales à activité modérée utiliseront des fenêtres plus larges pour une analyse 
+statistiquement significative. Cette adaptabilité automatique élimine le besoin de 
+paramétrage manuel station par station, simplifiant considérablement la maintenance du 
+système. 
+ 
+Figure 4.16 Algorithme de ADWIN 
+4.5.​ Conclusion 
+Ce chapitre pose les fondations d'un système prédictif performant, extensible et 
+conforme aux besoins métiers, prêt à être mis en œuvre concrètement et intégré dans 
+l'environnement opérationnel de l'entreprise. 
+69 
+
+===== PDF PAGE 82 =====
+ 
+Chapitre 05  
+Réalisation 
+5.​
+ 
+5.1.​ Introduction 
+Ce chapitre est dédié à la mise en œuvre concrète de notre solution de prévision de la 
+demande de colis. Nous y détaillons les choix technologiques et les outils spécifiques que 
+nous avons employés pour construire la plateforme. L'objectif principal est de présenter 
+l'architecture 
+technique complète, ainsi que les processus d'entraînement et 
+d'optimisation des modèles, tous essentiels pour garantir la précision, la robustesse et la 
+performance de notre système. 
+5.2.​ Choix technologiques 
+5.2.1.​ Langages et frameworks utilisés 
+La conception de notre solution de prévision a nécessité une sélection rigoureuse des 
+technologies, en privilégiant la performance, la flexibilité et la compatibilité avec 
+l'écosystème existant. Ces choix ont été guidés par des critères clairs pour assurer la 
+robustesse et l'efficacité de notre système. 
+5.2.1.1.​ Langage de programmation 
+ 
+Figure 5.1 Logo de Python 
+Pour l'analyse et la modélisation des données, ainsi que pour la construction de la logique 
+de prévision, nous avons opté pour le langage de programmation Python. Ce choix 
+stratégique repose sur plusieurs avantages clés : 
+●​ Accessibilité et coût : Python est un langage open-source et entièrement gratuit, 
+réduisant les coûts de développement. 
+●​ Écosystème riche : Il offre une vaste collection de bibliothèques et de packages 
+spécialisés en statistiques, en apprentissage automatique et en science des données. 
+ 
+
+===== PDF PAGE 83 =====
+Chapitre 5 : Réalisation​
+ 
+●​ Capacités de prévision : Sa robustesse en fait un choix idéal pour le développement 
+de modèles de prévision sophistiqués. 
+●​ Simplicité et Apprentissage : Sa syntaxe claire et intuitive rend Python facile à 
+apprendre et à utiliser, accélérant le développement. 
+●​ Extensibilité : Il permet d'intégrer facilement des modules développés dans d'autres 
+langages (comme C++ ou C) pour des performances optimisées si nécessaire. 
+●​ Soutien communautaire : Une communauté très active et une documentation 
+exhaustive garantissent un support constant et une résolution rapide des problèmes. 
+5.2.1.2.​ Packages et librairies 
+Dans cette section, nous examinons les différentes bibliothèques Python pour les 
+données de séries chronologiques que nous avons utilisées pour l'analyse et 
+l’entraînement et l'implémentation des modèles. 
+Package 
+Description 
+ 
+Figure 5.2 PyTorch 
+Une 
+bibliothèque 
+d'apprentissage 
+profond 
+essentielle, PyTorch a été choisie pour sa capacité à 
+gérer des graphes de calcul dynamiques, facilitant le 
+débogage et la personnalisation des modèles. Elle 
+offre également une accélération GPU via CUDA et 
+un 
+moteur 
+de 
+différenciation 
+automatique 
+performant, crucial pour l'entraînement des réseaux 
+neuronaux. 
+ 
+Figure 5.3 NumPy 
+Fondamentale 
+pour 
+le 
+calcul 
+numérique 
+et 
+scientifique, NumPy fournit un objet tableau 
+N-dimensionnel puissant, facilitant les opérations 
+sur les matrices, l'algèbre linéaire, les transformées 
+de Fourier et les calculs statistiques. 
+ 
+Figure 5.4 Matplotlib 
+Matplotlib est une bibliothèque de traçage Python 
+qui produit des figures de qualité dans une variété 
+de formats papier et d’environnements interactifs 
+sur toutes les plateformes. Matplotlib peut être 
+utilisé dans les scripts Python, les shells Python et 
+IPython, 
+le 
+bloc-notes 
+Jupyter, 
+serveurs 
+d’applications Web. 
+71 
+
+===== PDF PAGE 84 =====
+Chapitre 5 : Réalisation​
+ 
+ 
+Figure 5.5 Scikit-learn 
+Scikit-learn est un outil simple et efficace pour 
+l’exploration de données et l’analyse des données. 
+En particulier, cette bibliothèque implémente une 
+gamme d’algorithmes d’apprentissage automatique, 
+prétraitement, validation croisée et visualisation 
+utilisant une interface unifiée. 
+ 
+Figure 5.6 River 
+River est une bibliothèque Python pour le machine 
+learning en flux, conçue pour traiter des données 
+séquentielles. 
+Elle permet de construire des 
+modèles qui apprennent et se mettent à jour en 
+continu au fur et à mesure que de nouvelles 
+données arrivent. 
+Tableau 5.1 Liste des principales bibliothèques Python utilisées et leurs descriptions 
+5.2.1.3.​ Autres outils 
+Outil 
+Description 
+ 
+Figure 5.7 VSCode 
+VSCode est un éditeur de code source polyvalent de 
+Microsoft 
+c’était 
+notre 
+environnement 
+de 
+développement principal. Ses fonctionnalités, telles 
+que le débogage intégré, la complétion intelligente, 
+la mise en évidence syntaxique et l'intégration Git, 
+ont optimisé notre productivité. 
+ 
+Figure 5.8 GitHub 
+En tant que plateforme de contrôle de version et de 
+collaboration, GitHub a été indispensable pour la 
+gestion du code source. Il a permis un suivi efficace 
+des modifications, un travail d'équipe fluide grâce 
+aux dépôts, branches et pull-requests, et une 
+gestion centralisée des tâches. 
+ 
+Figure 5.9 draw.io 
+Cette application web gratuite a été utilisée pour la 
+création de diagrammes (architecture, flux de 
+données, etc.) et de dessins vectoriels, facilitant la 
+visualisation et la communication des concepts 
+techniques. 
+72 
+
+===== PDF PAGE 85 =====
+Chapitre 5 : Réalisation​
+ 
+ 
+Figure 5.10 Google Drive 
+Nous avons tiré parti de Google Drive pour le 
+stockage et le partage sécurisé de documents et de 
+fichiers du projet, assurant une synchronisation et 
+un accès facilités pour l'équipe. 
+ 
+Figure 5.11 Zotero 
+Zotero est un outil gratuit, facile à utiliser et open 
+source, conçu pour aider les chercheurs à collecter, 
+organiser, annoter, citer et partager leurs travaux de 
+recherche. Il permet de gérer des données 
+bibliographiques et des documents de recherche 
+tels que des fichiers PDF 
+ 
+Figure 5.12 LaTeX 
+Cette plateforme collaborative en ligne pour LaTeX 
+a été choisie pour la rédaction des algorithmes, des 
+tableaux ainsi que les équations mathématiques de 
+ce rapport. Elle a permis une édition simultanée, un 
+contrôle 
+de version intégré et une gestion 
+simplifiée de la mise en forme académique 
+Tableau 5.2 : Outils logiciels utilisés pour le développement et la gestion du projet 
+5.2.1.4.​ Matériels et ressources utilisées  
+Pour la phase de développement et d'implémentation de la solution, nous avons eu 
+recours à nos machines personnelles. Leurs spécifications sont détaillées ci-dessous, 
+permettant une compréhension des ressources informatiques utilisées avant le 
+déploiement final au sein de l'organisme d'accueil : 
+PC1 
+Processeur 
+Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz   2.59 GHz 
+RAM 
+24.0 GB (23.9 GB usable) 
+GPU 
+gtx-1050 4GB Vram 
+PC2 
+Processeur 
+Intel(R) Core(TM) i5-1135G7 CPU  2.4GHz 
+RAM 
+24.0 GB (23.9 GB usable) 
+GPU 
+Iris Xe Graphics 
+Tableau 5.3 : Spécifications matérielles des machines utilisées lors du développement 
+73 
+
+===== PDF PAGE 86 =====
+Chapitre 5 : Réalisation​
+ 
+Bien que ces configurations aient permis un développement fonctionnel, il est essentiel 
+de souligner que l'entraînement de modèles de prévision de la demande, notamment ceux 
+de “Deep Learning”, est une tâche intensive en ressources. Les spécifications de nos 
+machines personnelles, en particulier au niveau des GPU et de la RAM, ont représenté un 
+facteur limitant. Cela s'est traduit par des temps d'entraînement parfois longs et la 
+nécessité d'ajuster la taille des jeux de données ou la complexité des architectures pour 
+rester dans les limites de nos capacités. Ces contraintes mettent en lumière l'importance 
+d'une infrastructure de calcul plus puissante pour les phases de production et de montée 
+en charge. 
+5.2.2.​ Outils de gestion des données 
+La gestion des données joue un rôle fondamental dans tout projet de Science de données, 
+notamment dans les projets de prévision à partir de séries temporelles. Pour assurer une 
+préparation efficace, une manipulation flexible et un prétraitement structuré des 
+données, plusieurs outils ont été utilisés dans notre solution. 
+5.2.2.1.​ Pandas 
+ 
+Figure 5.13 Pandas 
+La bibliothèque Pandas est l’un des piliers de l’analyse de données en Python. Elle permet 
+de manipuler facilement des structures de données complexes telles que les DataFrames, 
+qui sont particulièrement adaptés aux jeux de données tabulaires. 
+●​ Lecture et écriture de fichiers CSV et JSON. 
+●​ Agrégation, filtrage, jointures, tri des données. 
+●​ Création de colonnes dérivées et manipulation temporelle “datetime”. 
+●​ Structure pivot pour l'ensemble des transformations effectuées sur les données. 
+5.2.2.2.​ Formats de données 
+Deux formats principaux de fichiers ont été utilisés dans notre projet : le format JSON 
+pour l'importation des données brutes depuis l'API interne de Yalidine, et le format CSV 
+obtenu après transformation tabulaire via Pandas. Le CSV constitue le format de travail 
+principal, étant léger, lisible et parfaitement compatible avec les bibliothèques Python 
+utilisées pour l'entraînement des modèles. 
+74 
+
+===== PDF PAGE 87 =====
+Chapitre 5 : Réalisation​
+ 
+5.2.3.​ Prétraitement et transformation des données 
+Pour préparer les données en vue de l'entraînement des modèles, plusieurs étapes de 
+prétraitement ont été nécessaires. Ces opérations ont été réalisées grâce à différentes 
+bibliothèques Python spécialisées, chaque approche étant adaptée aux exigences 
+spécifiques de chaque famille d'algorithmes. 
+5.2.3.1.​ Prétraitement pour les Modèles ARIMA 
+Le prétraitement des données pour ARIMA suit une approche statistique rigoureuse 
+adaptée aux exigences des modèles de séries temporelles classiques.  
+Notre pipeline vérifie d'abord la stationnarité de la série temporelle en appliquant le test 
+Augmented Dickey-Fuller, un test statistique standard pour détecter la présence de 
+racines unitaires. La fonction check_stationarity() utilise un seuil de significativité de 5% : 
+si la p-value est inférieure à 0.05, les données sont considérées comme stationnaires. 
+Lorsque la série n'est pas stationnaire (p-value ≥ 0.05), nous appliquons une différenciation 
+d'ordre 1 pour stabiliser la moyenne et la variance. Cette transformation, implémentée 
+par la fonction make_stationary(), calcule la différence première de la série temporelle, 
+éliminant ainsi les tendances linéaires. 
+La normalisation s'effectue avec un StandardScaler qui centre les données autour de zéro 
+avec un écart-type unitaire, préservant la distribution gaussienne souvent requise par les 
+modèles ARIMA. La division train/test respecte un ratio de 95/5% pour maintenir 
+suffisamment de données d'entraînement tout en conservant un ensemble de test 
+représentatif. 
+5.2.3.2.​ Prétraitement pour les Modèles XGBoost 
+Le prétraitement XGBoost transforme la série temporelle en un problème de régression 
+supervisée en créant des variables de décalage ”lag features”. Cette approche exploite la 
+capacité de XGBoost à modéliser les relations non-linéaires entre les valeurs passées et 
+futures. Les données sont normalisées avec MinMaxScaler et divisées selon un ratio 
+80/20% en respectant l'ordre temporel (shuffle=False) pour préserver la structure 
+séquentielle. Le reshape final garantit la compatibilité avec l'interface scikit-learn de 
+XGBoost. 
+5.2.3.3.​ Prétraitement pour les Modèles LSTM 
+Le prétraitement pour LSTM adopte une approche orientée séquences temporelles, 
+créant des fenêtres glissantes de 10 jours pour capturer les dépendances temporelles à 
+court et moyen terme. Notre pipeline transforme la série temporelle unidimensionnelle 
+en séquences d'entrées multidimensionnelles. La normalisation utilise un MinMaxScaler 
+75 
+
+===== PDF PAGE 88 =====
+Chapitre 5 : Réalisation​
+ 
+qui transforme les données dans l'intervalle , particulièrement adapté aux fonctions 
+d'activation des réseaux de neurones. Les données sont organisées en DataLoader 
+PyTorch avec un batch_size de 32, optimisant l'entraînement par mini-lots et permettant 
+une utilisation efficace de la mémoire GPU. 
+5.2.3.4.​ Prétraitement pour les Modèles MLP et MLP Sul 
+Le prétraitement pour les perceptrons multicouches suit une approche similaire à 
+XGBoost, créant des fenêtres de 10 valeurs passées comme variables d'entrée. Cette 
+méthode permet aux réseaux de neurones feedforward de capturer les patterns temporels 
+sans architecture récurrente explicite. La normalisation MinMaxScaler assure une 
+convergence stable des algorithmes de gradient descent, tandis que l'encapsulation dans 
+des DataLoader PyTorch facilite l'entraînement par lots avec mélange aléatoire des 
+échantillons d'entraînement. 
+5.3.​ Architecture technique de la solution 
+Dans la Figure 5.14, on detailleira comment on a pu utiliser les outils technologiques 
+pour la réalisation de ce système :  
+ 
+Figure 5.14 Architecture Technique (Applicative) de notre solution 
+76 
+
+===== PDF PAGE 89 =====
+Chapitre 5 : Réalisation​
+ 
+Flux 1 : Collecte: Les données sont extraites de plusieurs sources (API Yalidine) au format 
+brut (JSON). 
+Flux 2 : Prétraitement: Nettoyage, normalisation et transformation des données avec 
+Pandas et NumPy pour obtenir un jeu de données exploitable. 
+Flux 3 et 4 : Entraînement et Optimisation: Les modèles sont entraînés par PyTorch et 
+optimisés automatiquement avec Optuna. River sert à la détection du drift et à 
+l’apprentissage incrémental.. 
+Flux 5 et 6: Prédiction et Visualisation: Génération des prévisions, visualisation des 
+résultats via Matplotlib et Scikit-learn pour l’analyse et l’aide à la décision. 
+5.4.​ Implémentation des modèles de prédiction 
+Cette section détaille l'architecture logicielle et la méthodologie rigoureuse mises en 
+œuvre pour l'entraînement, l'optimisation et la gestion des modèles de prédiction. 
+L'ensemble du processus a été conçu pour fonctionner de manière parallèle et 
+indépendante pour chaque station, garantissant ainsi une exécution rapide et une 
+scalabilité pour l'ensemble du réseau Yalidine. 
+5.4.1.​ Méthode d’entraînement 
+Notre implémentation du processus d'entraînement basée sur notre conception avec des 
+fonctions spécialisées pour chaque type de modèle. Le système exécute l'entraînement en 
+parallèle pour optimiser les performances computationnelles. 
+5.4.1.1.​ Entraînement LSTM 
+Le modèle LSTM est entraîné pour chaque station en utilisant PyTorch. L’architecture 
+comprend une couche LSTM (dont la taille du vecteur caché est optimisée entre 16 et 256), 
+un dropout à 0.2 pour limiter le surapprentissage, puis une couche dense de sortie. Un 
+scheduler réduit le learning rate de 50% toutes les 100 époques pour affiner la 
+convergence. La régularisation L2 est appliquée. 
+5.4.1.2.​ Entraînement MLP et MLP Sul 
+Les MLP classiques utilisent plusieurs couches denses avec activation ReLU. La version 
+MLP-SUL ajoute des couches de normalisation batch et du dropout (par exemple 0.3) pour 
+améliorer la robustesse et la généralisation. Les architectures sont optimisées pour 
+chaque station. 
+77 
+
+===== PDF PAGE 90 =====
+Chapitre 5 : Réalisation​
+ 
+5.4.1.3.​ Entraînement XGBoost et ARIMA 
+L’algorithme XGBoost est intégré via l’API scikit-learn, tirant parti de ses capacités de 
+gradient boosting distribué et de son efficacité computationnelle pour les tâches de 
+régression sur séries temporelles. 
+ARIMA, quant à lui, est implémenté via la bibliothèque pmdarima pour l'auto-détection 
+de son ordre optimal (p, d, q). Cette approche permet de déterminer automatiquement les 
+trois paramètres clés qui définissent la structure du modèle pour chaque station 
+5.4.2.​ Optimisation des hyperparamètres 
+L’ensemble des modèles (LSTM, MLP, MLP-SUL, XGBoost) bénéficient d’une optimisation 
+automatique des hyperparamètres avec Optuna : Chaque modèle dispose d’une fonction 
+objectif spécifique, qui reçoit des suggestions de valeurs pour les hyperparamètres 
+(nombre d’époques, learning rate, taille des couches cachées pour les réseaux de neurones … etc). 
+Optuna construit et met à jour un modèle probabiliste de la fonction objectif afin de 
+sélectionner les prochaines combinaisons à tester, maximisant ainsi l’efficacité de la 
+recherche. 
+L’optimisation est parallélisée via ThreadPoolExecutor, ce qui permet de lancer plusieurs 
+études d’optimisation en simultané sur différentes stations ou modèles, accélérant 
+considérablement le processus global. 
+Un mécanisme de cache est mis en place pour sauvegarder et recharger les meilleurs 
+hyperparamètres trouvés, évitant de refaire inutilement la recherche lors de futurs 
+entraînements. 
+5.4.3.​ Stockage des Résultats 
+5.4.3.1.​ Sauvegarde des Modèles 
+Les modèles de deep learning (LSTM, MLP, MLP-SUL) sont sauvegardés au format natif 
+PyTorch (.pth), incluant architecture et poids. 
+Les modèles XGBoost et ARIMA sont sérialisés avec Pickle (.pkl), ce qui permet de les 
+recharger ultérieurement pour l’inférence ou l’analyse 
+Trois types de scalaires sont gérés et sauvegardés selon les besoins de chaque modèle (par 
+exemple, MinMaxScaler pour les réseaux de neurones, scaler spécifique pour XGBoost si 
+besoin), assurant la cohérence du prétraitement lors de la prédiction 
+Les métriques de performance (MSE pour chaque modèle et chaque station, meilleur 
+modèle identifié) sont consolidées dans un fichier CSV structuré. L’accès concurrent à ce 
+fichier est sécurisé par des verrous pour éviter toute corruption lors de la parallélisation 
+78 

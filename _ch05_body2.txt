@@ -1,0 +1,232 @@
+
+===== PDF PAGE 90 =====
+Chapitre 5 : Réalisation​
+ 
+5.4.1.3.​ Entraînement XGBoost et ARIMA 
+L’algorithme XGBoost est intégré via l’API scikit-learn, tirant parti de ses capacités de 
+gradient boosting distribué et de son efficacité computationnelle pour les tâches de 
+régression sur séries temporelles. 
+ARIMA, quant à lui, est implémenté via la bibliothèque pmdarima pour l'auto-détection 
+de son ordre optimal (p, d, q). Cette approche permet de déterminer automatiquement les 
+trois paramètres clés qui définissent la structure du modèle pour chaque station 
+5.4.2.​ Optimisation des hyperparamètres 
+L’ensemble des modèles (LSTM, MLP, MLP-SUL, XGBoost) bénéficient d’une optimisation 
+automatique des hyperparamètres avec Optuna : Chaque modèle dispose d’une fonction 
+objectif spécifique, qui reçoit des suggestions de valeurs pour les hyperparamètres 
+(nombre d’époques, learning rate, taille des couches cachées pour les réseaux de neurones … etc). 
+Optuna construit et met à jour un modèle probabiliste de la fonction objectif afin de 
+sélectionner les prochaines combinaisons à tester, maximisant ainsi l’efficacité de la 
+recherche. 
+L’optimisation est parallélisée via ThreadPoolExecutor, ce qui permet de lancer plusieurs 
+études d’optimisation en simultané sur différentes stations ou modèles, accélérant 
+considérablement le processus global. 
+Un mécanisme de cache est mis en place pour sauvegarder et recharger les meilleurs 
+hyperparamètres trouvés, évitant de refaire inutilement la recherche lors de futurs 
+entraînements. 
+5.4.3.​ Stockage des Résultats 
+5.4.3.1.​ Sauvegarde des Modèles 
+Les modèles de deep learning (LSTM, MLP, MLP-SUL) sont sauvegardés au format natif 
+PyTorch (.pth), incluant architecture et poids. 
+Les modèles XGBoost et ARIMA sont sérialisés avec Pickle (.pkl), ce qui permet de les 
+recharger ultérieurement pour l’inférence ou l’analyse 
+Trois types de scalaires sont gérés et sauvegardés selon les besoins de chaque modèle (par 
+exemple, MinMaxScaler pour les réseaux de neurones, scaler spécifique pour XGBoost si 
+besoin), assurant la cohérence du prétraitement lors de la prédiction 
+Les métriques de performance (MSE pour chaque modèle et chaque station, meilleur 
+modèle identifié) sont consolidées dans un fichier CSV structuré. L’accès concurrent à ce 
+fichier est sécurisé par des verrous pour éviter toute corruption lors de la parallélisation 
+78 
+
+===== PDF PAGE 91 =====
+Chapitre 5 : Réalisation​
+ 
+5.4.3.2.​ Traitement Parallèle Multi-Stations 
+L’architecture exploite le module multiprocessing de Python pour répartir le traitement 
+sur plusieurs cœurs. 
+Chaque station est traitée par un processus indépendant, que ce soit pour l’entraînement, 
+l’optimisation des hyperparamètres ou la détection de dérive. Cela permet de maximiser 
+l’utilisation des ressources CPU et de réduire significativement le temps total 
+d’exécution, notamment lors du traitement de grandes volumétries de données. 
+Un pool de processus est créé, avec un nombre de workers adapté au nombre de cœurs 
+disponibles (typiquement jusqu’à 8 pour éviter la saturation). Les tâches (par exemple, 
+entraînement ou détection de drift par station) sont distribuées dynamiquement dans ce pool. 
+Les accès concurrents aux ressources partagées (fichiers de résultats, modèles, scalaires) sont 
+protégés par des verrous (locks), garantissant l’intégrité des données produites lors de 
+l’exécution parallèle. 
+5.4.4.​ Détection du concept drift 
+5.4.4.1.​ DDM 
+La méthode DDM (Drift Detection Method) compare les erreurs quadratiques moyennes 
+(MSE) observées en production à celles enregistrées lors de l’entraînement. Les scalers 
+sauvegardés sont systématiquement recherchés pour garantir la cohérence des 
+transformations 
+appliquées 
+aux 
+données. 
+Le 
+système 
+fusionne 
+les 
+données 
+d’entraînement et de test, extrait automatiquement le MSE du meilleur modèle pour 
+chaque station, puis applique des seuils statistiques pour classifier les états de dérive. Un 
+ratio de MSE supérieur à 2.0 signale une dérive (DRIFT), entre 1.5 et 2.0 un avertissement 
+(WARNING), et inférieur à 1.5 un état stable (STABLE). Les résultats sont archivés dans un 
+fichier CSV pour assurer la traçabilité et l’analyse ultérieure 
+5.4.4.2.​ ADWIN 
+L’algorithme ADWIN, implémenté via la bibliothèque River, détecte en ligne les 
+changements dans la distribution des erreurs en utilisant une fenêtre adaptative. La 
+sensibilité (delta) est ajustée en fonction du volume de données de chaque station : un 
+delta de 0.01 pour plus de 100 jours de données, 0.005 pour 50 à 100 jours, et 0.003 pour 
+moins de 50 jours. Cette approche garantit une détection fine et adaptée à la volumétrie 
+de chaque station, permettant de réagir rapidement en cas de dérive significative des 
+performances 
+79 
+
+===== PDF PAGE 92 =====
+Chapitre 5 : Réalisation​
+ 
+5.5.​ Conclusion 
+Dans ce chapitre, nous avons détaillé l’architecture technique de notre solution, en 
+commençant par la présentation des outils et des langages de programmation qui 
+composent notre environnement de développement. Nous avons également abordé les 
+différentes étapes d’implémentation, allant du prétraitement des données jusqu’à la mise 
+en place et l’optimisation des modèles prédictifs ainsi que la détection du concept drift. 
+Dans le chapitre suivant, nous discuterons en détail les résultats obtenus au cours de nos 
+expérimentations. 
+80 
+
+===== PDF PAGE 93 =====
+ 
+Chapitre 06  
+Tests et Résultats 
+6.​
+ 
+6.1.​ Introduction 
+Ce chapitre présente les tests et validations réalisés pour évaluer la performance de notre 
+système de prévision de la demande de colis. Nous y abordons les performances de nos 
+modèles, l’analyse du concept drift, ainsi que les statistiques principales permettant de 
+mesurer la robustesse et la précision de notre approche. 
+6.2.​ Apprentissage des modèles 
+6.2.1.​ Performance du modèle final 
+Pour analyser les performances de notre modèle, nous allons montrer les résultats des 
+valeurs de la perte sur les données d’entraînement et les données de validation. 
+ 
+Figure 6.1  Perte d'entraînement du MLP-SUL – Corner El Harrach 
+Comme illustrée dans la Figure 6.1, qui présente l’évolution des pertes d’entraînement et 
+de validation pour un exemple de la station Corner El Harrach, reflète en réalité une 
+tendance généralisée à l’ensemble des stations étudiées. De manière globale, les courbes 
+MSE diminuent rapidement au début de l’apprentissage puis se stabilisent, ainsi que les 
+pertes de validation suivent une trajectoire similaire, avec un écart faible et stable entre 
+les deux. Cette convergence régulière témoigne d’une bonne capacité de généralisation 
+ 
+
+===== PDF PAGE 94 =====
+Chapitre 6 : Tests et Résultats​
+ 
+des modèles déployés, sans surapprentissage marqué. Ainsi, bien que l’illustration soit ici 
+donnée pour une station particulière, ce comportement s’observe de façon systématique 
+sur l’ensemble du réseau, confirmant la robustesse de la démarche d’entraînement et la 
+fiabilité des prédictions générées sur des données nouvelles. Par ailleurs, la proximité des 
+valeurs de MSE entre les différents modèles impose de maintenir une traçabilité 
+rigoureuse afin de toujours pouvoir identifier et charger le modèle le plus performant lors 
+de la mise en production. 
+Le Tableau 6.1 présenté ci-dessus expose les résultats de performance du modèle final 
+pour un échantillon de stations sélectionnées: 
+Station 
+MSE 
+LSTM 
+MSE_M
+LP 
+MSE MLP 
+Sul 
+MSE 
+XGBoost 
+MSE 
+ARIMA 
+Best 
+Model 
+Agence Cité Soualem 
+0.011 
+0.0113 
+0.0113 
+0.0117 
+1.4286 
+LSTM 
+Corner El Harrach 
+0.0173 
+0.0152 
+0.0147 
+0.0176 
+1.118 
+MLP-Sul 
+Agence de Aïn Benian 
+0.019 
+0.0128 
+0.0128 
+0.0142 
+1.0527 
+MLP-Sul 
+Tableau 6.1 : Résultats de performance des modèles pour un échantillon de stations 
+6.2.2.​ Algorithmes d'optimisation 
+Dans le cadre de ce travail, nous avons adopté une démarche comparative entre les 
+principaux algorithmes d’optimisation utilisés dans l’entraînement des réseaux de 
+neurones, afin de sélectionner l’optimiseur le plus performant et le plus stable pour 
+l’ensemble des stations et des architectures testées. Cette comparaison a été 
+systématiquement réalisée pour chaque station, en évaluant notamment SGD, RMSprop 
+et Adam, qui figurent parmi les méthodes les plus reconnues dans le domaine. 
+82 
+
+===== PDF PAGE 95 =====
+Chapitre 6 : Tests et Résultats​
+ 
+ 
+Figure 6.2 Comparaison des optimiseurs (perte de validation du MLP-SUL) – Corner El Harrach 
+À titre d’exemple, la Figure 6.2 présente une comparaison de l’évolution de la perte de 
+validation (MSE) au fil des epochs pour trois optimisateurs – Adam, SGD et RMSprop lors 
+de l’entraînement du modèle MLP Sul sur la station Corner El Harrach. Sur l’axe 
+horizontal figurent les epochs, représentant le nombre d’itérations complètes sur les 
+données, tandis que l’axe vertical indique la valeur de la perte de validation. On observe 
+que la courbe bleue, correspondant à Adam, descend rapidement et atteint une valeur de 
+perte plus basse que les autres, tout en restant stable et peu sujette aux fluctuations. À 
+l’inverse, la courbe orange de SGD montre une descente beaucoup plus lente, avec une 
+perte qui demeure nettement supérieure sur l’ensemble de l’entraînement. La courbe 
+verte de RMSprop, quant à elle, affiche une diminution rapide de la perte au début, mais 
+se caractérise par d’importantes oscillations, surtout en fin d’entraînement, traduisant 
+une certaine instabilité. Cet exemple illustre la tendance générale observée sur toutes les 
+stations et architectures testées : Adam s’impose systématiquement comme l’optimiseur 
+le plus efficace et le plus robuste, justifiant son choix pour l’entraînement de l’ensemble 
+des modèles de l’étude. 
+6.2.3.​ Feature Engineering 
+Le feature engineering est essentiel pour optimiser les performances des modèles 
+d'apprentissage automatique en convertissant les données brutes en attributs plus 
+significatifs et prédictifs. 
+83 
+
+===== PDF PAGE 96 =====
+Chapitre 6 : Tests et Résultats​
+ 
+ 
+Figure 6.3 Comparaison des prédictions avec et sans feature engineering 
+La Figure 6.3 présente une comparaison directe entre les prédictions d’un modèle de base 
+et celles d’un modèle enrichi par feature engineering pour la prévision du nombre de colis 
+sur une série temporelle. Sur ce graphique, les courbes illustrent respectivement les 
+données réelles (en noir), les prédictions du modèle de base (en rouge) et celles du modèle 
+intégrant le feature engineering (en vert). Le modèle de base, avec un MSE de 29 567, 
+montre des fluctuations importantes et des écarts marqués par rapport à la réalité, 
+notamment lors de pics où il surestime fortement la demande. À l’inverse, le modèle avec 
+feature engineering, dont le MSE chute à 7 953, parvient à suivre de près les variations 
+réelles, réagissant de façon plus précise aux changements soudains et limitant nettement 
+les erreurs extrêmes. Cette amélioration technique majeure témoigne de l’impact du 
+feature engineering : en construisant et sélectionnant des variables pertinentes, on dote le 
+modèle d’une compréhension affinée des dynamiques sous-jacentes, ce qui se traduit par 
+une réduction de l’erreur quadratique moyenne de 73 %. Ce résultat met en lumière la 
+capacité du feature engineering à transformer des données brutes en informations 
+exploitables, permettant au modèle de mieux intégrer la complexité et la réalité 
+opérationnelle du terrain. 
+6.3.​ Tests sur les prédictions  
+La phase de prédiction permet de valider l’efficacité opérationnelle des modèles 
+développés, en confrontant leurs résultats aux nouvelles données sur le court terme (10 
+jours) et long terme (30 jours). Cette analyse duale révèle à la fois la capacité des modèles à 
+s’adapter aux fluctuations locales et leurs limites face à la complexité inhérente aux séries 
+temporelles. 
+84 

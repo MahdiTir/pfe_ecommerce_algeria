@@ -1,0 +1,612 @@
+
+===== PAGE 93 =====
+ 
+Chapitre 06  
+Tests et Résultats 
+6.​
+ 
+6.1.​ Introduction 
+Ce chapitre présente les tests et validations réalisés pour évaluer la performance de notre 
+système de prévision de la demande de colis. Nous y abordons les performances de nos 
+modèles, l’analyse du concept drift, ainsi que les statistiques principales permettant de 
+mesurer la robustesse et la précision de notre approche. 
+6.2.​ Apprentissage des modèles 
+6.2.1.​ Performance du modèle final 
+Pour analyser les performances de notre modèle, nous allons montrer les résultats des 
+valeurs de la perte sur les données d’entraînement et les données de validation. 
+ 
+Figure 6.1  Perte d'entraînement du MLP-SUL – Corner El Harrach 
+Comme illustrée dans la Figure 6.1, qui présente l’évolution des pertes d’entraînement et 
+de validation pour un exemple de la station Corner El Harrach, reflète en réalité une 
+tendance généralisée à l’ensemble des stations étudiées. De manière globale, les courbes 
+MSE diminuent rapidement au début de l’apprentissage puis se stabilisent, ainsi que les 
+pertes de validation suivent une trajectoire similaire, avec un écart faible et stable entre 
+les deux. Cette convergence régulière témoigne d’une bonne capacité de généralisation 
+ 
+
+===== PAGE 94 =====
+Chapitre 6 : Tests et Résultats​
+ 
+des modèles déployés, sans surapprentissage marqué. Ainsi, bien que l’illustration soit ici 
+donnée pour une station particulière, ce comportement s’observe de façon systématique 
+sur l’ensemble du réseau, confirmant la robustesse de la démarche d’entraînement et la 
+fiabilité des prédictions générées sur des données nouvelles. Par ailleurs, la proximité des 
+valeurs de MSE entre les différents modèles impose de maintenir une traçabilité 
+rigoureuse afin de toujours pouvoir identifier et charger le modèle le plus performant lors 
+de la mise en production. 
+Le Tableau 6.1 présenté ci-dessus expose les résultats de performance du modèle final 
+pour un échantillon de stations sélectionnées: 
+Station 
+MSE 
+LSTM 
+MSE_M
+LP 
+MSE MLP 
+Sul 
+MSE 
+XGBoost 
+MSE 
+ARIMA 
+Best 
+Model 
+Agence Cité Soualem 
+0.011 
+0.0113 
+0.0113 
+0.0117 
+1.4286 
+LSTM 
+Corner El Harrach 
+0.0173 
+0.0152 
+0.0147 
+0.0176 
+1.118 
+MLP-Sul 
+Agence de Aïn Benian 
+0.019 
+0.0128 
+0.0128 
+0.0142 
+1.0527 
+MLP-Sul 
+Tableau 6.1 : Résultats de performance des modèles pour un échantillon de stations 
+6.2.2.​ Algorithmes d'optimisation 
+Dans le cadre de ce travail, nous avons adopté une démarche comparative entre les 
+principaux algorithmes d’optimisation utilisés dans l’entraînement des réseaux de 
+neurones, afin de sélectionner l’optimiseur le plus performant et le plus stable pour 
+l’ensemble des stations et des architectures testées. Cette comparaison a été 
+systématiquement réalisée pour chaque station, en évaluant notamment SGD, RMSprop 
+et Adam, qui figurent parmi les méthodes les plus reconnues dans le domaine. 
+82 
+
+===== PAGE 95 =====
+Chapitre 6 : Tests et Résultats​
+ 
+ 
+Figure 6.2 Comparaison des optimiseurs (perte de validation du MLP-SUL) – Corner El Harrach 
+À titre d’exemple, la Figure 6.2 présente une comparaison de l’évolution de la perte de 
+validation (MSE) au fil des epochs pour trois optimisateurs – Adam, SGD et RMSprop lors 
+de l’entraînement du modèle MLP Sul sur la station Corner El Harrach. Sur l’axe 
+horizontal figurent les epochs, représentant le nombre d’itérations complètes sur les 
+données, tandis que l’axe vertical indique la valeur de la perte de validation. On observe 
+que la courbe bleue, correspondant à Adam, descend rapidement et atteint une valeur de 
+perte plus basse que les autres, tout en restant stable et peu sujette aux fluctuations. À 
+l’inverse, la courbe orange de SGD montre une descente beaucoup plus lente, avec une 
+perte qui demeure nettement supérieure sur l’ensemble de l’entraînement. La courbe 
+verte de RMSprop, quant à elle, affiche une diminution rapide de la perte au début, mais 
+se caractérise par d’importantes oscillations, surtout en fin d’entraînement, traduisant 
+une certaine instabilité. Cet exemple illustre la tendance générale observée sur toutes les 
+stations et architectures testées : Adam s’impose systématiquement comme l’optimiseur 
+le plus efficace et le plus robuste, justifiant son choix pour l’entraînement de l’ensemble 
+des modèles de l’étude. 
+6.2.3.​ Feature Engineering 
+Le feature engineering est essentiel pour optimiser les performances des modèles 
+d'apprentissage automatique en convertissant les données brutes en attributs plus 
+significatifs et prédictifs. 
+83 
+
+===== PAGE 96 =====
+Chapitre 6 : Tests et Résultats​
+ 
+ 
+Figure 6.3 Comparaison des prédictions avec et sans feature engineering 
+La Figure 6.3 présente une comparaison directe entre les prédictions d’un modèle de base 
+et celles d’un modèle enrichi par feature engineering pour la prévision du nombre de colis 
+sur une série temporelle. Sur ce graphique, les courbes illustrent respectivement les 
+données réelles (en noir), les prédictions du modèle de base (en rouge) et celles du modèle 
+intégrant le feature engineering (en vert). Le modèle de base, avec un MSE de 29 567, 
+montre des fluctuations importantes et des écarts marqués par rapport à la réalité, 
+notamment lors de pics où il surestime fortement la demande. À l’inverse, le modèle avec 
+feature engineering, dont le MSE chute à 7 953, parvient à suivre de près les variations 
+réelles, réagissant de façon plus précise aux changements soudains et limitant nettement 
+les erreurs extrêmes. Cette amélioration technique majeure témoigne de l’impact du 
+feature engineering : en construisant et sélectionnant des variables pertinentes, on dote le 
+modèle d’une compréhension affinée des dynamiques sous-jacentes, ce qui se traduit par 
+une réduction de l’erreur quadratique moyenne de 73 %. Ce résultat met en lumière la 
+capacité du feature engineering à transformer des données brutes en informations 
+exploitables, permettant au modèle de mieux intégrer la complexité et la réalité 
+opérationnelle du terrain. 
+6.3.​ Tests sur les prédictions  
+La phase de prédiction permet de valider l’efficacité opérationnelle des modèles 
+développés, en confrontant leurs résultats aux nouvelles données sur le court terme (10 
+jours) et long terme (30 jours). Cette analyse duale révèle à la fois la capacité des modèles à 
+s’adapter aux fluctuations locales et leurs limites face à la complexité inhérente aux séries 
+temporelles. 
+84 
+
+===== PAGE 97 =====
+Chapitre 6 : Tests et Résultats​
+ 
+6.3.1.​ Court terme 
+ 
+Figure 6.4 Comparaison des prédictions des modèles sur 10 jours – Station Corner El Harrach 
+La Figure 6.4 présente les prédictions de cinq modèles (LSTM, MLP, MLP Sul, XGBoost, 
+ARIMA) comparées aux données réelles sur la station Corner El Harrach du 1er au 10 
+novembre 2024. La courbe noire des données réelles montre une forte variabilité, oscillant 
+entre 175 et 350 commandes, avec des transitions abruptes notamment entre les 5 et 7 
+novembre, période correspondant au weekend où l’agence de livraison ne travaille pas. Le 
+modèle MLP Sul (courbe verte) suit de très près la trajectoire réelle, reproduisant 
+fidèlement les pics à 350 commandes et les creux à 175 commandes avec une précision 
+remarquable. LSTM (courbe bleue) et MLP (courbe rouge) maintiennent un suivi correct 
+mais présentent des décalages lors des variations rapides, particulièrement visibles 
+durant la période du 5-7 novembre. XGBoost (courbe jaune) tend à atténuer l'amplitude 
+des variations, lissant les pics et créant un retard dans la capture des changements 
+brusques. ARIMA (courbe violette) montre le comportement le plus défaillant avec un 
+lissage excessif qui ignore complètement les variations critiques, restant proche d'une 
+valeur moyenne constante. 
+85 
+
+===== PAGE 98 =====
+Chapitre 6 : Tests et Résultats​
+ 
+6.3.2.​ Long terme 
+ 
+Figure 6.5 Prédictions des modèles sur 30 jours – Corner El Harrach 
+La Figure 6.5 montre que, sur 30 jours, tous les modèles sous-estiment l’amplitude réelle 
+des pics de commandes, notamment lors des hausses soudaines au-delà de 600. MLP Sul 
+et LSTM suivent correctement la tendance générale et réagissent mieux aux variations, 
+mais restent en dessous des valeurs extrêmes observées. XGBoost et MLP lissent 
+davantage les fluctuations, tandis que ARIMA reste pratiquement plat et insensible aux 
+pics. Notre solution permet donc de capter la dynamique globale de la demande, mais la 
+prévision des extrêmes reste un défi sur le long terme. 
+6.3.3.​ Meilleur modèle vs Prophet par station 
+Dans le cadre de notre étude, nous avons systématiquement comparé, pour chaque 
+station, les performances du meilleur modèle identifié lors de la phase de développement 
+à celles du modèle Prophet, afin d’évaluer leur capacité respective à prédire la demande 
+journalière de colis. Pour chaque station, les deux modèles ont été entraînés et testés sur 
+les mêmes jeux de données, puis leurs résultats ont été confrontés à la réalité du terrain. 
+86 
+
+===== PAGE 99 =====
+Chapitre 6 : Tests et Résultats​
+ 
+ 
+Figure 6.6 Prédictions MLP-SUL vs Prophet – Corner El Harrach 
+La Figure 6.6 illustre cette comparaison pour la station Corner El Harrach, où le 
+MLP-SUL s’est imposé comme le meilleur modèle. On constate que le MLP-SUL (courbe 
+bleue pointillée) épouse plus fidèlement les variations réelles de la demande, notamment 
+lors des pics, tandis que Prophet (courbe rouge pointillée) a tendance à lisser davantage 
+les fluctuations et à sous-estimer certains extrêmes. Le MSE obtenu par le MLP-SUL est 
+inférieur à celui de Prophet, confirmant ainsi la supériorité du MLP-SUL pour cette 
+station. 
+Il convient toutefois de souligner que Prophet demeure un outil indispensable dans le 
+domaine du prévision des séries temporelles. Sa robustesse, sa flexibilité face aux 
+données manquantes, son interprétabilité et sa capacité à modéliser naturellement les 
+tendances, les saisonnalités et les événements en font une référence incontournable pour 
+de nombreux cas d’usage, notamment en contexte métier ou pour des séries présentant 
+des cycles marqués. 
+6.3.4.​ Performances entre développement et production 
+Avant de déployer un modèle en production, il est essentiel d'évaluer sa robustesse et sa 
+capacité à généraliser, non seulement sur les données de test et validation (développement), 
+mais aussi sur des nouvelles prédictions en conditions opérationnelles (production). Pour 
+illustrer cette démarche comparative, nous avons sélectionné la station Corner El 
+Harrach comme cas d'étude représentatif. Les deux figures ci-dessous présentent cette 
+analyse comparative pour cette station spécifique : 
+87 
+
+===== PAGE 100 =====
+Chapitre 6 : Tests et Résultats​
+ 
+ 
+Figure 6.7 Performance réelle en développement – Corner El Harrach 
+La Figure 6.7 montre que, lors de la phase de développement sur la station Corner El 
+Harrach, les modèles MLP Sul, MLP et LSTM obtiennent les plus faibles erreurs 
+quadratiques moyennes, XGBoost restant proche, tandis que ARIMA affiche une erreur 
+nettement plus élevée. Cela indique que les modèles de réseaux de neurones sont plus 
+efficaces pour apprendre les dynamiques des séries temporelles sur les données 
+historiques de cette station. 
+ 
+Figure 6.8 Performance réelle en production – Corner El Harrach 
+La Figure 6.8 met en lumière la performance réelle en production de ces mêmes modèles 
+sur la station Corner El Harrach, évaluée sur un horizon de 30 jours de prédictions 
+88 
+
+===== PAGE 101 =====
+Chapitre 6 : Tests et Résultats​
+ 
+réelles. Ici, MLP Sul conserve son avantage, suivi par ARIMA, XGBoost, LSTM et MLP. On 
+constate que l'écart entre les modèles se resserre et que la difficulté de prédire les valeurs 
+futures réelles augmente pour tous, mais MLP Sul reste le plus robuste pour cette station. 
+6.3.5.​ Statistiques sur les modèles 
+ 
+Figure 6.9 Comparaison du MSE des modèles – Corner El Harrach 
+La Figure 6.9 présente la comparaison des erreurs quadratiques moyennes (MSE moyen) 
+obtenues par chaque modèle sur l’ensemble des stations, à l’exclusion d’ARIMA. Quatre 
+modèles ont été évalués : LSTM, MLP, MLP Sul et XGBoost. Le graphique met en évidence 
+une convergence remarquable des performances entre ces modèles, avec des valeurs de 
+MSE très proches. ARIMA n’a pas été inclus dans cette comparaison car sa moyenne de 
+MSE est très élevée, bien supérieure à celle des autres modèles, ce qui rendrait sa 
+présence sur le graphique non pertinente et écraserait la lisibilité des résultats des 
+modèles performants. 
+L'écart minimal de 0,0009 entre le meilleur et le moins performant modèle indique que le 
+problème de prévision de la demande de colis présente une complexité bien maîtrisée par 
+l'ensemble des approches testées. Cette homogénéité suggère que : 
+●​ Les données sont bien préparées et les features pertinentes. 
+●​ Les modèles plus simples (MLP) sont aussi efficaces que les approches sophistiquées. 
+Cette similarité de performance libère le choix du modèle des contraintes de précision 
+pure, permettant de privilégier des critères opérationnels comme la vitesse d'exécution, la 
+facilité de maintenance ou les ressources computationnelles requises. 
+89 
+
+===== PAGE 102 =====
+Chapitre 6 : Tests et Résultats​
+ 
+ 
+Figure 6.10 Répartition des modèles sélectionnés comme meilleurs prédicteurs  
+La Figure 6.10 présente la distribution du modèle le plus performant, identifié station par 
+station parmi les 182 stations analysées. Le graphique à barres indique que le MLP est 
+désigné comme meilleur prédicteur dans 39,6 % des cas, suivi du MLP Sul avec 30,2 %, du 
+LSTM avec 23,1 % et enfin de XGBoost avec 7,1 %. Cette répartition met en évidence la 
+prédominance du MLP, qui s’impose comme solution optimale pour près de deux stations 
+sur cinq, traduisant sa robustesse et sa capacité d’adaptation à des contextes locaux 
+variés. Le MLP Sul et le LSTM confirment également leur compétitivité, tandis que 
+XGBoost, bien qu’efficace dans certains scénarios, n’est sélectionné que dans une 
+minorité de cas. Cette analyse comparative souligne l’importance d’une évaluation station 
+par station pour identifier le modèle le plus adapté à chaque environnement opérationnel. 
+ 
+Figure 6.11 Sélections des modèles (développement et production) 
+90 
+
+===== PAGE 103 =====
+Chapitre 6 : Tests et Résultats​
+ 
+La Figure 6.11 compare le nombre de stations où chaque modèle a été sélectionné comme 
+optimal en développement (bleu clair) versus production (rose). LSTM passe de 42 à 58 
+stations (+16), MLP Sul de 54 à 72 stations (+18), tandis que MLP chute de 72 à 54 stations 
+(-18) et XGBoost disparaît complètement (13 à 0 stations). 
+Deux modèles gagnent en production (LSTM et MLP Sul) tandis que deux perdent (MLP et 
+XGBoost). Le MLP Sul devient le modèle dominant avec 72 sélections, dépassant le MLP 
+qui était leader en développement. XGBoost s'effondre totalement, révélant son 
+inadaptation aux conditions réelles. Ces écarts démontrent que la performance en 
+développement ne prédit pas la robustesse opérationnelle, justifiant une validation 
+systématique sur données de production avant déploiement. 
+ 
+Figure 6.12 Taux de correspondance des meilleurs modèles (développement vs production) 
+La Figure 6.12 montre que seulement 34,1 % des stations présentent une correspondance 
+entre le modèle choisi en phase de développement et celui finalement retenu en 
+production, contre 65,9 % de non-correspondance. Cette faible concordance ne se traduit 
+pas par une perte de performance notable : l’analyse des erreurs (MSE) en production 
+indique que les différences de performance entre les modèles restent généralement 
+faibles. Ainsi, plusieurs modèles peuvent offrir des résultats similaires sur les données 
+réelles, ce qui justifie une approche flexible et adaptative dans le choix du modèle en 
+production. 
+91 
+
+===== PAGE 104 =====
+Chapitre 6 : Tests et Résultats​
+ 
+ 
+Figure 6.13 Scores pondérés MMR par modèle 
+La Figure 6.13 présente les scores pondérés normalisés obtenus par chaque modèle selon 
+la métrique MRR. Le MLP Sul atteint le score le plus élevé (0,601), suivi du MLP (0,527) et 
+du LSTM (0,461), tandis que XGBoost (0,017) et ARIMA (0,000) affichent des performances 
+très faibles. Cette évaluation met en évidence la supériorité des modèles neuronaux, en 
+particulier du MLP Sul, selon ce critère global de performance. 
+6.4.​ Détection du Concept Drift 
+Les tests de détection du concept drift (DDM, ADWIN) montrent que la majorité des 
+stations restent stables, avec quelques cas de drift ou warning détectés, principalement 
+lors de changements brusques de comportement. Cela confirme la capacité du système à 
+surveiller et anticiper les évolutions, garantissant ainsi la robustesse à long terme. 
+6.4.1.​ DDM 
+L'algorithme DDM a été appliqué sur l'ensemble des 182 stations en comparant les MSE 
+de validation (calculés lors de l'entraînement) avec les MSE de production (calculés sur les 
+données réelles après application des transformations de normalisation). La détection utilise 
+des seuils adaptatifs basés sur le rapport MSE production/MSE validation : un ratio 
+supérieur à 2.0 déclenche un statut "DRIFT", un ratio entre 1.5 et 2.0 génère un 
+"WARNING", tandis qu'un ratio inférieur à 1.5 correspond à un état "STABLE". L'analyse 
+révèle une distribution variée des états de dérive : la station Corner El Harrach illustre 
+un cas typique de "WARNING" avec un MSE de validation de 0.0147 et un MSE de 
+production de 0.0252 (ratio de 1.71), témoignant d'une dégradation modérée nécessitant 
+une surveillance renforcée. D'autres stations comme Agence Ali Mendjeli présentent des 
+cas de "DRIFT" avec des ratios dépassant 3.0 (MSE validation : 0.007, MSE production : 
+92 
+
+===== PAGE 105 =====
+Chapitre 6 : Tests et Résultats​
+ 
+0.022), nécessitant une intervention, tandis que des stations comme Agence Bir Mourad 
+Rais restent "STABLE" avec des performances cohérentes (MSE validation : 0.008, MSE 
+production : 0.007). Ces résultats confirment la capacité de DDM à identifier les 
+dégradations de performance et à classifier les niveaux de criticité selon des seuils 
+statistiquement fondés, permettant une gestion proactive et graduée de la qualité 
+prédictive du système. 
+Station 
+Validation MSE 
+Production MSE 
+Drift Status 
+Agence Ali Mendjeli 
+0.007 
+0.022 
+DRIFT 
+Corner El Harrach 
+0.0147 
+0.0252 
+WARNING 
+Agence Bir Mourad Rais 
+0.008 
+0.007 
+STABLE 
+Agence Bellevue 
+0.024 
+0.017 
+STABLE 
+Agence Bordj El Bahri  
+0.008 
+0.017 
+DRIFT 
+Agence Canastel 
+0.012 
+0.019 
+WARNING 
+Agence Chetouane 
+0.013 
+0.019 
+STABLE 
+Agence Cité Soualem​
+ 
+0.010 
+0.006 
+STABLE 
+Agence Fernand ville 
+0.018 
+0.026 
+STABLE 
+Tableau 6.2 Statut de dérive détecté par DDM sur un échantillon de stations 
+6.4.2.​ ADWIN 
+L’analyse ADWIN sur les 182 stations de Yalidine (5460 lignes sur 30 jours) n’a détecté 
+aucun concept drift, contrairement à DDM. Cela s’explique par la fenêtre d’observation 
+limitée et le paramètre delta conservateur fixé à 0.003, qui renforce la robustesse 
+d’ADWIN face aux fausses alertes. ADWIN détecte les changements de distribution 
+réelle, alors que DDM se base sur les erreurs de prédiction. Leur complémentarité permet 
+une détection à la fois sensible (DDM) et robuste (ADWIN), assurant une surveillance 
+équilibrée du concept drift. 
+6.5.​ Conclusion 
+Ce chapitre a détaillé l'évaluation exhaustive de notre système de prévision 
+multi-modèles, confirmant sa robustesse et l'efficacité de son approche individualisée 
+par station pour répondre aux besoins logistiques de Yalidine en Algérie. 
+93 
+
+===== PAGE 106 =====
+ 
+Conclusion Generale 
+ Ce projet a marqué une étape décisive pour Yalidine EL DJAZAIR SERVICES en 
+développant les fondations d'un système interne de prévision des volumes de livraison, 
+conçu pour surpasser les solutions externes en termes de précision, d'agilité et de 
+pertinence métier. En adoptant la méthodologie rigoureuse CRISP-DM, nous avons 
+transformé une problématique opérationnelle complexe en une feuille de route technique 
+claire et validée, débutant par une compréhension approfondie des processus logistiques 
+de Yalidine pour identifier les facteurs clés de la demande. 
+ La contribution majeure de ce travail réside dans la conception et la validation d'une 
+approche multi-modèles innovante. Il a été démontré qu'une solution unifiée n'est pas 
+optimale ; la performance réside plutôt dans la capacité à sélectionner dynamiquement le 
+meilleur algorithme (MLP, LSTM, XGBoost, etc.) pour chacune des 182 stations du réseau, 
+en fonction de ses caractéristiques propres. Cette analyse a également mis en exergue le 
+rôle critique de la dérive de concept dans un secteur logistique intrinsèquement volatile, 
+établissant ainsi la nécessité impérative d'un système adaptatif pour garantir une fiabilité 
+et une pertinence à long terme des prévisions. 
+ Les modèles prédictifs développés ont permis d'anticiper avec précision les volumes de 
+colis par station, conduisant à des bénéfices tangibles et stratégiques : une optimisation 
+significative de l'allocation des ressources (livreurs, flottes, espaces de tri), une aide précieuse 
+à la décision tant opérationnelle que stratégique, et une amélioration notable de la 
+satisfaction client grâce à des livraisons plus rapides et fiables. La garantie de la 
+confidentialité des données par un déploiement local de la solution a renforcé la 
+souveraineté numérique de l'entreprise. 
+ Malgré ces réalisations, le parcours n'a pas été sans défis. L'accès et la confidentialité des 
+données, souvent complexes en Algérie, ont représenté une phase initiale longue. La 
+compréhension approfondie du métier de la logistique a nécessité un investissement 
+conséquent en temps et en apprentissage. De plus, les contraintes de ressources 
+matérielles, notamment pour l'entraînement des modèles de deep learning, ont souligné la 
+nécessité d'une infrastructure plus robuste pour une mise en production à grande échelle. 
+ Ces défis ouvrent la voie à des perspectives d'amélioration et de développement futur 
+ambitieuses. La prochaine étape logique est le déploiement et l'industrialisation de la 
+solution via une infrastructure MLOps dédiée, intégrant l'automatisation complète du 
+pipeline, de l'ingestion de données au réentraînement et à la surveillance continue. 
+L'intégration d'une interface graphique web conviviale est essentielle pour démocratiser 
+l'accès aux prévisions pour les utilisateurs non-techniques. Enfin, une amélioration 
+94 
+
+===== PAGE 107 =====
+ 
+continue de la gestion du concept drift est envisagée, incluant l'interprétation des 
+résultats de dérive (via SHAP ou LIME pour identifier les causes) et la capacité à identifier et 
+à gérer les types de dérive (soudain, graduel, récurrent) pour déclencher des stratégies de 
+correction automatiques et adaptées. 
+ En définitive, ce travail ne se limite pas à une exploration théorique ; il livre un prototype 
+fonctionnel et une architecture éprouvée, posant les bases d'une solution prête à être 
+industrialisée. Il offre à Yalidine non seulement un outil de prévision, mais aussi un levier 
+de compétitivité durable, capable de s'adapter de manière proactive aux défis de la 
+logistique moderne et de transformer les données historiques en un avantage stratégique 
+pour l'avenir. 
+ 
+ 
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+ 
+95 
+
+===== PAGE 108 =====
+ 
+Bibliographie 
+1.​ Bergstra, J., & Bengio, Y. (2012). Random search for hyper‑parameter optimization. Journal of 
+Machine Learning Research, 13(1), 281–305. 
+2.​ Munkhdalai, L., Park, K. H., Batbaatar, E., & Ryu, K. H. (2020). Deep learning-based 
+demand forecasting for Korean postal delivery service. IEEE Access, 8, 188135–188145. 
+3.​ Stadtler, H., Kilger, C., & Meyr, H. (Éds.) (2015). Supply Chain Management and Advanced 
+Planning: 
+Concepts, 
+Models, 
+Software, 
+and 
+Case 
+Studies 
+(5ᵉ 
+éd.). 
+Springer. 
+https://doi.org/10.1007/978-3-642-55309-7 
+4.​ Rowe, G., Wright, G., & Bolger, F. M. I. (1991). Delphi: A re‑evaluation of research and 
+theory. 
+Technological 
+Forecasting 
+and 
+Social 
+Change, 39(3), 
+235–251. 
+https://doi.org/10.1016/0040-1625(91)90039‑I 
+5.​ Green, K. C., & Armstrong, J. S. (2007). Structured analogies for forecasting. International 
+Journal of Forecasting, 23(3), 365–376. https://doi.org/10.1016/j.ijforecast.2007.05.005 
+6.​ Brockwell, P. J., & Davis, R. A. (2016). Introduction to Time Series and Forecasting (3ᵉ éd.). 
+Springer. https://doi.org/10.1007/978-3-319-29854-2 
+7.​ Box, G. E. P., & Jenkins, G. M. (1970). Time series analysis: Forecasting and control. 
+Holden–Day. 
+8.​ Kim, K.-j. (2003). Financial time series forecasting using support vector machines. 
+Neurocomputing, 55(1), 307–319. Financial time series forecasting using support vector 
+machines - ScienceDirect 
+9.​ Chen, T., & Guestrin, C. (2016). XGBoost: A scalable tree boosting system 
+(arXiv:1603.02754v3) [Preprint]. arXiv. https://doi.org/10.48550/arXiv.1603.02754 
+10.​Gifty, A., & Li, Y. (2024). A comparative analysis of LSTM, ARIMA, XGBoost algorithms in 
+predicting stock price direction. Engineering and Technology Journal, 9(8), 4978–4986. 
+https://doi.org/10.47191/etj/v9i08.50 
+11.​LeCun, Y., Bengio, Y., & Hinton, G. (2015). Deep learning. Nature, 521(7553), 436–444. 
+https://doi.org/10.1038/nature14539 
+12.​Touzet, C. (1992). Les réseaux de neurones artificiels : Introduction au connexionnisme : 
+cours, exercices et travaux pratiques (préface de J. Hérault). Éditions EC2. 
+13.​Chen, S.-A., Li, C.-L., Yoder, N. C., Arık, S. Ö., & Pfister, T. (2023). TSMixer: An all‑MLP 
+architecture 
+for 
+time 
+series 
+forecasting 
+(arXiv:2303.06053v5) 
+[Preprint]. 
+arXiv. 
+https://doi.org/10.48550/arXiv.2303.06053 
+14.​Olah, 
+C. 
+(2015, 
+août 
+27). 
+Understanding 
+LSTM 
+Networks. 
+colah’s 
+blog. 
+http://colah.github.io/posts/2015-08-Understanding-LSTMs/ 
+15.​Hochreiter, S., & Schmidhuber, J. (1997). Long short-term memory. \textit{Neural 
+Computation, 9}(8), 1735–1780. https://doi.org/10.1162/neco.1997.9.8.1735 
+16.​Uber Engineering Team. (2017). Deep and confident prediction for time series at Uber. Uber 
+Technologies Inc. https://eng.uber.com/tsw2017/ 
+96 
+
+===== PAGE 109 =====
+ 
+17.​Taylor, S. J., & Letham, B. (2017, 13 janvier). Forecasting at scale [Manuscrit de travail, 
+Facebook Core Data Science].Forecasting at Scale 
+18.​Cleveland, R. B., Cleveland, W. S., McRae, J. E., & Terpenning, I. (1990). STL: A 
+seasonal‑trend decomposition procedure based on loess. Journal of Official Statistics, 6(1), 
+3–73. https://www.proquest.com/docview/1266805989 
+19.​Feng, T., Zheng, Z., Xu, J., Liu, M., Li, M., Jia, H., & Yu, X. (2022). The comparative analysis 
+of SARIMA, Facebook Prophet, and LSTM for road traffic injury prediction in Northeast 
+China. Frontiers in Public Health, 10, Article 946563. 
+https://doi.org/10.3389/fpubh.2022.946563 
+20.​Du, L., Yang, A., Zayats, A. V., & Yuan, X. (2019). Deep‑subwavelength features of photonic 
+skyrmions in a confined electromagnetic field with orbital angular momentum. Nature 
+Physics, 15, 650–654. https://doi.org/10.1038/s41567-019-0487-7 
+21.​Kingma, D. P., & Ba, J. (2017, 30 janvier). Adam: A method for stochastic optimization 
+(Version 9) [Préprint, International Conference on Learning Representations]. arXiv. 
+https://doi.org/10.48550/arXiv.1412.6980 
+22.​Wang, B., Shen, Y., Yan, X., & Kong, X. (2024). An autoregressive integrated moving average 
+and long short-term memory (ARIM‑LSTM) hybrid model for multi‑source epidemic data 
+prediction. PeerJ Computer Science, 10, Article e2046. https://doi.org/10.7717/peerj-cs.2046 
+23.​Shcherbakov, M. V., Brebels, A., Shcherbakova, N. L., Tyukov, A. P., Janovsky, T. A., & 
+Kamaev, V. A. (2013). A survey of forecast error measures. World Applied Sciences Journal, 
+24(Information Technologies in Modern Industry, Education & Society), 171–176. 
+https://doi.org/10.5829/idosi.wasj.2013.24.itmies.80032 
+24.​Botchkarev, A. (2018). Performance metrics (error measures) in machine learning regression, 
+forecasting and prognostics: Properties and typology [Manuscrit]. Recherche non publiée. 
+https://arxiv.org/pdf/1809.03006 
+25.​Chai, T., & Draxler, R. R. (2014). Root mean square error (RMSE) or mean absolute error 
+(MAE)? – Arguments against avoiding RMSE in the literature. Geoscientific Model 
+Development, 7(3), 1247–1250. https://doi.org/10.5194/gmd-7-1247-2014 
+26.​Voorhees, E. M., & Tice, D. M. (1999). The TREC‑8 question answering track report. In 
+Proceedings of the 8th Text Retrieval Conference (TREC‑8) (pp. 77–82), Gaithersburg, MD. 
+National Institute of Standards and Technology 
+27.​Tay, F. E. H., & Cao, L. J. (2001). Application of support vector machines in financial time 
+series forecasting. Omega, 29(4), 309–317. https://doi.org/10.1016/S0305-0483(01)00026-3 
+28.​Schlimmer, J. C., & Granger, R. H., Jr. (1986). Incremental learning from noisy data. Machine 
+Learning, 1(3), 317–354. https://doi.org/10.1007/BF00116895 
+29.​Ramírez-Gallego, S., Krawczyk, B., García, S., Woźniak, M., & Herrera, F. (2017). A survey on 
+data preprocessing for data stream mining: Current status and future directions. 
+Neurocomputing, 239, 39–57. https://doi.org/10.1016/j.neucom.2017.01.078 
+97 
+
+===== PAGE 110 =====
+ 
+30.​Lu, J., Liu, A., Dong, F., Gu, F., Gama, J., & Zhang, G. (2020). Learning under concept drift: 
+A review. IEEE Transactions on Knowledge and Data Engineering, 31(12), 2346–2363. 
+https://doi.org/10.1109/TKDE.2019.2946069 
+31.​Lemaire, V., Salperwyck, C., & Bondu, A. (2014). A survey on supervised classification on 
+data streams. In E. Zimányi & R.-D. Kutsche (Éds.), Business Intelligence: 4th European 
+Summer School, eBISS 2014, Berlin, Germany, July 6–11, 2014, Tutorial Lectures (Lecture 
+Notes in Business Information Processing, vol. 205, pages 88–125). Springer. 
+https://doi.org/10.1007/978-3-319-17551-5_4 
+32.​Gama, J., Žliobaitė, I., Bifet, A., Pechenizkiy, M., & Bouchachia, A. (2014). A survey on 
+concept drift adaptation. ACM Computing Surveys, 46(4), 44:1–44:37. 
+https://doi.org/10.1145/2523813 
+33.​Gama, J., & Castillo, G. (2006). Learning with local drift detection. Dans Advanced Data 
+Mining and Applications (p. 42–55). SBIA/ADMA 2006. LIACC, University of Porto. 
+34.​Baena‑Garcia, M., del Campo‑Avila, J., Fidalgo, R., Bifet, A., Gavalda, R., & Morales‑Bueno, 
+R. (2006). Early Drift Detection Method. Dans Proc. of the 4th International Workshop on 
+Knowledge Discovery from Data Streams, Montréal, Canada. 
+35.​Frías‑Blanco, I., del Campo‑Ávila, J., Ramos‑Jiménez, G., Morales‑Bueno, R., Ortiz‑Díaz, A., 
+& Caballero‑Mota, Y. (2015). Online and non-parametric drift detection methods based on 
+Hoeffding’s bounds. IEEE Transactions on Knowledge and Data Engineering, 27(3), 810–823. 
+https://doi.org/10.1109/TKDE.2014.2345382 
+36.​Yu, H., Liu, T., Lu, J., & Zhang, G. (2021, 4 mai). Automatic learning to detect concept drift 
+(arXiv:2105.01419v1) [Préprint]. arXiv. https://doi.org/10.48550/arXiv.2105.01419 
+37.​Bifet, A., & Gavaldà, R. (2007). Learning from time-changing data with adaptive windowing. 
+Dans Proceedings of the 7th SIAM International Conference on Data Mining (SDM 2007) 
+(pp. 443–448). SIAM. https://doi.org/10.1137/1.9781611972771.42 
+38.​Komorniczak, J., & Ksieniewicz, P. (2024, 11 avril). Unsupervised concept drift detection 
+based on parallel activations of neural network (arXiv:2404.07776v1) [Préprint]. arXiv. 
+https://doi.org/10.48550/arXiv.2404.07776 
+39.​Elwell, R., & Polikar, R. (2011). Incremental learning of concept drift in nonstationary 
+environments. IEEE Transactions on Neural Networks, 22(10), 1517–1531. 
+https://doi.org/10.1109/TNN.2011.2160459 
+40.​Polikar, R., Upda, L., Upda, S. S., & Honavar, V. (2008). Incremental learning in 
+non-stationary environments with concept drift. Dans Proceedings of the 19th International 
+Conference on Pattern Recognition (ICPR 2008) (pp. 43‑47). IEEE. 
+41.​Karnick, M., Muhlbaier, M. D., & Polikar, R. (2008). Incremental learning in non‑stationary 
+environments with concept drift using a multiple classifier based approach. Proceedings of 
+the 19th IEEE International Conference on Tools with Artificial Intelligence, 42–49. IEEE. 
+https://doi.org/10.1109/ICTAI.2007.4418480 
+98 

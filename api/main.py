@@ -21,6 +21,7 @@ from optimization.Genitic import run_genetic_optimization, run_optimization_comp
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG_PATH = ROOT / "app_config.json"
+CATEGORIES_PATH = ROOT / "categories.json"
 ORDERS_PATH = ROOT / "SARIMA" / "sarimax_x" / "outputs" / "sarimax_orders.csv"
 WEEKLY_SERIES_PATH = ROOT / "SARIMA" / "sarimax_x" / "outputs" / "weekly_series.csv"
 MODELS_DIR = ROOT / "SARIMA" / "sarimax_x" / "models"
@@ -55,16 +56,6 @@ REGION_ALIASES = {
     "south": "SOUTH",
 }
 
-PARENT_TO_CAT_GROUP = {
-    "apparel accessories": "fashion",
-    "luggage bags": "fashion",
-    "cameras optics": "electronics",
-    "electronics": "electronics",
-    "home garden": "home",
-    "furniture": "home",
-    "sporting goods": "sports_leisure",
-    "arts entertainment": "sports_leisure",
-}
 
 
 class WarehouseSpec(BaseModel):
@@ -99,7 +90,6 @@ class OptimizationMethodResult(BaseModel):
 
 class ForecastResponse(BaseModel):
     parent_category: str
-    cat_group: str
     period_weeks: int
     forecast: List[ForecastItem]
     region_percentages: Dict[str, float]
@@ -153,16 +143,11 @@ def _normalize_warehouse_regions(
 
 
 @lru_cache
-def _child_to_parent() -> Dict[str, str]:
-    if not CONFIG_PATH.exists():
-        raise FileNotFoundError(f"Missing app_config.json at {CONFIG_PATH}")
-    raw = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
-    mapping: Dict[str, str] = {}
-    for item in raw.get("categories", []):
-        parent = item.get("name", "").strip()
-        for child in item.get("children", []):
-            mapping[_normalize_text(child)] = parent
-    return mapping
+def _valid_parent_categories() -> frozenset:
+    if not CATEGORIES_PATH.exists():
+        raise FileNotFoundError(f"Missing categories.json at {CATEGORIES_PATH}")
+    raw = json.loads(CATEGORIES_PATH.read_text(encoding="utf-8"))
+    return frozenset(item["name"].strip() for item in raw.get("categories", []) if item.get("name"))
 
 
 @lru_cache
@@ -233,42 +218,46 @@ def _build_calendar_features(week_starts: pd.Series) -> pd.DataFrame:
 
 def _apply_cat_season_multiplier(df: pd.DataFrame) -> pd.Series:
     base = np.ones(len(df), dtype=float)
-    fashion = df["cat_group"] == "fashion"
-    electronics = df["cat_group"] == "electronics"
-    home = df["cat_group"] == "home"
-    sports = df["cat_group"] == "sports_leisure"
-    other = df["cat_group"] == "other"
+    pc = df["parent_category"]
 
-    base = np.where(fashion & (df["is_eid_week"] == 1), 1.5, base)
-    base = np.where(electronics & (df["is_ramadan"] == 1), 1.15, base)
-    base = np.where(home & (df["is_ramadan"] == 1), 1.25, base)
-    base = np.where(sports & (df["is_summer"] == 1), 1.4, base)
-    base = np.where(other & (df["is_rentree"] == 1), 1.5, base)
+    eid_fashion = pc.isin(["Apparel & Accessories", "Luggage & Bags"])
+    ram_electronics = pc.isin(["Electronics", "Cameras & Optics"])
+    ram_home = pc.isin(["Home & Garden", "Furniture"])
+    ram_health = pc == "Health & Beauty"
+    summer_sports = pc.isin(["Sporting Goods", "Arts & Entertainment"])
+    rentree_boost = pc.isin(["Office Supplies", "Baby & Toddler", "Media"])
+
+    base = np.where(eid_fashion & (df["is_eid_week"] == 1), 1.5, base)
+    base = np.where(ram_electronics & (df["is_ramadan"] == 1), 1.15, base)
+    base = np.where(ram_home & (df["is_ramadan"] == 1), 1.25, base)
+    base = np.where(ram_health & (df["is_ramadan"] == 1), 1.2, base)
+    base = np.where(summer_sports & (df["is_summer"] == 1), 1.4, base)
+    base = np.where(rentree_boost & (df["is_rentree"] == 1), 1.5, base)
     return base
 
 
-def _resolve_parent_and_group(child_category: str) -> tuple[str, str]:
-    mapping = _child_to_parent()
-    parent = mapping.get(_normalize_text(child_category))
-    if parent is None:
-        raise HTTPException(status_code=400, detail="Category not found in app_config.json")
-    parent_norm = _normalize_text(parent)
-    cat_group = PARENT_TO_CAT_GROUP.get(parent_norm, "other")
-    return parent, cat_group
+def _validate_parent_category(category: str) -> str:
+    valid = _valid_parent_categories()
+    if category not in valid:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Unknown category '{category}'. Must be one of the parent categories in categories.json.",
+        )
+    return category
 
 
-def _forecast_sarimax(cat_group: str, periods: int, anchor_date: pd.Timestamp) -> pd.DataFrame:
+def _forecast_sarimax(parent_category: str, periods: int, anchor_date: pd.Timestamp) -> pd.DataFrame:
     orders = _orders_index()
     weekly = _weekly_series()
 
-    available = orders[orders["cat_group"] == cat_group]
+    available = orders[orders["parent_category"] == parent_category]
     if available.empty:
-        raise HTTPException(status_code=400, detail="No SARIMAX model for the mapped category group")
+        raise HTTPException(status_code=400, detail=f"No SARIMAX model found for category '{parent_category}'. Run the pipeline to train models.")
 
     regions = sorted(available["region"].unique())
-    history = weekly[weekly["cat_group"] == cat_group]
+    history = weekly[weekly["parent_category"] == parent_category]
     if history.empty:
-        raise HTTPException(status_code=400, detail="No history for the mapped category group")
+        raise HTTPException(status_code=400, detail=f"No training history for category '{parent_category}'.")
 
     last_week = history["week_start"].max()
     if pd.isna(last_week):
@@ -279,7 +268,7 @@ def _forecast_sarimax(cat_group: str, periods: int, anchor_date: pd.Timestamp) -
     base_week_start = max(last_week, anchor_week_start)
 
     future_weeks = pd.date_range(base_week_start + pd.Timedelta(weeks=1), periods=periods, freq="W-MON")
-    base = pd.DataFrame({"week_start": future_weeks, "cat_group": cat_group})
+    base = pd.DataFrame({"week_start": future_weeks, "parent_category": parent_category})
 
     frames = []
     for region in regions:
@@ -291,6 +280,7 @@ def _forecast_sarimax(cat_group: str, periods: int, anchor_date: pd.Timestamp) -
     calendar = _build_calendar_features(future["week_start"])
     future = future.merge(calendar, on="week_start", how="left")
     future["cat_season_multiplier"] = _apply_cat_season_multiplier(future)
+
 
     rows = []
     for region in regions:
@@ -456,10 +446,10 @@ def health_check() -> Dict[str, str]:
 
 @app.post("/forecast/optimization", response_model=ForecastResponse)
 def forecast_and_optimize(request: ForecastRequest) -> ForecastResponse:
-    parent_category, cat_group = _resolve_parent_and_group(request.category)
+    parent_category = _validate_parent_category(request.category)
     warehouses = _normalize_warehouse_regions(request.warehouses)
 
-    forecast_df = _forecast_sarimax(cat_group, request.period, pd.Timestamp(request.forecast_date))
+    forecast_df = _forecast_sarimax(parent_category, request.period, pd.Timestamp(request.forecast_date))
     if forecast_df.empty:
         raise HTTPException(status_code=500, detail="Forecast generation failed")
 
@@ -527,7 +517,6 @@ def forecast_and_optimize(request: ForecastRequest) -> ForecastResponse:
 
     return ForecastResponse(
         parent_category=parent_category,
-        cat_group=cat_group,
         period_weeks=request.period,
         forecast=[ForecastItem(**row) for row in forecast_df.to_dict(orient="records")],
         region_percentages=region_percentages,
