@@ -13,6 +13,10 @@ is_rentree
 is_winter
 cat_season_multiplier
 sarimax_forecast
+sarimax_resid_lag1
+sarimax_resid_lag2
+sarimax_resid_rolling4
 week_of_year
+month
 region_enc
 parent_cat_enc

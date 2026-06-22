@@ -67,7 +67,12 @@ FEATURE_COLS = [
     "is_winter",
     "cat_season_multiplier",
     "sarimax_forecast",
+    # Lagged SARIMAX residuals: teach XGBoost about recent forecast-error patterns
+    "sarimax_resid_lag1",
+    "sarimax_resid_lag2",
+    "sarimax_resid_rolling4",
     "week_of_year",
+    "month",
     "region_enc",
     "parent_cat_enc",
 ]
@@ -458,11 +463,18 @@ def build_feature_matrix(master: pd.DataFrame, preds_df: pd.DataFrame) -> pd.Dat
         group["rolling_mean_4"] = y.shift(1).rolling(4).mean()
         group["rolling_mean_8"] = y.shift(1).rolling(8).mean()
         group["rolling_std_4"] = y.shift(1).rolling(4).std()
+        # Lagged SARIMAX residuals — tell XGBoost whether SARIMAX has been
+        # over- or under-shooting recently, so it can learn systematic bias.
+        resid = group["residual"]
+        group["sarimax_resid_lag1"] = resid.shift(1)
+        group["sarimax_resid_lag2"] = resid.shift(2)
+        group["sarimax_resid_rolling4"] = resid.shift(1).rolling(4).mean()
         features.append(group)
     df = pd.concat(features, ignore_index=True)
 
     df["sarimax_forecast"] = df["sarimax_pred"]
     df["week_of_year"] = df["iso_week"].astype(int)
+    df["month"] = df["week_start"].dt.month
 
     region_order = sorted(df["region"].unique())
     cat_order = sorted(df["parent_category"].unique())
@@ -483,26 +495,52 @@ def build_feature_matrix(master: pd.DataFrame, preds_df: pd.DataFrame) -> pd.Dat
 
 
 def train_xgb(train_df: pd.DataFrame, val_df: pd.DataFrame) -> xgb.Booster:
-    dtrain = xgb.DMatrix(train_df[FEATURE_COLS], label=train_df["residual"], feature_names=FEATURE_COLS)
-    dval = xgb.DMatrix(val_df[FEATURE_COLS], label=val_df["residual"], feature_names=FEATURE_COLS)
+    # Combine train and validation so XGBoost sees real out-of-sample forecast
+    # errors (from val), not only the small in-sample fitted residuals (train).
+    # Upweight validation rows 3× so the model learns from representative errors.
+    combined = pd.concat(
+        [train_df.assign(_w=1.0), val_df.assign(_w=3.0)],
+        ignore_index=True,
+    ).sort_values("week_start").reset_index(drop=True)
+
+    # Time-based early-stopping split: hold out the last 20 % of rows
+    n_es = max(15, int(len(combined) * 0.20))
+    xgb_tr = combined.iloc[:-n_es]
+    xgb_es = combined.iloc[-n_es:]
+
+    dtrain = xgb.DMatrix(
+        xgb_tr[FEATURE_COLS],
+        label=xgb_tr["residual"],
+        weight=xgb_tr["_w"],
+        feature_names=FEATURE_COLS,
+    )
+    des = xgb.DMatrix(
+        xgb_es[FEATURE_COLS],
+        label=xgb_es["residual"],
+        feature_names=FEATURE_COLS,
+    )
 
     params = {
         "objective": "reg:squarederror",
-        "eta": 0.03,
+        "eta": 0.02,
         "max_depth": 4,
-        "subsample": 0.8,
-        "colsample_bytree": 0.8,
-        "min_child_weight": 5,
+        "subsample": 0.75,
+        "colsample_bytree": 0.75,
+        "min_child_weight": 3,
+        # Regularisation: keep corrections small and sparse
+        "alpha": 0.5,   # L1 — pushes small corrections toward zero
+        "lambda": 2.0,  # L2 — penalises large corrections
         "eval_metric": "rmse",
+        "seed": 42,
     }
 
     booster = xgb.train(
         params,
         dtrain,
-        num_boost_round=1000,
-        evals=[(dval, "validation")],
-        early_stopping_rounds=50,
-        verbose_eval=50,
+        num_boost_round=2000,
+        evals=[(des, "es_set")],
+        early_stopping_rounds=100,
+        verbose_eval=100,
     )
     return booster
 
@@ -670,6 +708,12 @@ def main() -> None:
 
     val_df["xgb_correction"] = booster.predict(dval)
     test_df["xgb_correction"] = booster.predict(dtest)
+
+    # Clip corrections to ±50 % of the SARIMAX forecast magnitude (minimum ±10)
+    # so that XGBoost can never more than double the SARIMAX estimate.
+    for _df in (val_df, test_df):
+        cap = (_df["sarimax_pred"].abs() * 0.5).clip(lower=10.0)
+        _df["xgb_correction"] = _df["xgb_correction"].clip(-cap, cap)
 
     val_df["hybrid_pred"] = val_df["sarimax_pred"] + val_df["xgb_correction"]
     test_df["hybrid_pred"] = test_df["sarimax_pred"] + test_df["xgb_correction"]

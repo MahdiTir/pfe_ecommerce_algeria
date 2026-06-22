@@ -151,6 +151,23 @@ def _valid_parent_categories() -> frozenset:
 
 
 @lru_cache
+def _child_to_parent_category() -> Dict[str, str]:
+    if not CATEGORIES_PATH.exists():
+        raise FileNotFoundError(f"Missing categories.json at {CATEGORIES_PATH}")
+    raw = json.loads(CATEGORIES_PATH.read_text(encoding="utf-8"))
+    mapping: Dict[str, str] = {}
+    for item in raw.get("categories", []):
+        parent = str(item.get("name", "")).strip()
+        if not parent:
+            continue
+        for child in item.get("children", []):
+            child_name = str(child).strip()
+            if child_name:
+                mapping[child_name] = parent
+    return mapping
+
+
+@lru_cache
 def _orders_index() -> pd.DataFrame:
     if not ORDERS_PATH.exists():
         raise FileNotFoundError(f"Missing sarimax_orders.csv at {ORDERS_PATH}")
@@ -237,13 +254,23 @@ def _apply_cat_season_multiplier(df: pd.DataFrame) -> pd.Series:
 
 
 def _validate_parent_category(category: str) -> str:
+    """Accept a parent or child category name; return the parent for forecasting."""
+    name = category.strip()
     valid = _valid_parent_categories()
-    if category not in valid:
-        raise HTTPException(
-            status_code=400,
-            detail=f"Unknown category '{category}'. Must be one of the parent categories in categories.json.",
-        )
-    return category
+    if name in valid:
+        return name
+
+    parent = _child_to_parent_category().get(name)
+    if parent:
+        return parent
+
+    raise HTTPException(
+        status_code=400,
+        detail=(
+            f"Unknown category '{category}'. "
+            "Use a parent category or a subcategory listed in categories.json."
+        ),
+    )
 
 
 def _forecast_sarimax(parent_category: str, periods: int, anchor_date: pd.Timestamp) -> pd.DataFrame:

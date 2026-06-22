@@ -1,0 +1,210 @@
+{
+    "parent_category": "Vehicles & Parts",
+    "period_weeks": 6,
+    "forecast": [
+        {
+            "week_start": "2026-05-25",
+            "region": "EAST",
+            "sarimax_forecast": 299.2893634610873
+        },
+        {
+            "week_start": "2026-06-01",
+            "region": "EAST",
+            "sarimax_forecast": 354.1446961132818
+        },
+        {
+            "week_start": "2026-06-08",
+            "region": "EAST",
+            "sarimax_forecast": 354.1446961132818
+        },
+        {
+            "week_start": "2026-06-15",
+            "region": "EAST",
+            "sarimax_forecast": 354.1446961132818
+        },
+        {
+            "week_start": "2026-06-22",
+            "region": "EAST",
+            "sarimax_forecast": 354.1446961132818
+        },
+        {
+            "week_start": "2026-06-29",
+            "region": "EAST",
+            "sarimax_forecast": 354.1446961132818
+        },
+        {
+            "week_start": "2026-05-25",
+            "region": "NORTH",
+            "sarimax_forecast": 277.5982425795184
+        },
+        {
+            "week_start": "2026-06-01",
+            "region": "NORTH",
+            "sarimax_forecast": 318.33878979258213
+        },
+        {
+            "week_start": "2026-06-08",
+            "region": "NORTH",
+            "sarimax_forecast": 318.33878979258213
+        },
+        {
+            "week_start": "2026-06-15",
+            "region": "NORTH",
+            "sarimax_forecast": 318.33878979258213
+        },
+        {
+            "week_start": "2026-06-22",
+            "region": "NORTH",
+            "sarimax_forecast": 318.33878979258213
+        },
+        {
+            "week_start": "2026-06-29",
+            "region": "NORTH",
+            "sarimax_forecast": 318.33878979258213
+        },
+        {
+            "week_start": "2026-05-25",
+            "region": "SOUTH",
+            "sarimax_forecast": 210.11079981719988
+        },
+        {
+            "week_start": "2026-06-01",
+            "region": "SOUTH",
+            "sarimax_forecast": 232.13905606328606
+        },
+        {
+            "week_start": "2026-06-08",
+            "region": "SOUTH",
+            "sarimax_forecast": 232.13905606328606
+        },
+        {
+            "week_start": "2026-06-15",
+            "region": "SOUTH",
+            "sarimax_forecast": 232.13905606328606
+        },
+        {
+            "week_start": "2026-06-22",
+            "region": "SOUTH",
+            "sarimax_forecast": 232.13905606328606
+        },
+        {
+            "week_start": "2026-06-29",
+            "region": "SOUTH",
+            "sarimax_forecast": 232.13905606328606
+        },
+        {
+            "week_start": "2026-05-25",
+            "region": "WEST",
+            "sarimax_forecast": 230.45848560326488
+        },
+        {
+            "week_start": "2026-06-01",
+            "region": "WEST",
+            "sarimax_forecast": 266.4835050417927
+        },
+        {
+            "week_start": "2026-06-08",
+            "region": "WEST",
+            "sarimax_forecast": 266.4835050417927
+        },
+        {
+            "week_start": "2026-06-15",
+            "region": "WEST",
+            "sarimax_forecast": 266.4835050417927
+        },
+        {
+            "week_start": "2026-06-22",
+            "region": "WEST",
+            "sarimax_forecast": 266.4835050417927
+        },
+        {
+            "week_start": "2026-06-29",
+            "region": "WEST",
+            "sarimax_forecast": 266.4835050417927
+        }
+    ],
+    "region_percentages": {
+        "EAST": 30.118095755504136,
+        "NORTH": 27.197667580821655,
+        "SOUTH": 19.94483701046231,
+        "WEST": 22.739399653211894
+    },
+    "allocation_by_region": {
+        "EAST": 90,
+        "NORTH": 82,
+        "SOUTH": 60,
+        "WEST": 68
+    },
+    "allocation_by_warehouse": {
+        "W7": 0,
+        "W8": 0,
+        "W14": 210,
+        "W15": 90
+    },
+    "final_stock_by_warehouse": {
+        "W7": 35,
+        "W8": 5,
+        "W14": 260,
+        "W15": 90
+    },
+    "genetic": {
+        "method": "Exact ILP",
+        "total_cost": 1908.5,
+        "service_level": 0.0,
+        "runtime_seconds": 0.020333799999207258,
+        "mt": 3.5148873849580258,
+        "final_stock_by_warehouse": {
+            "W7": 35,
+            "W8": 5,
+            "W14": 260,
+            "W15": 90
+        },
+        "add_by_warehouse": {
+            "W7": 0,
+            "W8": 0,
+            "W14": 210,
+            "W15": 90
+        },
+        "holding_cost_value": 621.5,
+        "transfer_cost_value": 1287.0,
+        "solver_status": "Optimal",
+        "evaluations": 1
+    },
+    "optimization_methods": [
+        {
+            "method": "Random Search",
+            "total_cost": 1330.0,
+            "service_level": 0.0,
+            "runtime_seconds": 0.006045400048606098,
+            "mt": 7.615589334075723
+        },
+        {
+            "method": "Greedy Heuristic",
+            "total_cost": 1330.0,
+            "service_level": 0.0,
+            "runtime_seconds": 0.00013239996042102575,
+            "mt": 7.615589334075723
+        },
+        {
+            "method": "Exact Solver",
+            "total_cost": 1330.0,
+            "service_level": 0.0,
+            "runtime_seconds": 0.0002786999102681875,
+            "mt": 7.615589334075723
+        },
+        {
+            "method": "Exact ILP",
+            "total_cost": 1908.5,
+            "service_level": 0.0,
+            "runtime_seconds": 0.018289800034835935,
+            "mt": 3.5148873849580258
+        },
+        {
+            "method": "Genetic Algorithm",
+            "total_cost": 1908.5,
+            "service_level": 0.0,
+            "runtime_seconds": 0.15989479993004352,
+            "mt": 3.5148873849580258
+        }
+    ]
+}
